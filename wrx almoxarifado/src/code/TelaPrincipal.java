@@ -49,11 +49,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        addFunc = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
         desktopPrincipal.setLayout(desktopPrincipalLayout);
@@ -63,12 +65,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         desktopPrincipalLayout.setVerticalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 414, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         SaidaEPI.setText("Saídas ");
+        SaidaEPI.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         saidaEPI.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
+        saidaEPI.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         saidaEPI.setText("Saída EPI ");
         saidaEPI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +84,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         SaidaEPI.add(saidaEPI);
 
         saidaFerramenta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        saidaFerramenta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         saidaFerramenta.setText("Saída Ferramenta");
         saidaFerramenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,26 +94,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         SaidaEPI.add(saidaFerramenta);
 
         saidaConsumiveis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        saidaConsumiveis.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         saidaConsumiveis.setText("Saída de Consumíveis ");
         SaidaEPI.add(saidaConsumiveis);
 
         saidaEPC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        saidaEPC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         saidaEPC.setText("Saída EPC");
         SaidaEPI.add(saidaEPC);
 
         jMenuBar1.add(SaidaEPI);
 
         entradaEPI.setText("Entradas ");
+        entradaEPI.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setText("Entrada EPI");
         entradaEPI.add(jMenuItem1);
 
         entradaFerramenta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        entradaFerramenta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         entradaFerramenta.setText("Entrada Ferramenta ");
         entradaEPI.add(entradaFerramenta);
 
         entradaConsumiveis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        entradaConsumiveis.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         entradaConsumiveis.setText("Entrada Consumíveis ");
         entradaConsumiveis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,23 +129,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         entradaEPI.add(entradaConsumiveis);
 
         entradaEPC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        entradaEPC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         entradaEPC.setText("Entrada EPC");
         entradaEPI.add(entradaEPC);
 
         jMenuBar1.add(entradaEPI);
 
         jMenu4.setText("Histórico de saída ");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem4.setText("Saída total");
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Relatórios");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu3);
 
         jMenu1.setText("Gerencial");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem2.setText("Adicionar Usuário");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,9 +165,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Adicionar Funcionário ");
-        jMenu1.add(jMenuItem3);
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem7.setText("Adicionar Função");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
+        addFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        addFunc.setText("Adicionar Funcionário ");
+        addFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFuncActionPerformed(evt);
+            }
+        });
+        jMenu1.add(addFunc);
+
+        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem5.setText("Adicionar tipo de EPI");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +192,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem6.setText("Adicionar Marca EPI");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +213,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPrincipal)
+            .addComponent(desktopPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -227,6 +268,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaEPI.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+            cadastroFuncaoFuncionario cads;
+        cads = new cadastroFuncaoFuncionario();
+        this.desktopPrincipal.add(cads);
+        cads.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void addFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFuncActionPerformed
+        // TODO add your handling code here:
+        cadastroFuncionario cadst;
+        cadst = new cadastroFuncionario();
+        this.desktopPrincipal.add(cadst);
+        cadst.setVisible(true);
+    }//GEN-LAST:event_addFuncActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,6 +326,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu SaidaEPI;
+    private javax.swing.JMenuItem addFunc;
     private javax.swing.JDesktopPane desktopPrincipal;
     private javax.swing.JMenuItem entradaConsumiveis;
     private javax.swing.JMenuItem entradaEPC;
@@ -275,10 +338,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem saidaConsumiveis;
     private javax.swing.JMenuItem saidaEPC;
     private javax.swing.JMenuItem saidaEPI;

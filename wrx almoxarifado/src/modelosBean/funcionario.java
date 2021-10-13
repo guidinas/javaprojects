@@ -14,7 +14,15 @@ public class funcionario {
     private int cod;
     private String  nome;
     private int funcao;
+    private String admissao;
 
+    public String getAdmissao() {
+        return admissao;
+    }
+
+    public void setAdmissao(String admissao) {
+        this.admissao = admissao;
+    }
     public int getCod() {
         return cod;
     }
