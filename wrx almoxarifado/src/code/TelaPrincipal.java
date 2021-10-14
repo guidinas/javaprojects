@@ -284,11 +284,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void addFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFuncActionPerformed
         // TODO add your handling code here:
         cadastroFuncionario cadst;
-        cadst = new cadastroFuncionario();
-        this.desktopPrincipal.add(cadst);
-        cadst.setVisible(true);
+        try {
+            cadst = new cadastroFuncionario();
+            this.desktopPrincipal.add(cadst);
+            cadst.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+      
     }//GEN-LAST:event_addFuncActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

@@ -16,6 +16,11 @@ public class funcionario {
     private int funcao;
     private String admissao;
 
+    public funcionario(String nome, int funcao, String admissao) {
+        this.nome = nome;
+        this.funcao = funcao;
+        this.admissao = admissao;
+    }
     public String getAdmissao() {
         return admissao;
     }

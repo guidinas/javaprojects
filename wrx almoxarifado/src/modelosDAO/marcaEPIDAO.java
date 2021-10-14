@@ -18,7 +18,7 @@ import modelosBean.marcaEPI;
  */
 public class marcaEPIDAO {
     
-    public static boolean criaMarcaEPI(marcaEPI m) throws SQLException, ClassNotFoundException{
+public static boolean criaMarcaEPI(marcaEPI m) throws SQLException, ClassNotFoundException{
     
   Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 
