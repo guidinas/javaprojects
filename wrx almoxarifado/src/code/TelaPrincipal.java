@@ -222,9 +222,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void saidaEPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saidaEPIActionPerformed
         // TODO add your handling code here:
-        saidaEPI telasaida = new saidaEPI();
-        desktopPrincipal.add(telasaida);
-        telasaida.setVisible(true);
+        saidaEPI telasaida;
+        try {
+            telasaida = new saidaEPI();
+            desktopPrincipal.add(telasaida);
+            telasaida.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_saidaEPIActionPerformed
 

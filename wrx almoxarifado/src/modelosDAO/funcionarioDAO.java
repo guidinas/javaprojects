@@ -9,6 +9,7 @@ package modelosDAO;
 import DatabaseConnection.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelosBean.funcionario;
 
@@ -44,5 +45,33 @@ System.out.println(ex);
 }
 return false ;
 }
+
+    /**
+     *
+     * @return A ResultSet with all the Funcionarios on the system of null if there was a problem with the connection.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static ResultSet listaFuncionario() throws SQLException, ClassNotFoundException{
+Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
+PreparedStatement stmt;
+try{
+ // Inserindo o comando SQL a ser usado
+stmt = con.prepareStatement("SELECT  *  FROM funcionario  ");
+ // O método setString, define que o valor passado será do tipo inteiro
+    // Método responsável por fazer a alteração no banco de dados
+    if (stmt.execute()){
+    ResultSet resul;
+    resul = stmt.getResultSet();
+    System.out.println(resul);
+    return resul;
+    }
+}catch(SQLException ex){  // Tratamento  das exceções
+System.out.println(ex);
+} finally{ // Encerramento da conexão
+conexao.closeConnection();
     
+}
+return null;
+}
 }
