@@ -13,10 +13,19 @@ import java.util.Date;
  * @author guidi
  */
 public class requisicao {
+    private int codFuncionario;
     private int cod;
     private int status;
     private Date dataRequisicao;
     private String responsavel;
+
+    public requisicao(int codFuncionario, String responsavel) {
+        this.codFuncionario = codFuncionario;
+        this.responsavel = responsavel;
+    }
+    
+    
+    
     public requisicao(int cod, int status, Date dataRequisicao) {
         this.cod = cod;
         this.status = status;
@@ -58,6 +67,14 @@ public class requisicao {
 
     public void setDataRequisicao(Date dataRequisicao) {
         this.dataRequisicao = dataRequisicao;
+    }
+
+    public int getCodFuncionario() {
+        return codFuncionario;
+    }
+
+    public void setCodFuncionario(int codFuncionario) {
+        this.codFuncionario = codFuncionario;
     }
     
     
