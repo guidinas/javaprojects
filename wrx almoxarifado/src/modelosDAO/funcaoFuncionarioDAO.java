@@ -48,7 +48,7 @@ System.out.println(ex);
 }
 return false ;
 }
-    
+
     public static ResultSet listaFuncaoFuncionario() throws SQLException, ClassNotFoundException{
         Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt;
@@ -69,9 +69,5 @@ return false ;
 
         }
         return null;
-
     }
-
-    
-    
 }

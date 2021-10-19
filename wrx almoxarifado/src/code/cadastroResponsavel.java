@@ -6,16 +6,23 @@
 
 package code;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelosBean.responsavel;
+import static modelosDAO.responsavelDAO.criaResponsavel;
+
 /**
  *
  * @author guidi
  */
-public class criaResponsavel extends javax.swing.JInternalFrame {
+public class cadastroResponsavel extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form criaResponsavel
      */
-    public criaResponsavel() {
+    public cadastroResponsavel() {
         initComponents();
     }
 
@@ -97,7 +104,25 @@ public class criaResponsavel extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String nomeString;
         nomeString = this.nomeResponsavel.getText();
-        
+       responsavel resp;
+       resp = new responsavel(nomeString);
+           boolean criaResponsavelbol;
+           if(0 == JOptionPane.showConfirmDialog(null, "Deseja Criar  O Seguinte Responsável :" + nomeString + "?" )) {
+           try {           
+               criaResponsavelbol= criaResponsavel(resp);
+               if(criaResponsavelbol){
+                   JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+               }else{
+                   JOptionPane.showMessageDialog(null, "Erro na base de Dados");
+                   }
+           } catch (SQLException | ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Falha de Banco de Dados");
+               Logger.getLogger(cadastroMarcaEPI.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           }else{
+                JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
+           }
+           this.nomeResponsavel.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -15,6 +15,10 @@ public class itemRequisicao {
     private int codRequisicao;
     private int quantidade;
 
+    public itemRequisicao(int codEPI, int quantidade) {
+        this.codEPI = codEPI;
+        this.quantidade = quantidade;
+    }
     public itemRequisicao(int codEPI, int codRequisicao, int quantidade) {
         this.codEPI = codEPI;
         this.codRequisicao = codRequisicao;

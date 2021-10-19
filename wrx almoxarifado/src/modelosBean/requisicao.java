@@ -17,14 +17,15 @@ public class requisicao {
     private int cod;
     private int status;
     private Date dataRequisicao;
-    private String responsavel;
+    private int codResponsavel;
 
-    public requisicao(int codFuncionario, String responsavel) {
+    public requisicao(int codFuncionario, int codResponsavel) {
         this.codFuncionario = codFuncionario;
-        this.responsavel = responsavel;
+        this.codResponsavel = codResponsavel;
     }
     
     
+   
     
     public requisicao(int cod, int status, Date dataRequisicao) {
         this.cod = cod;
@@ -37,13 +38,15 @@ public class requisicao {
         this.dataRequisicao = dataRequisicao;
     }
 
-    public String getResponsavel() {
-        return responsavel;
+    public int getCodResponsavel() {
+        return codResponsavel;
     }
 
-    public void setResponsavel(String responsavel) {
-        this.responsavel = responsavel;
+    public void setCodResponsavel(int codResponsavel) {
+        this.codResponsavel = codResponsavel;
     }
+
+   
 
     public int getCod() {
         return cod;

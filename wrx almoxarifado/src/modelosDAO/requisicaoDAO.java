@@ -27,10 +27,11 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO requisicao (responsavel) VALUES (?) ");
+stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFuncionario) VALUES (?,?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
- stmt.setString(1, m.getResponsavel());
+ stmt.setInt(1, m.getCodResponsavel());
+ stmt.setInt(2, m.getCodFuncionario());
 
 
     // Método responsável por fazer a alteração no banco de dados

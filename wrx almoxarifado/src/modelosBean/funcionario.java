@@ -16,6 +16,14 @@ public class funcionario {
     private int funcao;
     private String admissao;
 
+    public funcionario(int cod, String nome, int funcao, String admissao) {
+        this.cod = cod;
+        this.nome = nome;
+        this.funcao = funcao;
+        this.admissao = admissao;
+    }
+
+    
     public funcionario(String nome, int funcao, String admissao) {
         this.nome = nome;
         this.funcao = funcao;

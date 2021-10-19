@@ -6,12 +6,15 @@
 
 package code;
 
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
 import modelosBean.funcionario;
+import modelosBean.itemRequisicao;
 import modelosBean.requisicao;
 import modelosBean.responsavel;
 import modelosDAO.EPIDAO;
@@ -27,7 +30,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private final ArrayList<EPI> b;
     private final ArrayList<responsavel> c;
     private requisicao req;
-
+    private ArrayList<itemRequisicao> itens;
     /**
      * Creates new form saidaEPI
      * @throws java.sql.SQLException
@@ -36,13 +39,13 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     public saidaEPI() throws SQLException, ClassNotFoundException {
         initComponents();
         //Preenchimento dos Combo Box
+        this.itens = new ArrayList<>();
         ResultSet funcionarios;
         funcionarios =listaFuncionario();
         a =new ArrayList<>();
             while(funcionarios.next()){
                 this.selecionaFuncionario.addItem(funcionarios.getString("nome"));
-                a.add(new funcionario(funcionarios.getString("nome"), funcionarios.getInt("funcao"), funcionarios.getString("admissao")));
-                System.out.println(funcionarios.getString("admissao"));
+                a.add(new funcionario(funcionarios.getInt("cod"),funcionarios.getString("nome"), funcionarios.getInt("funcao"), funcionarios.getString("admissao")));
         }
         ResultSet epis;
         epis = EPIDAO.listaEPI();
@@ -55,16 +58,17 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         c = new ArrayList<>();
         responsaveis = listaResponsavel();
         while(responsaveis.next()){
+            System.out.println(responsaveis.getInt("cod"));
                 this.selecionaResponsavel.addItem(responsaveis.getString("nome"));
-                b.add(new EPI(epis.getInt("cod"), epis.getString("nome")));
+                c.add(new responsavel(responsaveis.getString("nome"), responsaveis.getInt("cod")));
         }
             
           //  this.selecionaItem.setEnabled(false);
             this.selecionaQuantidade.setEnabled(false);
             this.geraSolicitacao.setEnabled(false);
             this.addRequisicao.setEnabled(false);
+            this.selecionaItem.setEnabled(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +103,6 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         jLabel1.setText("Responsável pela Saída ");
 
         selecionaResponsavel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        selecionaResponsavel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ana", "Seu Moço" }));
         selecionaResponsavel.setNextFocusableComponent(selecionaFuncionario);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -123,6 +126,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
 
         selecionaQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         selecionaQuantidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " }));
+        selecionaQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionaQuantidadeActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Quantidade ");
@@ -144,14 +152,14 @@ public class saidaEPI extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Responsável", "Funcionário", "Quantidade"
+                "Item", "Quantidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -254,7 +262,29 @@ public class saidaEPI extends javax.swing.JInternalFrame {
 
     private void addRequisicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRequisicaoActionPerformed
         // TODO add your handling code here:
+       int index;
+       index = this.itens.size();
+      // gera um item solicitação e coloca no array list
+      int itemIndex, itemCod;
+      itemIndex = this.selecionaItem.getSelectedIndex();
+      itemCod = this.b.get(itemIndex).getCod();
+      int quantidadeInt;
+      quantidadeInt = this.selecionaQuantidade.getSelectedIndex() + 1;
+      this.itens.add(new itemRequisicao(itemCod, quantidadeInt));
+        System.out.println(this.itens.size());
+      // adiciona esse item a tabela 
       DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+      
+      //  ITEM QUANTIDADE
+      Object item ,quant;
+      item = this.b.get(itemIndex).getNome();
+      quant = quantidadeInt;
+      defaultModel.setRowCount(index + 1);
+        this.jTable1.getModel().setValueAt(item, index, 0);
+        this.jTable1.getModel().setValueAt(quant, index, 1);
+       
+     
+        
       
     }//GEN-LAST:event_addRequisicaoActionPerformed
 
@@ -266,18 +296,17 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         this.addRequisicao.setEnabled(true);
         this.selecionaItem.setEnabled(true);
         this.selecionaQuantidade.setEnabled(true);
-        int funcInt ;
-        String nomeResponsavel;
-        funcInt= this.selecionaFuncionario.getSelectedIndex();
-        if(0 == this.selecionaResponsavel.getSelectedIndex())
-        {
-             nomeResponsavel = "Ana";
-        }else{
-            nomeResponsavel = "Seu moço";
-        }
-        
-        
+        int funcIndex, respIndex, funcInt,respInt;
+        funcIndex= this.selecionaFuncionario.getSelectedIndex();
+        funcInt = this.a.get(funcIndex).getCod();
+        respIndex = this.selecionaResponsavel.getSelectedIndex();
+        respInt = this.c.get(respIndex).getCod();
+        this.req = new requisicao(funcInt, respInt);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void selecionaQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selecionaQuantidadeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
