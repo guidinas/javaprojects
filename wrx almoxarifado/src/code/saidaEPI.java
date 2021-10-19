@@ -13,8 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
 import modelosBean.funcionario;
 import modelosBean.requisicao;
+import modelosBean.responsavel;
 import modelosDAO.EPIDAO;
 import static modelosDAO.funcionarioDAO.listaFuncionario;
+import static modelosDAO.responsavelDAO.listaResponsavel;
 
 /**
  *
@@ -23,6 +25,7 @@ import static modelosDAO.funcionarioDAO.listaFuncionario;
 public class saidaEPI extends javax.swing.JInternalFrame {
     private final ArrayList<funcionario> a;
     private final ArrayList<EPI> b;
+    private final ArrayList<responsavel> c;
     private requisicao req;
 
     /**
@@ -48,7 +51,13 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 this.selecionaItem.addItem(epis.getString("nome"));
                 b.add(new EPI(epis.getInt("cod"), epis.getString("nome")));
         }
-            
+        ResultSet responsaveis;
+        c = new ArrayList<>();
+        responsaveis = listaResponsavel();
+        while(responsaveis.next()){
+                this.selecionaResponsavel.addItem(responsaveis.getString("nome"));
+                b.add(new EPI(epis.getInt("cod"), epis.getString("nome")));
+        }
             
           //  this.selecionaItem.setEnabled(false);
             this.selecionaQuantidade.setEnabled(false);
@@ -258,8 +267,15 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         this.selecionaItem.setEnabled(true);
         this.selecionaQuantidade.setEnabled(true);
         int funcInt ;
+        String nomeResponsavel;
         funcInt= this.selecionaFuncionario.getSelectedIndex();
-         
+        if(0 == this.selecionaResponsavel.getSelectedIndex())
+        {
+             nomeResponsavel = "Ana";
+        }else{
+            nomeResponsavel = "Seu moço";
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
