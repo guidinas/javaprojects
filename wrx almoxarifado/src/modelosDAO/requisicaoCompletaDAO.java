@@ -16,9 +16,10 @@ import static modelosDAO.requisicaoDAO.criaRequisicaoCod;
  */
 public class requisicaoCompletaDAO {
     
-    public boolean insereRequisicaoCompleta(requisicaoCompleta m) throws SQLException, ClassNotFoundException{
+    public static boolean insereRequisicaoCompleta(requisicaoCompleta m) throws SQLException, ClassNotFoundException{
         int codRequisicao;
         codRequisicao  = criaRequisicaoCod(m.getRequisicaoCabeca());
+        System.out.println(codRequisicao);
         return false;
     }
     

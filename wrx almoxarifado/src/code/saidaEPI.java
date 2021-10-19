@@ -11,14 +11,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
 import modelosBean.funcionario;
 import modelosBean.itemRequisicao;
 import modelosBean.requisicao;
+import modelosBean.requisicaoCompleta;
 import modelosBean.responsavel;
 import modelosDAO.EPIDAO;
 import static modelosDAO.funcionarioDAO.listaFuncionario;
+import modelosDAO.requisicaoCompletaDAO;
 import static modelosDAO.responsavelDAO.listaResponsavel;
 
 /**
@@ -145,6 +149,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
 
         geraSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         geraSolicitacao.setText("Gerar Solicitação");
+        geraSolicitacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                geraSolicitacaoActionPerformed(evt);
+            }
+        });
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -282,10 +291,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
       defaultModel.setRowCount(index + 1);
         this.jTable1.getModel().setValueAt(item, index, 0);
         this.jTable1.getModel().setValueAt(quant, index, 1);
-       
-     
-        
-      
+        this.geraSolicitacao.setEnabled(true);
     }//GEN-LAST:event_addRequisicaoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -307,6 +313,22 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private void selecionaQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaQuantidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selecionaQuantidadeActionPerformed
+
+    private void geraSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geraSolicitacaoActionPerformed
+        // TODO add your handling code here:
+        requisicaoCompleta ultima;
+        ultima = new requisicaoCompleta(req, itens);
+        Boolean envio; 
+            try {
+                envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(saidaEPI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        
+        
+    }//GEN-LAST:event_geraSolicitacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
