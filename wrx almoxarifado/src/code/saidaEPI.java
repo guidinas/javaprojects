@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
 import modelosBean.funcionario;
@@ -179,6 +180,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -320,15 +326,36 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         ultima = new requisicaoCompleta(req, itens);
         Boolean envio; 
             try {
-                envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
+                if(0==JOptionPane.showInternalConfirmDialog(rootPane,"Confirmar solicitação?")){
+                    envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
+                    JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
+                }       
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(saidaEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+             DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+             defaultModel.setRowCount(0);
+            this.itens.clear();
+            req = null;
+            this.selecionaQuantidade.setEnabled(false);
+            this.geraSolicitacao.setEnabled(false);
+            this.addRequisicao.setEnabled(false);
+            this.selecionaItem.setEnabled(false);
+            this.selecionaResponsavel.setEnabled(true);
+            this.selecionaFuncionario.setEnabled(true);
+            this.jButton1.setEnabled(true);
+            
         
         
         
     }//GEN-LAST:event_geraSolicitacaoActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

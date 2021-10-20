@@ -71,23 +71,25 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
       
 
 }catch(SQLException ex){  // Tratamento das exceções
-PreparedStatement stmt1;
-     
-   stmt1 = con.prepareStatement("SELECT cod , codResponsavel, codFuncionario  FROM  requisicaoSaida ORDER BY cod DESC LIMIT 1 ");
-   if(stmt1.execute()){
-       ResultSet req;
-       req = stmt1.getResultSet();
-       while(req.next()){
-       if(req.getInt("codFuncionario") == m.getCodFuncionario() && req.getInt("codResponsavel") == m.getCodResponsavel() )    
-           return req.getInt("cod");
-           System.out.println( req.getInt("cod") );
-       }
-   }
-   
-    
-System.out.println(ex);
-
+    System.out.println(ex);
 } finally{ // Encerramento da conexão
+    }
+    try{
+        PreparedStatement stmt1;
+
+       stmt1 = con.prepareStatement("SELECT cod , codResponsavel, codFuncionario  FROM  requisicaoSaida ORDER BY cod DESC LIMIT 1 ");
+       if(stmt1.execute()){
+           ResultSet req;
+           req = stmt1.getResultSet();
+           while(req.next()){
+           if(req.getInt("codFuncionario") == m.getCodFuncionario() && req.getInt("codResponsavel") == m.getCodResponsavel() )    
+               return req.getInt("cod");
+               System.out.println( req.getInt("cod") );
+           }
+       }
+ 
+}catch(SQLException ex){
+    
 }
 return 0;
 }

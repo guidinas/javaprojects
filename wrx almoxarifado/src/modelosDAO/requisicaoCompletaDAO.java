@@ -7,7 +7,10 @@
 package modelosDAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import modelosBean.itemRequisicao;
 import modelosBean.requisicaoCompleta;
+import modelosDAO.itemRequisicaoDAO;
 import static modelosDAO.requisicaoDAO.criaRequisicaoCod;
 
 /**
@@ -19,8 +22,12 @@ public class requisicaoCompletaDAO {
     public static boolean insereRequisicaoCompleta(requisicaoCompleta m) throws SQLException, ClassNotFoundException{
         int codRequisicao;
         codRequisicao  = criaRequisicaoCod(m.getRequisicaoCabeca());
-        System.out.println(codRequisicao);
+        if( itemRequisicaoDAO.insereItemRequisicaoArray(m.getItemCorpo(), codRequisicao)){
+            
+            return true;
+        }
         return false;
     }
+
     
 }

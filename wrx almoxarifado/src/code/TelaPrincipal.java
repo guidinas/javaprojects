@@ -21,6 +21,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        acompanhamentoRequisicoes acomp;
+        acomp = new acompanhamentoRequisicoes();
+        this.desktopPrincipal.add(acomp);
+        acomp.setVisible(true);
     }
 
     /**

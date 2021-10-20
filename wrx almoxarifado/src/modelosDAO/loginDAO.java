@@ -23,7 +23,7 @@ public static boolean checaLogin(login m) throws SQLException, ClassNotFoundExce
 
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 
-PreparedStatement stmt = null;
+PreparedStatement stmt;
 
 try{
 
