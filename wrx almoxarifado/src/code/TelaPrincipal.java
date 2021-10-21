@@ -6,25 +6,34 @@
 
 package code;
 
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.timer.Timer;
 
 /**
  *
  * @author guidi
  */
+
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal() {
+    public TelaPrincipal() throws InterruptedException {
         initComponents();
         acompanhamentoRequisicoes acomp;
         acomp = new acompanhamentoRequisicoes();
         this.desktopPrincipal.add(acomp);
         acomp.setVisible(true);
+        Dimension desktopSize = this.desktopPrincipal.getSize();
+        Dimension jInternalFrameSize = acomp.getSize();
+        acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
+        this.rootPane.requestFocus();
+        System.out.println("foi");
+
     }
 
     /**
@@ -61,16 +70,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        setPreferredSize(new java.awt.Dimension(2220, 1080));
 
         javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
         desktopPrincipal.setLayout(desktopPrincipalLayout);
         desktopPrincipalLayout.setHorizontalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 1172, Short.MAX_VALUE)
         );
         desktopPrincipalLayout.setVerticalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 860, Short.MAX_VALUE)
         );
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -355,7 +365,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                try {
+                    new TelaPrincipal().setVisible(true);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

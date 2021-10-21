@@ -54,7 +54,7 @@ return false ;
     
     /**
      *
-     * @return a ResultSet with all the EPIs on database
+     * @return a ResultSet with all the EPIs on database or null in case of a connection error
      * @throws SQLException
      * @throws ClassNotFoundException
      */

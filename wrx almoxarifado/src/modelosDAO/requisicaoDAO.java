@@ -93,4 +93,30 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
 }
 return 0;
 }
+    
+    /**
+     *
+     * @return A ResultSet with all the Requisicao on database or null if there was a problem with the Database
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static ResultSet listaRequisicao() throws SQLException, ClassNotFoundException{
+        Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
+        PreparedStatement stmt;
+        try{
+         // Inserindo o comando SQL a ser usado
+        stmt = con.prepareStatement("SELECT *  FROM requisicaosaida  ");
+         // O método setString, define que o valor passado será do tipo inteiro
+            // Método responsável por fazer a alteração no banco de dados
+            boolean executeok = stmt.execute();
+           ResultSet resul = stmt.getResultSet();
+            return resul;
+        }catch(SQLException ex){  // Tratamento  das exceções
+        System.out.println(ex);
+        } finally{ // Encerramento da conexão
+        conexao.closeConnection();
+
+        }
+        return null;
+    }
 }
