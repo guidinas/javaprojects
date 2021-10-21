@@ -6,11 +6,21 @@
 
 package code;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import modelosBean.requisicao;
+import static modelosDAO.funcionarioDAO.nomeFuncionarioporCodigo;
 import static modelosDAO.requisicaoDAO.listaRequisicao;
 
 /**
@@ -18,25 +28,37 @@ import static modelosDAO.requisicaoDAO.listaRequisicao;
  * @author guidi
  */
 public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
-        private final  DefaultTableModel tabela;
-         private final ArrayList<requisicao> a;
+        private   DefaultTableModel tabela;
+         private ArrayList<requisicao> a;
+       
     /**
      * Creates new form acompanhamentoRequisicoes
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
     public acompanhamentoRequisicoes() throws SQLException, ClassNotFoundException {
-        
         initComponents();
-       a = new ArrayList<>();
+          a = new ArrayList<>();
+        atualizaTable();
+        
+    }
+    
+    private void atualizaTable() throws SQLException, ClassNotFoundException{
+       a.clear();
        ResultSet requisicoes;
        requisicoes =  listaRequisicao();
         this.tabela = (DefaultTableModel) this.jTable1.getModel();
+        int aux;
+        aux = 0;    
         while(requisicoes.next()){
-            
+        tabela.setRowCount(aux+1);  
+        this.jTable1.getModel().setValueAt(nomeFuncionarioporCodigo(requisicoes.getInt("codFuncionario")), aux, 0);
+        this.jTable1.getModel().setValueAt( requisicoes.getTime("dataRequisicao"), aux, 1);     
+        aux++;
+        this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"), requisicoes.getDate("dataRequisicao"), requisicoes.getInt("codResponsavel"), requisicoes.getTime("dataRequisicao")));
         }
-        
     }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +71,8 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setTitle("Requisições de Saída EPI");
         setAlignmentX(0.0F);
@@ -67,12 +91,30 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Selecione a Requisição: ");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("Analizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,14 +122,25 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(167, 167, 167))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -107,8 +160,19 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       int linha;
+       linha = this.jTable1.getSelectedRow();
+       requisicao requisicaoaux;
+       requisicaoaux = this.a.get(linha);
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

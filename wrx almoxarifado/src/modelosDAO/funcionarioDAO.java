@@ -74,4 +74,30 @@ conexao.closeConnection();
 }
 return null;
 }
+
+    /**
+     *
+     * @param cod
+     * @return A String with the name of the Funcionario with this code or null if there was a problem with the connection.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static String nomeFuncionarioporCodigo(int cod) throws SQLException, ClassNotFoundException{
+        Connection con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareStatement("SELECT nome FROM funcionario WHERE cod  = ?");
+        stmt.setInt(1, cod);
+        if(stmt.execute()){
+        ResultSet func;
+        func = stmt.getResultSet();
+        if(func!=null){
+            while(func.next()){
+                return func.getNString("nome");
+            }
+        }
+        }
+        
+        
+        return null;
+    }
 }

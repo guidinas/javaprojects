@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.timer.Timer;
 
 /**
  *
@@ -21,8 +20,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
+     * @throws java.lang.InterruptedException
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
-    public TelaPrincipal() throws InterruptedException {
+    public TelaPrincipal() throws InterruptedException, SQLException, ClassNotFoundException {
         initComponents();
         acompanhamentoRequisicoes acomp;
         acomp = new acompanhamentoRequisicoes();
@@ -31,8 +33,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Dimension desktopSize = this.desktopPrincipal.getSize();
         Dimension jInternalFrameSize = acomp.getSize();
         acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
-        this.rootPane.requestFocus();
-        System.out.println("foi");
 
     }
 
@@ -363,13 +363,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new TelaPrincipal().setVisible(true);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new TelaPrincipal().setVisible(true);
+            } catch (InterruptedException | SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

@@ -9,8 +9,10 @@ package modelosDAO;
 import DatabaseConnection.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelosBean.EPI;
 import modelosBean.itemRequisicao;
 
 /**
@@ -46,6 +48,23 @@ public class itemRequisicaoDAO {
             System.out.println(ex);
         }
         return false;
+    }
+
+    /**
+     *
+     * @param cod
+     * @return A ResultSet with all the EPI on the requisicao or null if there was a problem with the Database
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static ResultSet retornaEPIsolicitacao(int cod) throws SQLException, ClassNotFoundException{
+        Connection con;
+        con = conexao.getConnection();
+        
+        
+        
+        return null;
+        
     }
     
 }

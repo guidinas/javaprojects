@@ -6,6 +6,7 @@
 
 package modelosBean;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -18,14 +19,21 @@ public class requisicao {
     private int status;
     private Date dataRequisicao;
     private int codResponsavel;
+    private Time hora;
+
+    public requisicao(int codFuncionario, int cod, int status, Date dataRequisicao, int codResponsavel, Time hora) {
+        this.codFuncionario = codFuncionario;
+        this.cod = cod;
+        this.status = status;
+        this.dataRequisicao = dataRequisicao;
+        this.codResponsavel = codResponsavel;
+        this.hora = hora;
+    }
 
     public requisicao(int codFuncionario, int codResponsavel) {
         this.codFuncionario = codFuncionario;
         this.codResponsavel = codResponsavel;
     }
-    
-    
-   
     
     public requisicao(int cod, int status, Date dataRequisicao) {
         this.cod = cod;
@@ -37,9 +45,17 @@ public class requisicao {
         this.status = status;
         this.dataRequisicao = dataRequisicao;
     }
-
+    
     public int getCodResponsavel() {
         return codResponsavel;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 
     public void setCodResponsavel(int codResponsavel) {

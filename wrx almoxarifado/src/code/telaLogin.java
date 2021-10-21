@@ -125,7 +125,12 @@ public class telaLogin extends javax.swing.JFrame {
         
            try {
                if( loginDAO.checaLogin(m)){
-                  TelaPrincipal tela = new TelaPrincipal();
+                  TelaPrincipal tela = null;
+                   try {
+                       tela = new TelaPrincipal();
+                   } catch (InterruptedException ex) {
+                       Logger.getLogger(telaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                   }
                   tela.setExtendedState(MAXIMIZED_BOTH);
                   tela.setVisible(true);
                    this.fecha();

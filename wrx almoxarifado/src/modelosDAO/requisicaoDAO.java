@@ -105,7 +105,7 @@ return 0;
         PreparedStatement stmt;
         try{
          // Inserindo o comando SQL a ser usado
-        stmt = con.prepareStatement("SELECT *  FROM requisicaosaida  ");
+        stmt = con.prepareStatement("SELECT *  FROM requisicaosaida  ORDER BY dataRequisicao DESC");
          // O método setString, define que o valor passado será do tipo inteiro
             // Método responsável por fazer a alteração no banco de dados
             boolean executeok = stmt.execute();
