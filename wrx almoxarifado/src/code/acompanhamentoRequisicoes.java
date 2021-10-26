@@ -12,16 +12,14 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
-import javax.swing.UIManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import modelosBean.requisicao;
 import static modelosDAO.funcionarioDAO.nomeFuncionarioporCodigo;
 import static modelosDAO.requisicaoDAO.listaRequisicao;
+import static modelosDAO.requisicaoDAO.listaRequisicaoPendente;
 
 /**
  *
@@ -30,23 +28,25 @@ import static modelosDAO.requisicaoDAO.listaRequisicao;
 public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         private   DefaultTableModel tabela;
          private ArrayList<requisicao> a;
+         private  JDesktopPane tela;
        
     /**
      * Creates new form acompanhamentoRequisicoes
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public acompanhamentoRequisicoes() throws SQLException, ClassNotFoundException {
+    public acompanhamentoRequisicoes(JDesktopPane tela) throws SQLException, ClassNotFoundException {
         initComponents();
+        this.tela = tela;
           a = new ArrayList<>();
         atualizaTable();
         
     }
     
-    private void atualizaTable() throws SQLException, ClassNotFoundException{
+    public final void atualizaTable() throws SQLException, ClassNotFoundException{
        a.clear();
        ResultSet requisicoes;
-       requisicoes =  listaRequisicao();
+       requisicoes =  listaRequisicaoPendente();
         this.tabela = (DefaultTableModel) this.jTable1.getModel();
         int aux;
         aux = 0;    
@@ -55,7 +55,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         this.jTable1.getModel().setValueAt(nomeFuncionarioporCodigo(requisicoes.getInt("codFuncionario")), aux, 0);
         this.jTable1.getModel().setValueAt( requisicoes.getTime("dataRequisicao"), aux, 1);     
         aux++;
-        this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"), requisicoes.getDate("dataRequisicao"), requisicoes.getInt("codResponsavel"), requisicoes.getTime("dataRequisicao")));
+        this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"),  requisicoes.getInt("codResponsavel"), requisicoes.getTimestamp("dataRequisicao")));
         }
     }
    
@@ -162,11 +162,24 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
        int linha;
        linha = this.jTable1.getSelectedRow();
        requisicao requisicaoaux;
        requisicaoaux = this.a.get(linha);
-       
+       int cod  = requisicaoaux.getCod();
+        System.out.println(cod);
+        detalhesRequisicao det;
+        
+            try {
+                det = new detalhesRequisicao(cod);
+                this.tela.add(det);
+                det.setVisible(true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(acompanhamentoRequisicoes.class.getName()).log(Level.SEVERE, null, ex);
+        
+        
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

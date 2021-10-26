@@ -100,4 +100,24 @@ return null;
         
         return null;
     }
+   public static  String nomeFuncionarioCod(int cod) throws SQLException, ClassNotFoundException{
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareStatement("SELECT nome from funcionario WHERE cod  = ?");
+        stmt.setInt(1, cod);
+        if(stmt.execute()){
+            ResultSet a;
+            a = stmt.getResultSet();
+            while(a.next()){
+                
+                return a.getString("nome");
+            }
+        }
+        
+        
+        
+        return null;
+        
+    }
 }

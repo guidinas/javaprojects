@@ -6,17 +6,63 @@
 
 package code;
 
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelosBean.requisicao;
+import modelosBean.requisicaoCompleta;
+import modelosDAO.funcionarioDAO;
+import modelosDAO.requisicaoCompletaDAO;
+import static modelosDAO.requisicaoDAO.autorizaRequisicao;
+import static modelosDAO.requisicaoDAO.negaRequisicao;
+import modelosDAO.responsavelDAO;
+
 /**
  *
  * @author guidi
  */
 public class detalhesRequisicao extends javax.swing.JInternalFrame {
+    private  requisicao req;
 
     /**
      * Creates new form detalhesRequisicao
+     * @param cod
      */
-    public detalhesRequisicao() {
+    public detalhesRequisicao(int cod) throws SQLException, ClassNotFoundException {
         initComponents();
+        requisicaoCompleta soli;
+        soli = requisicaoCompletaDAO.retornaRequisicaoCompleta(cod);
+        this.req = soli.getRequisicaoCabeca();
+        String nomeFunc;
+        nomeFunc = funcionarioDAO.nomeFuncionarioCod(this.req.getCodFuncionario());
+        System.out.println(nomeFunc);
+        this.nomeFuncionario.setText( nomeFunc);
+        String nomeResp;
+        nomeResp = responsavelDAO.nomeResponsavelCod(this.req.getCodResponsavel());
+        this.nomeResponsavel.setText(nomeResp);
+        Date data;
+        data = new Date( this.req.getHora().getTime() );
+        SimpleDateFormat formatar;
+        formatar = new SimpleDateFormat("dd/MM/yyyy");
+        String dataformatada;
+        dataformatada = formatar.format(data);
+        this.dataSolicitacao.setText(dataformatada);
+        Time hora;
+        hora  = new Time(this.req.getHora().getTime());
+        SimpleDateFormat formatarHora;
+        formatarHora  = new SimpleDateFormat("hh:mm:ss");
+        formatarHora.setTimeZone(TimeZone.getTimeZone("GMT -3"));  
+        String horaFormatada;
+        horaFormatada  = formatarHora.format(hora);
+        this.horaSolicitacao.setText(horaFormatada);
+        
+        
+                
     }
 
     /**
@@ -30,59 +76,64 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        nomeResponsavel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        dataSolicitacao = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        nomeFuncionario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        horaSolicitacao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Autorizar Solicitação ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Data da solicitação");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText(" ");
+        nomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nomeResponsavel.setText(" ");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Responsável ");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText(" ");
+        dataSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        dataSolicitacao.setText(" ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Hora da solicitação");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText(" ");
+        nomeFuncionario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nomeFuncionario.setText(" ");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Funcionario ");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText(" ");
+        horaSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        horaSolicitacao.setText(" ");
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "EPI", "Quantidade ", "Último Pedido"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -92,9 +143,19 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Autorizar ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Negar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,21 +166,19 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(26, 26, 26))
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
+                            .addComponent(jLabel1)
+                            .addComponent(dataSolicitacao)
+                            .addComponent(nomeResponsavel)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(horaSolicitacao, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nomeFuncionario, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(65, 65, 65))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -135,22 +194,22 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel8)
+                        .addComponent(nomeFuncionario)
                         .addGap(30, 30, 30)
                         .addComponent(jLabel4)
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel10))
+                        .addComponent(horaSolicitacao))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel7)
+                        .addComponent(nomeResponsavel)
                         .addGap(30, 30, 30)
                         .addComponent(jLabel3)
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel9)))
+                        .addComponent(dataSolicitacao)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -171,28 +230,70 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+                // TODO add your handling code here:
+                /**
+                 * Deve alterar o status para autorizado 1
+                 */
+        
+                try{
+                    if(0 == JOptionPane.showConfirmDialog(null, "Deseja autorizar essa saída ?")){
+                        if(autorizaRequisicao(this.req.getCod())){
+                        JOptionPane.showMessageDialog(rootPane, "Autorizada com suceso!!");
+                    }else{
+                            JOptionPane.showMessageDialog(rootPane, "Falha de acesso ao Banco de Dados !");
+                        } 
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Operação Cancelada !");
+                    }
+                   
+                }catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+                    if(0 == JOptionPane.showConfirmDialog(null, "Deseja Negar essa saída ?")){
+                        if(negaRequisicao(this.req.getCod())){
+                        JOptionPane.showMessageDialog(rootPane, "Negada com suceso!!");
+                        this.dispose();
+                    }else{
+                            JOptionPane.showMessageDialog(rootPane, "Falha de acesso ao Banco de Dados !");
+                        } 
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Operação Cancelada !");
+                    }
+                   
+                }catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dataSolicitacao;
+    private javax.swing.JLabel horaSolicitacao;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel nomeFuncionario;
+    private javax.swing.JLabel nomeResponsavel;
     // End of variables declaration//GEN-END:variables
 }

@@ -82,4 +82,20 @@ public class responsavelDAO {
                     }
             return false ;
         }
+
+    public static String nomeResponsavelCod(int codResponsavel) throws SQLException, ClassNotFoundException {
+        Connection con;
+        con = conexao.getConnection();
+       PreparedStatement stmt;
+       stmt = con.prepareCall("SELECT nome FROM responsavel WHERE cod = ?");
+       stmt.setInt(1, codResponsavel);
+       if(stmt.execute()){
+           ResultSet resul;
+           resul = stmt.getResultSet();
+           while(resul.next()){
+               return resul.getString("nome");
+           }
+       }
+     return null;
+    }
 }

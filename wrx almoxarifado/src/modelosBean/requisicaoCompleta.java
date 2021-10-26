@@ -16,7 +16,14 @@ public class requisicaoCompleta {
     
     private requisicao requisicaoCabeca;
     private ArrayList<itemRequisicao>  itemCorpo;
+    private ArrayList<epiSolicitacao> epiCorpo;
 
+    public requisicaoCompleta(requisicao requisicaoCabeca, ArrayList<epiSolicitacao> epiCorpo,int n) {
+        this.requisicaoCabeca = requisicaoCabeca;
+        this.epiCorpo = epiCorpo;
+    }
+
+    
     public requisicaoCompleta(requisicao requisicaoCabeca, ArrayList<itemRequisicao> itemCorpo) {
         this.requisicaoCabeca = requisicaoCabeca;
         this.itemCorpo = itemCorpo;
@@ -36,6 +43,14 @@ public class requisicaoCompleta {
 
     public void setItemCorpo(ArrayList<itemRequisicao> itemCorpo) {
         this.itemCorpo = itemCorpo;
+    }
+
+    public ArrayList<epiSolicitacao> getEpiCorpo() {
+        return epiCorpo;
+    }
+
+    public void setEpiCorpo(ArrayList<epiSolicitacao> epiCorpo) {
+        this.epiCorpo = epiCorpo;
     }
     
     

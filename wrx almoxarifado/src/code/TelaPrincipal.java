@@ -27,7 +27,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() throws InterruptedException, SQLException, ClassNotFoundException {
         initComponents();
         acompanhamentoRequisicoes acomp;
-        acomp = new acompanhamentoRequisicoes();
+        acomp = new acompanhamentoRequisicoes(desktopPrincipal);
         this.desktopPrincipal.add(acomp);
         acomp.setVisible(true);
         Dimension desktopSize = this.desktopPrincipal.getSize();

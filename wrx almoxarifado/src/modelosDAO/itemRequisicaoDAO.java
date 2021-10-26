@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelosBean.EPI;
+import modelosBean.epiSolicitacao;
 import modelosBean.itemRequisicao;
 
 /**
@@ -52,19 +53,28 @@ public class itemRequisicaoDAO {
 
     /**
      *
-     * @param cod
+     * @param cod "Cod" of the requisicao
      * @return A ResultSet with all the EPI on the requisicao or null if there was a problem with the Database
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static ResultSet retornaEPIsolicitacao(int cod) throws SQLException, ClassNotFoundException{
+    public static ArrayList<epiSolicitacao> retornaEPIsolicitacao(int cod) throws SQLException, ClassNotFoundException{
+        ArrayList<epiSolicitacao> resul;
+        resul =  new  ArrayList<>();
         Connection con;
         con = conexao.getConnection();
-        
-        
-        
+        PreparedStatement stmt;
+        stmt  = con.prepareStatement("SELECT epi.nome, relacionarequisicaoepi.quantidade, epi.cod FROM  relacionarequisicaoepi INNER JOIN  epi ON epi.cod = relacionarequisicaoepi.codEPI WHERE codRequisicao = ?");
+        stmt.setInt(1, cod);
+        ResultSet res;
+        if(stmt.execute()){
+            res = stmt.getResultSet();
+            while(res.next()){
+                resul.add( new epiSolicitacao(res.getString("nome"), res.getInt("cod"), res.getInt("quantidade")));
+            }
+            return resul;
+        }
         return null;
-        
     }
     
 }
