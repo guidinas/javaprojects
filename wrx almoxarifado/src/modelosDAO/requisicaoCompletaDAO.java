@@ -6,8 +6,13 @@
 
 package modelosDAO;
 
+import DatabaseConnection.conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import modelosBean.epiSolicitacao;
 import modelosBean.itemRequisicao;
 import modelosBean.requisicao;
@@ -47,5 +52,29 @@ public class requisicaoCompletaDAO {
         
     }
 
-    
+    /**
+     *
+     * @param funcionario
+     * @param EPI
+     * @return The last date that the given funcionario has requested the given EPI
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static Date  retornaUltimaDataEPI(int funcionario, int EPI) throws SQLException, ClassNotFoundException{
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareStatement("SELECT requisicaosaida.dataRequisicao, requisicaosaida.codFuncionario, epi.nome FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE codEPI = ? AND codFuncionario = ? AND stat = 1 ORDER BY requisicaosaida.dataRequisicao DESC LIMIT 1");
+        stmt.setInt(1, EPI);
+        stmt.setInt(2, funcionario);
+        if(stmt.execute()){
+            ResultSet res;
+            res = stmt.getResultSet();
+            while(res.next()){
+                 return res.getDate("dataRequisicao");
+            }
+                
+        }
+        return null;
+    }
 }

@@ -60,9 +60,7 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
         String horaFormatada;
         horaFormatada  = formatarHora.format(hora);
         this.horaSolicitacao.setText(horaFormatada);
-        
-        
-                
+         
     }
 
     /**

@@ -6,6 +6,7 @@
 
 package code;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.requisicao;
 import static modelosDAO.funcionarioDAO.nomeFuncionarioporCodigo;
@@ -55,6 +57,9 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         this.jTable1.getModel().setValueAt(nomeFuncionarioporCodigo(requisicoes.getInt("codFuncionario")), aux, 0);
         this.jTable1.getModel().setValueAt( requisicoes.getTime("dataRequisicao"), aux, 1);     
         aux++;
+        DefaultTableCellRenderer coluna = new DefaultTableCellRenderer(); 
+        coluna.setForeground(Color.BLUE); 
+        this.jTable1.getColumnModel().getColumn(0).setCellRenderer(coluna);
         this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"),  requisicoes.getInt("codResponsavel"), requisicoes.getTimestamp("dataRequisicao")));
         }
     }
