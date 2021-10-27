@@ -6,6 +6,7 @@
 
 package code;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,8 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
 import modelosDAO.funcionarioDAO;
@@ -28,13 +31,17 @@ import modelosDAO.responsavelDAO;
  */
 public class detalhesRequisicao extends javax.swing.JInternalFrame {
     private  requisicao req;
-
+    private acompanhamentoRequisicoes mae;
     /**
      * Creates new form detalhesRequisicao
      * @param cod
+     * @param mae
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
-    public detalhesRequisicao(int cod) throws SQLException, ClassNotFoundException {
+    public detalhesRequisicao(int cod, acompanhamentoRequisicoes mae) throws SQLException, ClassNotFoundException {
         initComponents();
+        this.mae = mae;
         requisicaoCompleta soli;
         soli = requisicaoCompletaDAO.retornaRequisicaoCompleta(cod);
         this.req = soli.getRequisicaoCabeca();
@@ -60,7 +67,30 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
         String horaFormatada;
         horaFormatada  = formatarHora.format(hora);
         this.horaSolicitacao.setText(horaFormatada);
-         
+        DefaultTableModel a;
+        a =  (DefaultTableModel) (this.jTable1.getModel());
+        int countRow;
+        countRow = 0;
+        ResultSet epis;
+        epis = requisicaoCompletaDAO.epiSolicitação(cod);
+        Date aux;
+        String DataFormatada;
+        while(epis.next()){
+            a.setRowCount(countRow + 1);
+            a.setValueAt(epis.getString("epi.nome"), countRow, 0);
+            a.setValueAt(epis.getInt("relacionarequisicaoepi.quantidade"), countRow, 1);
+            
+            aux = requisicaoCompletaDAO.retornaUltimaDataEPI(this.req.getCodFuncionario(), epis.getInt("epi.cod") );
+            if(aux!= null){
+                DataFormatada = formatar.format(aux);
+            a.setValueAt(DataFormatada, countRow, 2);
+            }else{
+                a.setValueAt( "------" , countRow, 2);
+            }
+            
+            countRow ++ ;
+        }
+        
     }
 
     /**
@@ -257,6 +287,13 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
+                try {
+            this.mae.atualizaTable();
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+                this.dispose();
+                
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -276,6 +313,17 @@ public class detalhesRequisicao extends javax.swing.JInternalFrame {
                 }catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+        try {
+            this.mae.atualizaTable();
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        this.dispose();
+        
+        
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

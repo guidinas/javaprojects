@@ -64,7 +64,7 @@ public class requisicaoCompletaDAO {
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareStatement("SELECT requisicaosaida.dataRequisicao, requisicaosaida.codFuncionario, epi.nome FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE codEPI = ? AND codFuncionario = ? AND stat = 1 ORDER BY requisicaosaida.dataRequisicao DESC LIMIT 1");
+        stmt = con.prepareStatement("SELECT requisicaosaida.dataRequisicao, requisicaosaida.codFuncionario, epi.nome FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE codEPI = ? AND codFuncionario = ? AND stat = 1 ORDER BY requisicaosaida.dataRequisicao DESC LIMIT 1 ");
         stmt.setInt(1, EPI);
         stmt.setInt(2, funcionario);
         if(stmt.execute()){
@@ -74,6 +74,17 @@ public class requisicaoCompletaDAO {
                  return res.getDate("dataRequisicao");
             }
                 
+        }
+        return null;
+    }
+    public static ResultSet epiSolicitação(int cod) throws SQLException, ClassNotFoundException{
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareStatement(" SELECT epi.nome , requisicaosaida.dataRequisicao , relacionarequisicaoepi.quantidade, epi.cod  FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE requisicaosaida.cod = ?");
+        stmt.setInt(1, cod);
+        if(stmt.execute()){
+            return stmt.getResultSet();
         }
         return null;
     }

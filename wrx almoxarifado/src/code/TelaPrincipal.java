@@ -33,6 +33,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Dimension desktopSize = this.desktopPrincipal.getSize();
         Dimension jInternalFrameSize = acomp.getSize();
         acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
+        temporizadorAcompanhamento att;
+        att = new temporizadorAcompanhamento(acomp);
 
     }
 

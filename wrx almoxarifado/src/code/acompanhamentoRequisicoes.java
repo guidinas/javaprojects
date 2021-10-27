@@ -34,6 +34,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
        
     /**
      * Creates new form acompanhamentoRequisicoes
+     * @param tela
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
@@ -58,8 +59,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         this.jTable1.getModel().setValueAt( requisicoes.getTime("dataRequisicao"), aux, 1);     
         aux++;
         DefaultTableCellRenderer coluna = new DefaultTableCellRenderer(); 
-        coluna.setForeground(Color.BLUE); 
-        this.jTable1.getColumnModel().getColumn(0).setCellRenderer(coluna);
+        coluna.setBackground(Color.RED); 
         this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"),  requisicoes.getInt("codResponsavel"), requisicoes.getTimestamp("dataRequisicao")));
         }
     }
@@ -177,13 +177,11 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         detalhesRequisicao det;
         
             try {
-                det = new detalhesRequisicao(cod);
+                det = new detalhesRequisicao(cod,this);
                 this.tela.add(det);
                 det.setVisible(true);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(acompanhamentoRequisicoes.class.getName()).log(Level.SEVERE, null, ex);
-        
-        
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 
