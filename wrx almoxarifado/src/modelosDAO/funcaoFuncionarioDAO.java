@@ -38,6 +38,7 @@ stmt = con.prepareStatement("INSERT INTO funcaoFuncionario (nome) VALUES (?) ");
     // Método responsável por fazer a alteração no banco de dados
     boolean executeok = stmt.execute();
     stmt.close();
+       con.close();
        return true;
 
 }catch(SQLException ex){  // Tratamento das exceções
@@ -46,6 +47,7 @@ System.out.println(ex);
 
 } finally{ // Encerramento da conexão
 }
+con.close();
 return false ;
 }
 
@@ -60,6 +62,7 @@ return false ;
             if(stmt.execute()){
            ResultSet resul = stmt.getResultSet();
             System.out.println(resul);
+            con.close();
             return resul;
         }
         }catch(SQLException ex){  // Tratamento  das exceções
@@ -68,6 +71,7 @@ return false ;
         conexao.closeConnection();
 
         }
+        con.close();
         return null;
     }
 }

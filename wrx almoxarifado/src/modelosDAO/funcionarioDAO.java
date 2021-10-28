@@ -36,13 +36,14 @@ stmt = con.prepareStatement("INSERT INTO funcionario (nome, funcao, admissao) VA
     stmt.setString(3, m.getAdmissao());
     // Método responsável por fazer a alteração no banco de dados
     if(stmt.execute()){ 
-    stmt.close();
+    con.close();
        return true;
     }
 }catch(SQLException ex){  // Tratamento das exceções
 System.out.println(ex);
 } finally{ // Encerramento da conexão
 }
+con.close();
 return false ;
 }
 
@@ -64,6 +65,7 @@ stmt = con.prepareStatement("SELECT  *  FROM funcionario  ");
     ResultSet resul;
     resul = stmt.getResultSet();
     System.out.println(resul);
+    con.close();
     return resul;
     }
 }catch(SQLException ex){  // Tratamento  das exceções
@@ -72,6 +74,7 @@ System.out.println(ex);
 conexao.closeConnection();
     
 }
+con.close();
 return null;
 }
 
@@ -92,12 +95,15 @@ return null;
         func = stmt.getResultSet();
         if(func!=null){
             while(func.next()){
-                return func.getNString("nome");
+                String i;
+                i  =  func.getNString("nome");
+                con.close();
+                return i;
             }
         }
         }
         
-        
+        con.close();
         return null;
     }
    public static  String nomeFuncionarioCod(int cod) throws SQLException, ClassNotFoundException{
@@ -110,13 +116,14 @@ return null;
             ResultSet a;
             a = stmt.getResultSet();
             while(a.next()){
-                
-                return a.getString("nome");
+                String i = a.getString("nome");
+                con.close();
+                return i;
             }
         }
         
         
-        
+        con.close();
         return null;
         
     }

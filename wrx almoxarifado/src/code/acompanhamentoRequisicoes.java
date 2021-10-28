@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.requisicao;
@@ -43,6 +44,20 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         this.tela = tela;
           a = new ArrayList<>();
         atualizaTable();
+         SwingWorker<Void, Void> worker;
+            worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    // Simulate doing something useful.
+                    while(true) {
+                        Thread.sleep(120000);
+                        atualizaTable();
+                        System.out.println("FOI");
+                    }
+                }
+            };
+
+           worker.execute();
         
     }
     
@@ -62,6 +77,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         coluna.setBackground(Color.RED); 
         this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"),  requisicoes.getInt("codResponsavel"), requisicoes.getTimestamp("dataRequisicao")));
         }
+        requisicoes.close();
     }
    
     /**
@@ -193,4 +209,8 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+
 }
+
+

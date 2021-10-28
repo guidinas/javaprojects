@@ -43,6 +43,7 @@ public class responsavelDAO {
             conexao.closeConnection();
 
             }
+            con.close();
         return null;
     }
 
@@ -71,7 +72,7 @@ public class responsavelDAO {
 
                    // Método responsável por fazer a alteração no banco de dados
                    boolean executeok = stmt.execute();
-                   stmt.close();
+                    con.close();
                       return true;
 
            }catch(SQLException ex){  // Tratamento das exceções
@@ -80,6 +81,7 @@ public class responsavelDAO {
 
            } finally{ // Encerramento da conexão
                     }
+             con.close();
             return false ;
         }
 
@@ -93,9 +95,12 @@ public class responsavelDAO {
            ResultSet resul;
            resul = stmt.getResultSet();
            while(resul.next()){
-               return resul.getString("nome");
+               String i = resul.getString("nome");
+                con.close();
+               return i;
            }
        }
+        con.close();
      return null;
     }
 }

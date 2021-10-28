@@ -38,6 +38,7 @@ stmt = con.prepareStatement("INSERT INTO EPI (nome, minimo ,maximo) VALUES ( ?, 
 
     // Método responsável por fazer a alteração no banco de dados
     boolean executeok = stmt.execute();
+    con.close();
        return true;
 
 }catch(SQLException ex){  // Tratamento das exceções
@@ -49,6 +50,7 @@ System.out.println(ex);
 conexao.closeConnection();
 
 }
+con.close();
 return false ;
 }
     
@@ -76,6 +78,7 @@ System.out.println(ex);
 conexao.closeConnection();
     
 }
+con.close();
 return null;
 }
     
@@ -94,6 +97,7 @@ stmt = con.prepareStatement("SELECT  cod, nome  FROM epi WHERE nome = ? ");
     System.out.println(resul);
     int cod;
     cod = resul.getInt("cod");
+    con.close();
     return cod;
 }catch(SQLException ex){  // Tratamento  das exceções
 System.out.println(ex);
@@ -101,6 +105,7 @@ System.out.println(ex);
 conexao.closeConnection();
     
 }
+con.close();
 return 0;
 } 
 }

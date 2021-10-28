@@ -44,6 +44,7 @@ stmt = con.prepareStatement("SELECT * FROM login WHERE login = ? AND senha = ? "
         String firstName = A.getString("login");
         // print the results
         if(id>0){
+            con.close();
             return true;
         }
       }
@@ -56,6 +57,7 @@ System.out.println(ex);
 conexao.closeConnection();
 
 }
+con.close();
 return false;
 }
     
@@ -80,6 +82,7 @@ stmt = con.prepareStatement("INSERT INTO login (login, senha, funcao) VALUES ( ?
     boolean executeok = stmt.execute();
    if(executeok)
    {
+       con.close();
        return true;
    }
 }catch(SQLException ex){  // Tratamento das exceções
@@ -91,6 +94,7 @@ System.out.println(ex);
 conexao.closeConnection();
 
 }
+con.close();
 return false ;
 }
 }

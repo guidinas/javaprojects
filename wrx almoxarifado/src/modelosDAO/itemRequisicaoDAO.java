@@ -48,6 +48,7 @@ public class itemRequisicaoDAO {
         }catch(SQLException ex){
             System.out.println(ex);
         }
+        con.close();
         return false;
     }
 
@@ -72,8 +73,10 @@ public class itemRequisicaoDAO {
             while(res.next()){
                 resul.add( new epiSolicitacao(res.getString("nome"), res.getInt("cod"), res.getInt("quantidade")));
             }
+            con.close();
             return resul;
         }
+        con.close();
         return null;
     }
     

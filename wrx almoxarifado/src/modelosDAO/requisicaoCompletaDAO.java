@@ -71,10 +71,14 @@ public class requisicaoCompletaDAO {
             ResultSet res;
             res = stmt.getResultSet();
             while(res.next()){
-                 return res.getDate("dataRequisicao");
+                Date i;
+                i = res.getDate("dataRequisicao");
+                con.close();
+                 return i;
             }
                 
         }
+        con.close();
         return null;
     }
     public static ResultSet epiSolicitação(int cod) throws SQLException, ClassNotFoundException{
@@ -84,8 +88,10 @@ public class requisicaoCompletaDAO {
         stmt = con.prepareStatement(" SELECT epi.nome , requisicaosaida.dataRequisicao , relacionarequisicaoepi.quantidade, epi.cod  FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE requisicaosaida.cod = ?");
         stmt.setInt(1, cod);
         if(stmt.execute()){
+         
             return stmt.getResultSet();
         }
+        con.close();
         return null;
     }
 }

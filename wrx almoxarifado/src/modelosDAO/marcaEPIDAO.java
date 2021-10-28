@@ -37,6 +37,7 @@ stmt = con.prepareStatement("INSERT INTO marcaEPI (nome, codEPI) VALUES (? ,?) "
     // Método responsável por fazer a alteração no banco de dados
     boolean executeok = stmt.execute();
     stmt.close();
+        con.close();
        return true;
 
 }catch(SQLException ex){  // Tratamento das exceções
@@ -45,6 +46,7 @@ System.out.println(ex);
 
 } finally{ // Encerramento da conexão
 }
+con.close();
 return false ;
 }
     

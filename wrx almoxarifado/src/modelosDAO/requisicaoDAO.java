@@ -38,6 +38,7 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
     // Método responsável por fazer a alteração no banco de dados
     boolean executeok = stmt.execute();
     stmt.close();
+    con.close();
        return true;
 
 }catch(SQLException ex){  // Tratamento das exceções
@@ -46,6 +47,7 @@ System.out.println(ex);
 
 } finally{ // Encerramento da conexão
 }
+con.close();
 return false ;
 }
     public static int criaRequisicaoCod(requisicao m) throws SQLException, ClassNotFoundException{
@@ -82,9 +84,12 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
            ResultSet req;
            req = stmt1.getResultSet();
            while(req.next()){
-           if(req.getInt("codFuncionario") == m.getCodFuncionario() && req.getInt("codResponsavel") == m.getCodResponsavel() )    
-               return req.getInt("cod");
-               System.out.println( req.getInt("cod") );
+           if(req.getInt("codFuncionario") == m.getCodFuncionario() && req.getInt("codResponsavel") == m.getCodResponsavel() )  {
+               int i = req.getInt("cod");
+               con.close();
+               return i;
+           }  
+               
            }
        }
  
@@ -118,6 +123,7 @@ return 0;
         conexao.closeConnection();
 
         }
+        con.close();
         return null;
     }
      public static ResultSet  listaRequisicaoPendente() throws SQLException, ClassNotFoundException{
@@ -138,6 +144,7 @@ return 0;
         conexao.closeConnection();
 
         }
+        con.close();
         return null;
     }
     
@@ -163,6 +170,7 @@ return 0;
             while(resul.next()){
                requisicao req;
                req  =  new requisicao(resul.getInt("codFuncionario"), resul.getInt("cod"), resul.getInt("stat"), resul.getInt("codResponsavel"), resul.getTimestamp("dataRequisicao"));
+               con.close();
              return req;   
             }
            }
@@ -172,6 +180,7 @@ return 0;
         conexao.closeConnection();
 
         }
+        con.close();
         return null;
         
     }
@@ -189,7 +198,10 @@ return 0;
         PreparedStatement stmt;
         stmt = con.prepareStatement("UPDATE requisicaosaida set stat=1 WHERE cod  = ?");
         stmt.setInt(1, cod);
-        return  ! stmt.execute();
+        boolean sal;
+        sal = ! stmt.execute();
+        con.close();
+        return  sal;
     }
 
     /**
@@ -205,6 +217,9 @@ return 0;
         PreparedStatement stmt;
         stmt = con.prepareStatement("UPDATE requisicaosaida set stat= 5 WHERE cod  = ?");
         stmt.setInt(1, cod);
-        return ! stmt.execute();
+        boolean sal = ! stmt.execute();
+        con.close();
+        
+        return sal;
     }
 }
