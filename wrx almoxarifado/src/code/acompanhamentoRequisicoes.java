@@ -48,24 +48,36 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-                    // Simulate doing something useful.
+                    
                     while(true) {
-                        Thread.sleep(120000);
-                        atualizaTable();
-                        System.out.println("FOI");
+                        Thread.sleep(90000);
+                        try{
+                             atualizaTable();
+                        }catch(SQLException e){
+                            System.out.println(e);
+                        }
+
                     }
                 }
             };
 
-           worker.execute();
+          try
+          {
+              worker.execute();
+          }catch(Exception e){
+              System.out.println(e);
+              worker.execute();
+          }
         
     }
     
     public final void atualizaTable() throws SQLException, ClassNotFoundException{
+        int s = a.size();
        a.clear();
        ResultSet requisicoes;
-       requisicoes =  listaRequisicaoPendente();
-        this.tabela = (DefaultTableModel) this.jTable1.getModel();
+       try{
+           requisicoes =  listaRequisicaoPendente();
+           this.tabela = (DefaultTableModel) this.jTable1.getModel();
         int aux;
         aux = 0;    
         while(requisicoes.next()){
@@ -78,6 +90,15 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         this.a.add(new requisicao(requisicoes.getInt("codFuncionario"), requisicoes.getInt("cod"), requisicoes.getInt("stat"),  requisicoes.getInt("codResponsavel"), requisicoes.getTimestamp("dataRequisicao")));
         }
         requisicoes.close();
+        if(a.size() > s){
+            this.requestFocus();
+        }
+       }catch(SQLException | ClassNotFoundException e){
+           System.out.println(e);
+       }
+       
+       
+        
     }
    
     /**

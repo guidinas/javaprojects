@@ -140,9 +140,9 @@ return 0;
           } 
         }catch(SQLException ex){  // Tratamento  das exceções
         System.out.println(ex);
+          throw ex;
         } finally{ // Encerramento da conexão
-        conexao.closeConnection();
-
+          
         }
         con.close();
         return null;
