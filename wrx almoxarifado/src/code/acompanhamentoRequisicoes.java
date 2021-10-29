@@ -48,16 +48,19 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-                    
-                    while(true) {
+                    try{
+                        while(true) {
                         Thread.sleep(90000);
-                        try{
                              atualizaTable();
-                        }catch(SQLException e){
-                            System.out.println(e);
-                        }
-
                     }
+                    }catch(Exception e){
+                        System.out.println(e);
+                         while(true) {
+                        Thread.sleep(1);
+                             atualizaTable();
+                    }
+          }
+                    
                 }
             };
 
@@ -66,6 +69,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
               worker.execute();
           }catch(Exception e){
               System.out.println(e);
+              System.out.println(" lualana ");
               worker.execute();
           }
         
@@ -75,7 +79,6 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         int s = a.size();
        a.clear();
        ResultSet requisicoes;
-       try{
            requisicoes =  listaRequisicaoPendente();
            this.tabela = (DefaultTableModel) this.jTable1.getModel();
         int aux;
@@ -92,13 +95,7 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         requisicoes.close();
         if(a.size() > s){
             this.requestFocus();
-        }
-       }catch(SQLException | ClassNotFoundException e){
-           System.out.println(e);
-       }
-       
-       
-        
+        } 
     }
    
     /**

@@ -9,7 +9,9 @@ package modelosDAO;
 import DatabaseConnection.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import modelosBean.consumivel;
 
 /**
@@ -33,4 +35,31 @@ public class consumivelDAO {
         }
         return false;
     }
+
+    /**
+     *
+     * @return A ArrayList with all the comsumivel or null if there is a problem with the Database 
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static ArrayList<consumivel> listaConsumivel() throws SQLException, ClassNotFoundException {
+        Connection con;
+        con = conexao.getConnection();
+        ArrayList<consumivel> cons;
+        cons =  new ArrayList<>();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("SELECT * FROM consumivel");
+        if(stmt.execute()){
+            ResultSet a;
+            a  = stmt.getResultSet();
+            while(a.next()){
+                cons.add(new consumivel(a.getString("nome"), a.getInt("min"), a.getInt("max")));
+            }
+            con.close();
+            return cons;
+        }
+        return null;
+        
+}
+    
 }

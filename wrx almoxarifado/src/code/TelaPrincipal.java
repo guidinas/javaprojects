@@ -111,6 +111,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         saidaConsumiveis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         saidaConsumiveis.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         saidaConsumiveis.setText("Saída de Consumíveis ");
+        saidaConsumiveis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saidaConsumiveisActionPerformed(evt);
+            }
+        });
         SaidaEPI.add(saidaConsumiveis);
 
         saidaEPC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
@@ -334,6 +339,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cadRes.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void saidaConsumiveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saidaConsumiveisActionPerformed
+        // TODO add your handling code here:
+        telaSaidaConsumivel tel;
+ 
+        
+        try {
+            tel = new telaSaidaConsumivel();
+            this.desktopPrincipal.add(tel);
+            tel.setVisible(true);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+            
+            
+        
+    }//GEN-LAST:event_saidaConsumiveisActionPerformed
     
     /**
      * @param args the command line arguments

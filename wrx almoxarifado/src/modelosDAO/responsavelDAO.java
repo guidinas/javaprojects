@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import modelosBean.responsavel;
 
 /**
@@ -35,7 +36,6 @@ public class responsavelDAO {
                     // Método responsável por fazer a alteração no banco de dados
                     boolean executeok = stmt.execute();
                    ResultSet resul = stmt.getResultSet();
-                    System.out.println(resul);
                     return resul;
             }catch(SQLException ex){  // Tratamento  das exceções
                  System.out.println(ex);
@@ -101,6 +101,38 @@ public class responsavelDAO {
            }
        }
         con.close();
-     return null;
+        return null;
+            }
+
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<responsavel> listaResponsavelArray() throws SQLException, ClassNotFoundException {
+         Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
+        PreparedStatement stmt;
+        ArrayList <responsavel> result;
+        result = new ArrayList<>();
+            try{
+             // Inserindo o comando SQL a ser usado
+                stmt = con.prepareStatement("SELECT  cod , nome FROM responsavel  ");
+                 // O método setString, define que o valor passado será do tipo inteiro
+                    // Método responsável por fazer a alteração no banco de dados
+                    boolean executeok = stmt.execute();
+                   ResultSet resul = stmt.getResultSet();
+                   while(resul.next()){
+                       result.add(new responsavel(resul.getString("nome"), resul.getInt("cod")));
+                   }
+                   con.close();
+                   return result;
+                   
+            }catch(SQLException ex){  // Tratamento  das exceções
+                 System.out.println(ex);
+            } finally{ // Encerramento da conexão
+            conexao.closeConnection();
+
+            }
+            con.close();
+        return null;
     }
 }

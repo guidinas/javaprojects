@@ -88,6 +88,8 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
                int i = req.getInt("cod");
                con.close();
                return i;
+           }else{
+               return -1;
            }  
                
            }
@@ -129,7 +131,6 @@ return 0;
      public static ResultSet  listaRequisicaoPendente() throws SQLException, ClassNotFoundException{
         Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt;
-        try{
          // Inserindo o comando SQL a ser usado
         stmt = con.prepareStatement("SELECT *  FROM requisicaosaida WHERE stat = 0 ORDER BY dataRequisicao DESC");
          // O método setString, define que o valor passado será do tipo inteiro
@@ -138,12 +139,7 @@ return 0;
               ResultSet resul = stmt.getResultSet();
             return resul;
           } 
-        }catch(SQLException ex){  // Tratamento  das exceções
-        System.out.println(ex);
-          throw ex;
-        } finally{ // Encerramento da conexão
-          
-        }
+
         con.close();
         return null;
     }

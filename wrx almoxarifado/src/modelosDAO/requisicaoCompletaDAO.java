@@ -37,19 +37,13 @@ public class requisicaoCompletaDAO {
         return false;
     }
     public static requisicaoCompleta retornaRequisicaoCompleta(int cod) throws SQLException, ClassNotFoundException{
-       try{
         requisicao req;
-        req  = retornaRequisicao(cod);
+        req = retornaRequisicao(cod);
         ArrayList<epiSolicitacao> arrayItens;
         arrayItens = retornaEPIsolicitacao(cod);
         requisicaoCompleta a;
         a = new requisicaoCompleta(req, arrayItens, 0);
         return a;
-       }catch(SQLException |ClassNotFoundException a){
-           System.out.println(a);
-       }
-        return null;
-        
     }
 
     /**

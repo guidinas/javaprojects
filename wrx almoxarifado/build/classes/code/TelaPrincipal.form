@@ -55,6 +55,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sa&#xed;da de Consum&#xed;veis "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saidaConsumiveisActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="saidaEPC">
               <Properties>

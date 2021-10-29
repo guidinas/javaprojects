@@ -41,15 +41,14 @@ return DriverManager.getConnection(URL, USER, PASSWORD);
 
 }catch(ClassNotFoundException | SQLException ex){ // Tratamento de Exceções
 
-System.out.println(ex);
 
-return null;
+    throw ex;
 
 }
 
 }
 public static Connection closeConnection(){
-    
+ 
 return null;
 }
 

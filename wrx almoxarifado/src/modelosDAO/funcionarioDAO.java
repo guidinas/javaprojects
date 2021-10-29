@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import modelosBean.funcionario;
 
 /**
@@ -125,6 +128,27 @@ return null;
         
         con.close();
         return null;
+      }
+
+    public static ArrayList<funcionario> listaFuncionarioArray() throws SQLException, ClassNotFoundException {
+        DateFormat form;
+        form = new SimpleDateFormat("dd/mm/yyyy");
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("SELECT * FROM funcionario");
+        if( stmt.execute()){
+            ResultSet a;
+            ArrayList <funcionario> func;
+            func = new ArrayList<>();
+            a = stmt.getResultSet();
+            while(a.next()){
+                func.add(new funcionario(a.getInt("cod"), a.getString("nome"),a.getInt("funcao") , form.format(a.getDate("admissao"))));
+            }
+            con.close();
+            return func;
+        }
+      return null;
         
     }
 }
