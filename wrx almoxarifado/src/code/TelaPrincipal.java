@@ -57,6 +57,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         entradaFerramenta = new javax.swing.JMenuItem();
         entradaConsumiveis = new javax.swing.JMenuItem();
         entradaEPC = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -154,6 +156,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         entradaEPI.add(entradaEPC);
 
         jMenuBar1.add(entradaEPI);
+
+        jMenu2.setText("Estoque");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMenuItem8.setText("Checagem de Estoque");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Histórico de saída ");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -357,6 +372,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_saidaConsumiveisActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        checaEstoque alt;
+        alt = new checaEstoque();
+        this.desktopPrincipal.add(alt);
+        alt.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -404,6 +427,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu entradaEPI;
     private javax.swing.JMenuItem entradaFerramenta;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -414,6 +438,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem saidaConsumiveis;
     private javax.swing.JMenuItem saidaEPC;
     private javax.swing.JMenuItem saidaEPI;

@@ -16,6 +16,13 @@ public class marcaEPI {
     private int quantidade;
     private int codEPI;
     private String descricao;
+
+    public marcaEPI(int cod, String nome, int quantidade, int codEPI) {
+        this.cod = cod;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.codEPI = codEPI;
+    }
     
     public marcaEPI(String nome, int codEPI) {
         this.nome = nome;

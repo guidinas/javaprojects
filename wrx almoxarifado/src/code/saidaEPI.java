@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
 import modelosBean.funcionario;
 import modelosBean.itemRequisicao;
+import modelosBean.marcaEPI;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
 import modelosBean.responsavel;
@@ -36,6 +37,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private final ArrayList<responsavel> c;
     private requisicao req;
     private ArrayList<itemRequisicao> itens;
+    private ArrayList<marcaEPI> marcas;
     /**
      * Creates new form saidaEPI
      * @throws java.sql.SQLException
@@ -67,12 +69,16 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 this.selecionaResponsavel.addItem(responsaveis.getString("nome"));
                 c.add(new responsavel(responsaveis.getString("nome"), responsaveis.getInt("cod")));
         }
+        
             
           //  this.selecionaItem.setEnabled(false);
             this.selecionaQuantidade.setEnabled(false);
             this.geraSolicitacao.setEnabled(false);
             this.addRequisicao.setEnabled(false);
             this.selecionaItem.setEnabled(false);
+    }
+    private void marcaEPIs(){
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,6 +104,8 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         geraSolicitacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        SelecionaMarcaEPI = new javax.swing.JComboBox();
 
         setClosable(true);
         setResizable(true);
@@ -187,6 +195,16 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Marca");
+
+        SelecionaMarcaEPI.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        SelecionaMarcaEPI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelecionaMarcaEPIActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -211,15 +229,19 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(109, 109, 109)
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                                .addComponent(SelecionaMarcaEPI, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(addRequisicao)
                                 .addGap(70, 70, 70))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -243,7 +265,8 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
                         .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -251,9 +274,10 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addRequisicao)
                     .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SelecionaMarcaEPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(geraSolicitacao)
                 .addContainerGap())
@@ -357,8 +381,13 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void SelecionaMarcaEPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionaMarcaEPIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SelecionaMarcaEPIActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox SelecionaMarcaEPI;
     private javax.swing.JButton addRequisicao;
     private javax.swing.JButton geraSolicitacao;
     private javax.swing.JButton jButton1;
@@ -366,6 +395,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
