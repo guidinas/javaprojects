@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import modelosBean.EPI;
 
 /**
@@ -108,4 +109,22 @@ conexao.closeConnection();
 con.close();
 return 0;
 } 
+
+    public static ArrayList<EPI> listaEPIArray() throws SQLException, ClassNotFoundException {
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("SELECT * FROM epi");
+        if(stmt.execute()){
+            ArrayList<EPI> eps;
+            eps = new ArrayList<>();
+            ResultSet res;
+            res = stmt.getResultSet();
+            while(res.next()){
+                eps.add(new EPI(res.getInt("cod"), res.getString("nome"),res.getInt("minimo"), res.getInt("maximo")));
+            }
+            return eps;
+        }
+        return null;
+    }
 }

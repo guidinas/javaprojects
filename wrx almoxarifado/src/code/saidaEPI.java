@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.EPI;
+import modelosBean.estoqueEPI;
 import modelosBean.funcionario;
 import modelosBean.itemRequisicao;
 import modelosBean.marcaEPI;
@@ -23,9 +24,12 @@ import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
 import modelosBean.responsavel;
 import modelosDAO.EPIDAO;
+import static modelosDAO.estoqueEPIDAO.retornaEPIEstoque;
 import static modelosDAO.funcionarioDAO.listaFuncionario;
+import static modelosDAO.funcionarioDAO.listaFuncionarioArray;
 import modelosDAO.requisicaoCompletaDAO;
 import static modelosDAO.responsavelDAO.listaResponsavel;
+import static modelosDAO.responsavelDAO.listaResponsavelArray;
 
 /**
  *
@@ -37,7 +41,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private final ArrayList<responsavel> c;
     private requisicao req;
     private ArrayList<itemRequisicao> itens;
-    private ArrayList<marcaEPI> marcas;
+    private ArrayList<estoqueEPI> marcas;
     /**
      * Creates new form saidaEPI
      * @throws java.sql.SQLException
@@ -47,29 +51,20 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         initComponents();
         //Preenchimento dos Combo Box
         this.itens = new ArrayList<>();
-        ResultSet funcionarios;
-        funcionarios =listaFuncionario();
-        a =new ArrayList<>();
-            while(funcionarios.next()){
-                this.selecionaFuncionario.addItem(funcionarios.getString("nome"));
-                a.add(new funcionario(funcionarios.getInt("cod"),funcionarios.getString("nome"), funcionarios.getInt("funcao"), funcionarios.getString("admissao")));
+        a =listaFuncionarioArray();
+            for(funcionario lat: a ){
+                this.selecionaFuncionario.addItem(lat.getNome());
+                }
+            b = EPIDAO.listaEPIArray();
+           for(EPI eat : b){
+                this.selecionaItem.addItem(eat.getNome());
         }
-        ResultSet epis;
-        epis = EPIDAO.listaEPI();
-        b = new ArrayList<>();
-            while(epis.next()){
-                this.selecionaItem.addItem(epis.getString("nome"));
-                b.add(new EPI(epis.getInt("cod"), epis.getString("nome")));
+        c = listaResponsavelArray();
+        for(responsavel ets : c ){
+                this.selecionaResponsavel.addItem(ets.getNome());
+           
         }
-        ResultSet responsaveis;
-        c = new ArrayList<>();
-        responsaveis = listaResponsavel();
-        while(responsaveis.next()){
-            System.out.println(responsaveis.getInt("cod"));
-                this.selecionaResponsavel.addItem(responsaveis.getString("nome"));
-                c.add(new responsavel(responsaveis.getString("nome"), responsaveis.getInt("cod")));
-        }
-        
+        this.marcas = retornaEPIEstoque();
             
           //  this.selecionaItem.setEnabled(false);
             this.selecionaQuantidade.setEnabled(false);
