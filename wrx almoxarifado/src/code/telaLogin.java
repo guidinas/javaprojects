@@ -18,6 +18,12 @@ import modelosDAO.loginDAO;
  * @author guidi
  */
 public class telaLogin extends javax.swing.JFrame {
+    private int func;
+
+    public int getFunc() {
+        return func;
+    }
+    
 
     /**
      * Creates new form telaLogin
@@ -122,9 +128,9 @@ public class telaLogin extends javax.swing.JFrame {
        String login = txtLogin.getText();
        String Senha = txtSenha.getText();
        login m  = new login(login,Senha);
-        
            try {
-               if( loginDAO.checaLogin(m)){
+               this.func = loginDAO.checaLogin(m);
+               if(func != -1 ){
                   TelaPrincipal tela = null;
                    try {
                        tela = new TelaPrincipal();
@@ -179,7 +185,7 @@ public class telaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new telaLogin().setVisible(true);
-                ;
+                
             }
         });
     }

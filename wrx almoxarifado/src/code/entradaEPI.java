@@ -6,17 +6,25 @@
 
 package code;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import modelosBean.estoqueEPI;
+import modelosDAO.estoqueEPIDAO;
+
 /**
  *
  * @author guidi
  */
 public class entradaEPI extends javax.swing.JInternalFrame {
-
+    private ArrayList<estoqueEPI> list;
+    
     /**
      * Creates new form entradaEPI
      */
-    public entradaEPI() {
+    public entradaEPI() throws SQLException, ClassNotFoundException {
         initComponents();
+        this.list = estoqueEPIDAO.retornaEPIEstoque();
+        
     }
 
     /**

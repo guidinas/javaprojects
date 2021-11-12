@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 
 public class TelaPrincipal extends javax.swing.JFrame {
-
+    private static int func;
     /**
      * Creates new form TelaPrincipal
      * @throws java.lang.InterruptedException
@@ -25,14 +25,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * @throws java.lang.ClassNotFoundException
      */
     public TelaPrincipal() throws InterruptedException, SQLException, ClassNotFoundException {
+        
+        this.func = func;
         initComponents();
-        acompanhamentoRequisicoes acomp;
+        if(func == 0 ){
+            acompanhamentoRequisicoes acomp;
         acomp = new acompanhamentoRequisicoes(desktopPrincipal);
         this.desktopPrincipal.add(acomp);
         acomp.setVisible(true);
         Dimension desktopSize = this.desktopPrincipal.getSize();
         Dimension jInternalFrameSize = acomp.getSize();
         acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
+        }
+        
 
     }
 

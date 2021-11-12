@@ -24,8 +24,6 @@ public static boolean criaMarcaEPI(marcaEPI m) throws SQLException, ClassNotFoun
 
 PreparedStatement stmt;
 
-try{
-
  // Inserindo o comando SQL a ser usado
 
 stmt = con.prepareStatement("INSERT INTO marcaEPI (nome, codEPI) VALUES (? ,?) ");
@@ -35,17 +33,11 @@ stmt = con.prepareStatement("INSERT INTO marcaEPI (nome, codEPI) VALUES (? ,?) "
  stmt.setInt(2, m.getCodEPI());
 
     // Método responsável por fazer a alteração no banco de dados
-    boolean executeok = stmt.execute();
-    stmt.close();
+ if(! stmt.execute()){
+     stmt.close();
         con.close();
        return true;
-
-}catch(SQLException ex){  // Tratamento das exceções
-
-System.out.println(ex);
-
-} finally{ // Encerramento da conexão
-}
+ }
 con.close();
 return false ;
 }

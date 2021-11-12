@@ -19,7 +19,7 @@ import modelosBean.login;
 public class loginDAO {
     // O retorno é vazio, e recebe um objeto do tipo Membros
 
-public static boolean checaLogin(login m) throws SQLException, ClassNotFoundException{
+public static int checaLogin(login m) throws SQLException, ClassNotFoundException{
 
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 
@@ -44,8 +44,9 @@ stmt = con.prepareStatement("SELECT * FROM login WHERE login = ? AND senha = ? "
         String firstName = A.getString("login");
         // print the results
         if(id>0){
+            int func = A.getInt("funcao");
             con.close();
-            return true;
+            return func ;
         }
       }
 }catch(SQLException ex){  // Tratamento das exceções
@@ -58,7 +59,7 @@ conexao.closeConnection();
 
 }
 con.close();
-return false;
+return -1;
 }
     
 public static boolean criaLogin (login m) throws SQLException, ClassNotFoundException{

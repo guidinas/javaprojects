@@ -285,9 +285,10 @@ public final class cadastroMarcaEPI extends javax.swing.JInternalFrame {
        nome = this.nomeMarca.getText();
        marcaEPI marca;
        marca = new marcaEPI(nome, selected.getCod());
-
+       if(nome.isEmpty()){
+           JOptionPane.showMessageDialog(null, "Digite um nome válido");
+       }else{
            boolean criaMarcaEPI;
-           
            try {           
                criaMarcaEPI = marcaEPIDAO.criaMarcaEPI(marca);
                if(criaMarcaEPI){
@@ -295,8 +296,13 @@ public final class cadastroMarcaEPI extends javax.swing.JInternalFrame {
                }
            } catch (SQLException | ClassNotFoundException ex) {
                JOptionPane.showMessageDialog(null, "Falha de Banco de Dados");
-               Logger.getLogger(cadastroMarcaEPI.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex);
+               this.descricaoMarca.setText("");
+               this.nomeMarca.setText("");
            }
+       }
+
+           
 
        
     }//GEN-LAST:event_jButton2ActionPerformed

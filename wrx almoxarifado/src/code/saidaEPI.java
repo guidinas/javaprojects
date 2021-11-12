@@ -6,11 +6,8 @@
 
 package code;
 
-import java.awt.Component;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,16 +16,13 @@ import modelosBean.EPI;
 import modelosBean.estoqueEPI;
 import modelosBean.funcionario;
 import modelosBean.itemRequisicao;
-import modelosBean.marcaEPI;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
 import modelosBean.responsavel;
 import modelosDAO.EPIDAO;
 import static modelosDAO.estoqueEPIDAO.retornaEPIEstoque;
-import static modelosDAO.funcionarioDAO.listaFuncionario;
 import static modelosDAO.funcionarioDAO.listaFuncionarioArray;
 import modelosDAO.requisicaoCompletaDAO;
-import static modelosDAO.responsavelDAO.listaResponsavel;
 import static modelosDAO.responsavelDAO.listaResponsavelArray;
 
 /**
@@ -131,6 +125,16 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         selecionaFuncionario.setNextFocusableComponent(jButton1);
 
         selecionaItem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        selecionaItem.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selecionaItemItemStateChanged(evt);
+            }
+        });
+        selecionaItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionaItemActionPerformed(evt);
+            }
+        });
 
         selecionaQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         selecionaQuantidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " }));
@@ -303,12 +307,13 @@ public class saidaEPI extends javax.swing.JInternalFrame {
       itemIndex = this.selecionaItem.getSelectedIndex();
       itemCod = this.b.get(itemIndex).getCod();
       int quantidadeInt;
+      int codMarca;
+      codMarca = this.marcas.get(this.SelecionaMarcaEPI.getSelectedIndex()).getCodMArca();
       quantidadeInt = this.selecionaQuantidade.getSelectedIndex() + 1;
-      this.itens.add(new itemRequisicao(itemCod, quantidadeInt));
+      this.itens.add(new itemRequisicao(itemCod, quantidadeInt, codMarca));
         System.out.println(this.itens.size());
       // adiciona esse item a tabela 
       DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
-      
       //  ITEM QUANTIDADE
       Object item ,quant;
       item = this.b.get(itemIndex).getNome();
@@ -343,15 +348,16 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         requisicaoCompleta ultima;
         ultima = new requisicaoCompleta(req, itens);
-        Boolean envio; 
+        Boolean envio;
             try {
+                if(requisicaoCompletaDAO.checaitens(ultima)){
                 if(0==JOptionPane.showInternalConfirmDialog(rootPane,"Confirmar solicitação?")){
                     envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
                     JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
-                    
                 }else{
                     JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
-                }       
+                }
+                }
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(saidaEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -365,11 +371,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
             this.selecionaItem.setEnabled(false);
             this.selecionaResponsavel.setEnabled(true);
             this.selecionaFuncionario.setEnabled(true);
-            this.jButton1.setEnabled(true);
-            
-        
-        
-        
+            this.jButton1.setEnabled(true);    
     }//GEN-LAST:event_geraSolicitacaoActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -379,6 +381,30 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private void SelecionaMarcaEPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionaMarcaEPIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SelecionaMarcaEPIActionPerformed
+
+    private void selecionaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaItemActionPerformed
+        // TODO add your handling code here:
+  
+    }//GEN-LAST:event_selecionaItemActionPerformed
+
+    private void selecionaItemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selecionaItemItemStateChanged
+        // TODO add your handling code here:
+        this.SelecionaMarcaEPI.removeAllItems();
+        int index, cod;
+        index  = this.selecionaItem.getSelectedIndex();
+        cod = this.b.get(index).getCod();
+        System.out.println(cod);
+       try{
+           for(estoqueEPI a: marcas){
+            if(a.getCodEPI() == cod){
+                this.SelecionaMarcaEPI.addItem(a.getNomeMarca());
+            }
+        }
+       }catch(Exception e){
+                System.out.println(e);
+                }
+        
+    }//GEN-LAST:event_selecionaItemItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,7 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import modelosBean.epiSolicitacao;
+import modelosBean.estoqueEPI;
 import modelosBean.itemRequisicao;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
@@ -87,5 +89,27 @@ public class requisicaoCompletaDAO {
         }
         con.close();
         return null;
+    }
+    public static boolean checaitens(requisicaoCompleta ultima) throws SQLException, ClassNotFoundException {
+        // Precisa  saber se tem a quantidade de itens em estoque da marca especificada
+        // precisa contar o total das marcas que forem alteradas para saber se está dentro do máximo e mínimo.
+        ArrayList<estoqueEPI> list;
+        list = estoqueEPIDAO.retornaEPIEstoque();
+        ArrayList<itemRequisicao> sai;
+        sai = ultima.getItemCorpo();
+        for(itemRequisicao A : sai){
+            for(estoqueEPI a : list){
+                if(a.getCodEPI()==A.getCodEPI() && a.getCodMArca() == A.getCodMarca()){
+                    if(A.getQuantidade() > a.getQuantidade() ){
+                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item excede a quantidade registrada no sistema \n EPI: " + a.getNomeEPI()  + "\n Da marca:  " + a.getNomeMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
+                        return false;
+                    }
+                    if((a.getMinimo() - A.getQuantidade()) < a.getMinimo() ){
+                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item faz com que a quantidade em estoque seja menor do que o mínimo cadastrado  EPI: " + a.getNomeEPI()  + "\n Da marca:  " + a.getNomeMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
+                    }
+                }
+            }
+        } 
+        return true;
     }
 }
