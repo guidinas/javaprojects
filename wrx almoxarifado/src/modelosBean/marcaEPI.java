@@ -24,9 +24,10 @@ public class marcaEPI {
         this.codEPI = codEPI;
     }
     
-    public marcaEPI(String nome, int codEPI) {
+    public marcaEPI(String nome, int codEPI, String descricao) {
         this.nome = nome;
         this.codEPI = codEPI;
+        this.descricao = descricao;
     }
 
     public String getDescricao() {

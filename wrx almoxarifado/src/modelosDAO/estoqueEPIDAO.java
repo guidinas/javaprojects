@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelosBean.EPI;
 import modelosBean.estoqueEPI;
 
 /**
@@ -38,4 +39,27 @@ public class estoqueEPIDAO {
         con.close();
         return null;
     }
+    
+    /**
+     * returns de list with all the distinct EPIS on the estoqueEPI Array 
+     * @param original
+     * @return
+     */
+    public static ArrayList<EPI> devolveArrayEPI(ArrayList<estoqueEPI> original){
+        ArrayList<Integer> cods;
+        int cod;
+        cods = new ArrayList<>();
+        ArrayList<EPI> epis;
+        epis = new ArrayList<>();
+        for(estoqueEPI a : original){
+
+             cod = a.getCodEPI();
+            if(!cods.contains(cod)){
+                epis.add( new EPI(a.getCodEPI(), a.getNomeEPI(),a.getMinimo(), a.getMaximo()));
+                cods.add(cod);
+            }      
+        }
+        return epis;
+    }
+    
 }

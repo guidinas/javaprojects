@@ -138,6 +138,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setText("Entrada EPI");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         entradaEPI.add(jMenuItem1);
 
         entradaFerramenta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
@@ -385,6 +390,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.desktopPrincipal.add(alt);
         alt.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        entradaEPI entry;
+        try {
+            entry = new entradaEPI();
+            this.desktopPrincipal.add(entry);
+            entry.setVisible(true);
+        }catch(ClassNotFoundException|SQLException e){
+            System.out.println(e);
+        }
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     /**
      * @param args the command line arguments

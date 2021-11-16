@@ -8,6 +8,7 @@ package code;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelosBean.EPI;
 import modelosBean.estoqueEPI;
 import modelosDAO.estoqueEPIDAO;
 
@@ -17,6 +18,7 @@ import modelosDAO.estoqueEPIDAO;
  */
 public class entradaEPI extends javax.swing.JInternalFrame {
     private ArrayList<estoqueEPI> list;
+    private ArrayList<EPI> epis;
     
     /**
      * Creates new form entradaEPI
@@ -24,7 +26,10 @@ public class entradaEPI extends javax.swing.JInternalFrame {
     public entradaEPI() throws SQLException, ClassNotFoundException {
         initComponents();
         this.list = estoqueEPIDAO.retornaEPIEstoque();
-        
+        epis = estoqueEPIDAO.devolveArrayEPI(list);
+        for(EPI a: epis){
+            this.SelecionaTipo.addItem(a.getNome());
+        }
     }
 
     /**
@@ -52,6 +57,11 @@ public class entradaEPI extends javax.swing.JInternalFrame {
         jLabel1.setText("Tipo EPI");
 
         SelecionaTipo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        SelecionaTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                SelecionaTipoItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Quantidade a ser Adicionada");
@@ -70,6 +80,11 @@ public class entradaEPI extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Adicionar ao total");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,6 +147,33 @@ public class entradaEPI extends javax.swing.JInternalFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void SelecionaTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SelecionaTipoItemStateChanged
+        // TODO add your handling code here:
+        this.SelecionaMarca.removeAllItems();
+        int opt,cod;
+        opt = this.SelecionaTipo.getSelectedIndex();
+        cod = this.epis.get(opt).getCod();
+        for(estoqueEPI e: this.list){
+            if(e.getCodEPI() == cod){
+                this.SelecionaMarca.addItem(e.getNomeMarca());
+            }
+        }
+    }//GEN-LAST:event_SelecionaTipoItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int aux, codMarca, codEPI,quantidade;
+        aux = this.SelecionaTipo.getSelectedIndex();
+        codEPI = this.epis.get(aux).getCod();
+        for(estoqueEPI e: list){
+            if(this.SelecionaMarca.getSelectedItem() == e.getNomeMarca()){
+                codMarca = e.getCodMArca();
+            }
+            quantidade = Integer.parseInt(this.jTextField1.getText());
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

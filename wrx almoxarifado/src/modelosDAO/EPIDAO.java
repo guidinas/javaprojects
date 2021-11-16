@@ -30,7 +30,7 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO EPI (nome, minimo ,maximo) VALUES ( ?, ?, ?) ");
+stmt = con.prepareStatement("INSERT INTO epi (nome, minimo ,maximo) VALUES ( ?, ?, ?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
  stmt.setString(1, m.getNome());

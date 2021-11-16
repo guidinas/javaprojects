@@ -6,6 +6,8 @@
 
 package modelosBean;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author guidi
@@ -84,7 +86,6 @@ public class estoqueEPI {
     public void setCodMArca(int codMArca) {
         this.codMarca = codMArca;
     }
-    
     
     
 }
