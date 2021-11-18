@@ -135,4 +135,8 @@ public class responsavelDAO {
             con.close();
         return null;
     }
+
+    public static boolean checaSenha(String showInputDialog) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

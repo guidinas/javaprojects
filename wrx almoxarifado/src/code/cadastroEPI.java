@@ -7,10 +7,12 @@
 package code;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelosBean.EPI;
+import modelosBean.EPIMarca;
 import modelosDAO.EPIDAO;
 
 /**
@@ -35,39 +37,68 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        nomeMarca = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descricaoMarca = new javax.swing.JTextArea();
+        CA = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        dataCA = new javax.swing.JFormattedTextField();
         maximo = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         minimo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nomeEPI = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro EPI novo");
 
-        jLabel5.setText("Nome");
+        jLabel14.setText("Nome Marca ");
 
-        jLabel6.setText("Minimo");
+        jLabel15.setText("C.A.");
 
-        jLabel7.setText("Máximo");
+        jLabel16.setText("Informações adicionais");
 
-        nome.addActionListener(new java.awt.event.ActionListener() {
+        nomeMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeActionPerformed(evt);
+                nomeMarcaActionPerformed(evt);
             }
         });
+
+        jButton3.setText("Cadastrar ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        descricaoMarca.setColumns(20);
+        descricaoMarca.setRows(5);
+        jScrollPane1.setViewportView(descricaoMarca);
+
+        CA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CAActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Data de Validade C.A.");
+
+        try {
+            dataCA.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         maximo.setText("000");
 
-        jButton2.setText("Adicionar ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Máximo");
 
         minimo.setText("000");
         minimo.addActionListener(new java.awt.event.ActionListener() {
@@ -76,34 +107,48 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(minimo)
-                    .addComponent(maximo)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(nome)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(33, 33, 33))
+        jLabel6.setText("Minimo");
+
+        nomeEPI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeEPIActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Nome");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                        .addComponent(minimo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(maximo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nomeMarca, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(CA, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dataCA, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nomeEPI)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomeEPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
@@ -113,8 +158,24 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(maximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addComponent(nomeMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(CA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(dataCA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,65 +183,80 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+    private void nomeEPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeEPIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        EPI m;
-        int intMinimo = Integer.parseInt(minimo.getText());
-        int intMaximo = Integer.parseInt(maximo.getText());
-        String stringNome = nome.getText();
-        m = new EPI(stringNome, intMinimo, intMaximo);
-        
-         if(0==JOptionPane.showInternalConfirmDialog(rootPane, "Deseja adicionar o seguinte EPI ? \n Nome:  " + stringNome + "\n Quant mínima: " + intMinimo + "\n Quant máxima:  " + intMaximo )){
-            try {
-                if(EPIDAO.criaEPI(m)){
-                    JOptionPane.showMessageDialog(null ,"Item adicionado com sucesso!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Falha ao Adicionar \n Cheque se ja existe esse nome na lista de EPI \n Se não houver, contate o gestor do sistema");
-                }
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(cadastroEPI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         } else {
-              JOptionPane.showMessageDialog(null ,"Operação Cancelada !");
-         }    
-        this.nome.setText("");
-        this.maximo.setText("");
-        this.minimo.setText("");
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_nomeEPIActionPerformed
 
     private void minimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_minimoActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Botão Cadastrar deve:
+        // Confirmar  se o mesmo produto não está cadastrado e confirmar se os dados estão corretos na tela antes de  inserir no banco de dados
+        //checar se a data é uma data 
+        String nomeEPIString, marcaEPIString,CAString,dataCAString,minimoString, maximoString, informacoesString;
+        CAString  = this.CA.getText();
+        nomeEPIString = this.nomeEPI.getText();
+        marcaEPIString = this.nomeMarca.getText();
+        minimoString = this.minimo.getText();
+        maximoString = this.maximo.getText();
+        informacoesString = this.descricaoMarca.getText();
+        dataCAString =this.dataCA.getText();
+        int minimoInt,maximoInt;
+        minimoInt = Integer.parseInt(minimoString);
+        maximoInt = Integer.parseInt(maximoString);
+        String[] datasplited;
+        datasplited = dataCAString.split("/");
+        Date dataFinal;
+        dataFinal = new Date(Integer.parseInt(datasplited[2]), Integer.parseInt(datasplited[1]), Integer.parseInt(datasplited[0]));
+        EPIMarca finale;
+        finale = new EPIMarca( nomeEPIString ,maximoInt, minimoInt , informacoesString ,CAString , dataFinal, marcaEPIString);
+        if(0 == JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja adicionar o Seguinte EPI : \n Nome : "+ finale.getNome() +"\n Marca: " +finale.getMarca() + "\n C.A. : " + finale.getCA()+ "\n Para adicionar clique em OK" ) ){
+            System.out.println("ADD");
+        }
+        
+        
+      
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void nomeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeMarcaActionPerformed
+
+    private void CAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CAActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField CA;
+    private javax.swing.JFormattedTextField dataCA;
+    private javax.swing.JTextArea descricaoMarca;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField maximo;
     private javax.swing.JTextField minimo;
-    private javax.swing.JTextField nome;
+    private javax.swing.JTextField nomeEPI;
+    private javax.swing.JTextField nomeMarca;
     // End of variables declaration//GEN-END:variables
 }

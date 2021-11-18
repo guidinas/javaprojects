@@ -23,6 +23,7 @@ import modelosDAO.EPIDAO;
 import static modelosDAO.estoqueEPIDAO.retornaEPIEstoque;
 import static modelosDAO.funcionarioDAO.listaFuncionarioArray;
 import modelosDAO.requisicaoCompletaDAO;
+import modelosDAO.responsavelDAO;
 import static modelosDAO.responsavelDAO.listaResponsavelArray;
 
 /**
@@ -351,7 +352,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
             Boolean envio;
             try {
                 if(requisicaoCompletaDAO.checaItens(ultima)){
-                if(0==JOptionPane.showInternalConfirmDialog(rootPane,"Confirmar solicitação?")){
+                if(responsavelDAO.checaSenha(JOptionPane.showInputDialog("Digite a Senha do Responsável."))){
                     envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
                     JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
                 }else{
