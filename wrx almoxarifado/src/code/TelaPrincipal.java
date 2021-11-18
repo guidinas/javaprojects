@@ -21,14 +21,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      * @throws java.lang.InterruptedException
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
      */
-    public TelaPrincipal() throws InterruptedException, SQLException, ClassNotFoundException {
+    public TelaPrincipal() throws InterruptedException {
         
-        this.func = func;
+        
         initComponents();
-        if(func == 0 ){
+        
+        
+
+    }
+    
+    public  void setFunc(int func){
+        TelaPrincipal.func = func;
+        try{
+            if(func == 0 ){
             acompanhamentoRequisicoes acomp;
         acomp = new acompanhamentoRequisicoes(desktopPrincipal);
         this.desktopPrincipal.add(acomp);
@@ -37,8 +43,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Dimension jInternalFrameSize = acomp.getSize();
         acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
         }
-        
-
+        }catch(ClassNotFoundException |SQLException e){
+                System.out.println(e);
+                }
+         
     }
 
     /**
@@ -436,7 +444,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new TelaPrincipal().setVisible(true);
-            } catch (InterruptedException | SQLException | ClassNotFoundException ex) {
+            } catch (InterruptedException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         });

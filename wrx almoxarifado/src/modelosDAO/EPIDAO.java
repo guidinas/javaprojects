@@ -20,6 +20,13 @@ import modelosBean.EPI;
  */
 public class EPIDAO {
     
+    /**
+     *
+     * @param m
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static boolean criaEPI(EPI m) throws SQLException, ClassNotFoundException{
     
   Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
@@ -60,6 +67,7 @@ return false ;
      * @return a ResultSet with all the EPIs on database or null in case of a connection error
      * @throws SQLException
      * @throws ClassNotFoundException
+     * @deprecated 
      */
     public static ResultSet listaEPI() throws SQLException, ClassNotFoundException{
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
@@ -83,7 +91,14 @@ con.close();
 return null;
 }
     
-   public static int buscaEPINome(String m) throws SQLException, ClassNotFoundException{
+    /**
+     *
+     * @param m
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static int buscaEPINome(String m) throws SQLException, ClassNotFoundException{
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 PreparedStatement stmt;
 try{
@@ -110,6 +125,12 @@ con.close();
 return 0;
 } 
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static ArrayList<EPI> listaEPIArray() throws SQLException, ClassNotFoundException {
         Connection con;
         con = conexao.getConnection();

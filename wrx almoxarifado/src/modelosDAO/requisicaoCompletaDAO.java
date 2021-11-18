@@ -30,6 +30,13 @@ import static modelosDAO.requisicaoDAO.retornaRequisicao;
  */
 public class requisicaoCompletaDAO {
     
+    /**
+     *
+     * @param m
+     * @return true if the addition was possible and false in case there was any problems with this addition.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static boolean insereRequisicaoCompleta(requisicaoCompleta m) throws SQLException, ClassNotFoundException{
         int codRequisicao;
         codRequisicao  = criaRequisicaoCod(m.getRequisicaoCabeca());
@@ -77,6 +84,15 @@ public class requisicaoCompletaDAO {
         con.close();
         return null;
     }
+
+    /**
+     *
+     * @param cod
+     * @return 
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @deprecated 
+     */
     public static ResultSet epiSolicitação(int cod) throws SQLException, ClassNotFoundException{
         Connection con;
         con = conexao.getConnection();
@@ -84,13 +100,20 @@ public class requisicaoCompletaDAO {
         stmt = con.prepareStatement(" SELECT epi.nome , requisicaosaida.dataRequisicao , relacionarequisicaoepi.quantidade, epi.cod  FROM requisicaosaida JOIN (relacionarequisicaoepi JOIN epi ON epi.cod = relacionarequisicaoepi.codEPI) ON codRequisicao = requisicaosaida.cod WHERE requisicaosaida.cod = ?");
         stmt.setInt(1, cod);
         if(stmt.execute()){
-         
             return stmt.getResultSet();
         }
         con.close();
         return null;
     }
-    public static boolean checaitens(requisicaoCompleta ultima) throws SQLException, ClassNotFoundException {
+
+    /**
+     *
+     * @param ultima
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static boolean checaItens(requisicaoCompleta ultima) throws SQLException, ClassNotFoundException {
         // Precisa  saber se tem a quantidade de itens em estoque da marca especificada
         // precisa contar o total das marcas que forem alteradas para saber se está dentro do máximo e mínimo.
         ArrayList<estoqueEPI> list;
@@ -98,9 +121,12 @@ public class requisicaoCompletaDAO {
         ArrayList<itemRequisicao> sai;
         sai = ultima.getItemCorpo();
         for(itemRequisicao A : sai){
+            System.out.println("555");
             for(estoqueEPI a : list){
-                if(a.getCodEPI()==A.getCodEPI() && a.getCodMArca() == A.getCodMarca()){
+                if(a.getCodMArca() == A.getCodMarca()){
+                    System.out.println("ou");
                     if(A.getQuantidade() > a.getQuantidade() ){
+                        System.out.println("Tentou");
                         JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item excede a quantidade registrada no sistema \n EPI: " + a.getNomeEPI()  + "\n Da marca:  " + a.getNomeMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
                         return false;
                     }
@@ -109,7 +135,8 @@ public class requisicaoCompletaDAO {
                     }
                 }
             }
-        } 
+        }
+        
         return true;
     }
 }

@@ -346,11 +346,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
 
     private void geraSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geraSolicitacaoActionPerformed
         // TODO add your handling code here:
-        requisicaoCompleta ultima;
-        ultima = new requisicaoCompleta(req, itens);
-        Boolean envio;
+            requisicaoCompleta ultima;
+            ultima = new requisicaoCompleta(req, itens);
+            Boolean envio;
             try {
-                if(requisicaoCompletaDAO.checaitens(ultima)){
+                if(requisicaoCompletaDAO.checaItens(ultima)){
                 if(0==JOptionPane.showInternalConfirmDialog(rootPane,"Confirmar solicitação?")){
                     envio = requisicaoCompletaDAO.insereRequisicaoCompleta(ultima);
                     JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
@@ -361,8 +361,8 @@ public class saidaEPI extends javax.swing.JInternalFrame {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(saidaEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
-             DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
-             defaultModel.setRowCount(0);
+            DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+            defaultModel.setRowCount(0);
             this.itens.clear();
             req = null;
             this.selecionaQuantidade.setEnabled(false);
@@ -403,7 +403,6 @@ public class saidaEPI extends javax.swing.JInternalFrame {
        }catch(Exception e){
                 System.out.println(e);
                 }
-        
     }//GEN-LAST:event_selecionaItemItemStateChanged
 
 

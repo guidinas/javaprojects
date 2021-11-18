@@ -21,6 +21,14 @@ import modelosBean.funcionario;
  * @author guidi
  */
 public class funcionarioDAO {
+
+    /**
+     *
+     * @param m
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static boolean criaFuncionario(funcionario m) throws SQLException, ClassNotFoundException{
     
   Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
@@ -55,6 +63,7 @@ return false ;
      * @return A ResultSet with all the Funcionarios on the system of null if there was a problem with the connection.
      * @throws SQLException
      * @throws ClassNotFoundException
+     * @
      */
     public static ResultSet listaFuncionario() throws SQLException, ClassNotFoundException{
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados

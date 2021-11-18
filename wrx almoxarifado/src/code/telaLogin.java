@@ -134,11 +134,13 @@ public class telaLogin extends javax.swing.JFrame {
                   TelaPrincipal tela = null;
                    try {
                        tela = new TelaPrincipal();
+                       
                    } catch (InterruptedException ex) {
                        Logger.getLogger(telaLogin.class.getName()).log(Level.SEVERE, null, ex);
                    }
                   tela.setExtendedState(MAXIMIZED_BOTH);
                   tela.setVisible(true);
+                  tela.setFunc(func);
                    this.fecha();
                      return;
                }else

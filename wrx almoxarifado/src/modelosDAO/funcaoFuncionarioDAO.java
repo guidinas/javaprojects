@@ -19,7 +19,14 @@ import modelosBean.funcaoFuncionario;
  */
 public class funcaoFuncionarioDAO {
     
-public static boolean criaFuncaoFuncionario(funcaoFuncionario m) throws SQLException, ClassNotFoundException{
+    /**
+     *
+     * @param m
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static boolean criaFuncaoFuncionario(funcaoFuncionario m) throws SQLException, ClassNotFoundException{
     
   Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 
@@ -51,6 +58,13 @@ con.close();
 return false ;
 }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @deprecated 
+     */
     public static ResultSet listaFuncaoFuncionario() throws SQLException, ClassNotFoundException{
         Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt;

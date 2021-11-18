@@ -19,6 +19,14 @@ import modelosBean.consumivel;
  * @author guidi
  */
 public class consumivelDAO {
+
+    /**
+     *
+     * @param m
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static boolean criaConsumivel(consumivel m ) throws SQLException, ClassNotFoundException{
         Connection con;
         con = conexao.getConnection();
