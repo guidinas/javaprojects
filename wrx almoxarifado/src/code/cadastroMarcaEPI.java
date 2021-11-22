@@ -176,7 +176,7 @@ public final class cadastroMarcaEPI extends javax.swing.JInternalFrame {
        String descricao ;
        descricao = this.descricaoMarca.getText();
        if(descricao.isEmpty()){
-           descricao = "-----";
+           descricao = "--------";
        }
        String nome;
        nome = this.nomeMarca.getText();
