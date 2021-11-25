@@ -31,10 +31,11 @@ public class consumivelDAO {
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareCall("INSERT INTO consumivel (nome, min, max) VALUES (?, ?, ?)");
+        stmt = con.prepareCall("INSERT INTO consumivel (nome, min, max, marca) VALUES (?, ?, ?, ?)");
         stmt.setString(1, m.getNome());
         stmt.setInt(2, m.getMinimo());
         stmt.setInt(3, m.getMaximo());
+        stmt.setString(4, m.getMarca());
         try{
             stmt.execute();
             return true;
@@ -61,7 +62,7 @@ public class consumivelDAO {
             ResultSet a;
             a  = stmt.getResultSet();
             while(a.next()){
-                cons.add(new consumivel(a.getString("nome"), a.getInt("min"), a.getInt("max")));
+                cons.add(new consumivel(a.getString("nome"), a.getInt("min"), a.getInt("max"),a.getString("marca"),a.getInt("quantidade"),a.getInt("cod")));
             }
             con.close();
             return cons;
@@ -69,5 +70,21 @@ public class consumivelDAO {
         return null;
         
 }
+
+    public static boolean adicionaQuantidadeconsumivel(consumivel selecionado) {
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("UPDATE consumivel SET quantidade = (quantidade + ?) WHERE cod = ?");
+            stmt.setInt(1, selecionado.getQuantidade());
+            stmt.setInt(2, selecionado.getCod());
+            stmt.execute();
+            return true;
+        }catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
+            return false;
+        }
+    }
     
 }

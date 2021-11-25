@@ -18,6 +18,7 @@ import modelosDAO.consumivelDAO;
  * @author guidi
  */
 public class cadastroConsumivel extends javax.swing.JInternalFrame {
+    private consumivel selecionado;
 
     /**
      * Creates new form cadastroConsumivel
@@ -42,19 +43,28 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
         maximo = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         minimo = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        marca = new javax.swing.JTextField();
 
+        setClosable(true);
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel5.setText("Nome");
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel6.setText("Minimo");
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel7.setText("Máximo");
 
+        nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeActionPerformed(evt);
             }
         });
 
+        maximo.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         maximo.setText("000");
 
         jButton2.setText("Adicionar ");
@@ -64,6 +74,7 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
+        minimo.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         minimo.setText("000");
         minimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,26 +82,38 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel1.setText("Marca");
+
+        marca.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(minimo)
-                    .addComponent(maximo)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(nome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(33, 33, 33))
+                            .addComponent(marca, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(minimo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(maximo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 192, Short.MAX_VALUE)))
+                        .addGap(33, 33, 33))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,8 +131,12 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(maximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -142,9 +169,11 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
         int intMinimo = Integer.parseInt(minimo.getText());
         int intMaximo = Integer.parseInt(maximo.getText());
         String stringNome = nome.getText();
-        m = new consumivel(stringNome, intMinimo, intMaximo);
+        String marca;
+        marca = this.marca.getText();
+        m = new consumivel(stringNome, intMinimo, intMaximo,marca);
 
-        if(0==JOptionPane.showInternalConfirmDialog(rootPane, "Deseja adicionar o seguinte EPI ? \n Nome:  " + stringNome + "\n Quant mínima: " + intMinimo + "\n Quant máxima:  " + intMaximo )){
+        if(0==JOptionPane.showInternalConfirmDialog(rootPane, "Deseja adicionar o seguinte Consumivel ? \n Nome:  " + stringNome + "\n Quant mínima: " + intMinimo + "\n Quant máxima:  " + intMaximo )){
             try {
                 if(consumivelDAO.criaConsumivel(m)){
                 JOptionPane.showMessageDialog(null ,"Item adicionado com sucesso!");
@@ -168,10 +197,12 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField marca;
     private javax.swing.JTextField maximo;
     private javax.swing.JTextField minimo;
     private javax.swing.JTextField nome;

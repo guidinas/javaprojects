@@ -13,16 +13,32 @@ package modelosBean;
 public class responsavel {
     private String nome;
     private int cod;
+    private String senha;
 
-    public responsavel(String nome) {
+    /**
+     *
+     * @param nome
+     * @param senha
+     */
+    public responsavel(String nome , String senha) {
         this.nome = nome;
+        this.senha = senha;
     }
 
-    public responsavel(String nome, int cod) {
+    public responsavel(String nome,String senha, int cod) {
         this.nome = nome;
         this.cod = cod;
+        this.senha =  senha;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
     public String getNome() {
         return nome;
     }

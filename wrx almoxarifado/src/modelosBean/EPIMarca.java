@@ -21,6 +21,7 @@ public class EPIMarca {
     private String CA;
     private Date validade;
     private String Marca;
+    private int quantidade;
 
     public EPIMarca(String nome, int maximo, int minimo, String descricao, String CA, Date validade, String Marca) {
         this.nome = nome;
@@ -32,7 +33,7 @@ public class EPIMarca {
         this.Marca = Marca;
     }
 
-    public EPIMarca(int cod, String nome, int maximo, int minimo, String descricao, String CA, Date validade, String Marca) {
+    public EPIMarca(int cod, String nome, int maximo, int minimo, String descricao, String CA, Date validade, String Marca, int quantidade) {
         this.cod = cod;
         this.nome = nome;
         this.maximo = maximo;
@@ -41,6 +42,17 @@ public class EPIMarca {
         this.CA = CA;
         this.validade = validade;
         this.Marca = Marca;
+        this.quantidade = quantidade;
+    }
+
+    
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public int getCod() {
@@ -107,7 +119,7 @@ public class EPIMarca {
         this.Marca = Marca;
     }
 
-    
+   
     
     
     

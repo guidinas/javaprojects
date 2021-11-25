@@ -69,7 +69,7 @@ public class cadastroUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Almoxarife", "Gerente", " " }));
+        funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gestor", "Almoxarife", "RH" }));
         funcao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 funcaoActionPerformed(evt);
@@ -107,7 +107,7 @@ public class cadastroUsuario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)

@@ -39,16 +39,18 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         nomeResponsavel = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        senha = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Adicionar Responsável de Almoxarifado");
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel1.setText("Nome do Responsável");
 
-        nomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Confirmar");
@@ -58,6 +60,11 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel2.setText("Senha");
+
+        senha.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -65,13 +72,16 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 218, Short.MAX_VALUE))
                     .addComponent(nomeResponsavel)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 190, Short.MAX_VALUE))
+                    .addComponent(senha))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -81,6 +91,10 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(nomeResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -102,10 +116,11 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String nomeString;
+        String nomeString,senhaString;
         nomeString = this.nomeResponsavel.getText();
+        senhaString = this.senha.getText();
        responsavel resp;
-       resp = new responsavel(nomeString);
+       resp = new responsavel(nomeString,senhaString);
            boolean criaResponsavelbol;
            if(0 == JOptionPane.showConfirmDialog(null, "Deseja Criar  O Seguinte Responsável :" + nomeString + "?" )) {
            try {           
@@ -123,13 +138,16 @@ public class cadastroResponsavel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
            }
            this.nomeResponsavel.setText("");
+           this.senha.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomeResponsavel;
+    private javax.swing.JTextField senha;
     // End of variables declaration//GEN-END:variables
 }

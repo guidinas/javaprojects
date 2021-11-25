@@ -28,7 +28,7 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFuncionario) VALUES (?,?) ");
+stmt = con.prepareStatement("INSERT INTO requisicaosaida (codResponsavel,codFuncionario) VALUES (?,?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
  stmt.setInt(1, m.getCodResponsavel());
@@ -60,7 +60,7 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFuncionario) VALUES (?,?) ");
+stmt = con.prepareStatement("INSERT INTO requisicaosaida (codResponsavel,codFuncionario) VALUES (?,?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
  stmt.setInt(1, m.getCodResponsavel());
@@ -79,7 +79,7 @@ stmt = con.prepareStatement("INSERT INTO requisicaoSaida (codResponsavel,codFunc
     try{
         PreparedStatement stmt1;
 
-       stmt1 = con.prepareStatement("SELECT cod , codResponsavel, codFuncionario  FROM  requisicaoSaida ORDER BY cod DESC LIMIT 1 ");
+       stmt1 = con.prepareStatement("SELECT cod , codResponsavel, codFuncionario  FROM  requisicaosaida ORDER BY cod DESC LIMIT 1 ");
        if(stmt1.execute()){
            ResultSet req;
            req = stmt1.getResultSet();

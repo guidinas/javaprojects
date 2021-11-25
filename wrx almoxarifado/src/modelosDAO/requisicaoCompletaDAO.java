@@ -14,11 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import modelosBean.EPIMarca;
 import modelosBean.epiSolicitacao;
 import modelosBean.estoqueEPI;
 import modelosBean.itemRequisicao;
+import modelosBean.itemRequisicaoCompleta;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
+import static modelosDAO.EPIMarcaDAO.retornaEPIMarcaArray;
 import modelosDAO.itemRequisicaoDAO;
 import static modelosDAO.itemRequisicaoDAO.retornaEPIsolicitacao;
 import static modelosDAO.requisicaoDAO.criaRequisicaoCod;
@@ -40,7 +43,7 @@ public class requisicaoCompletaDAO {
     public static boolean insereRequisicaoCompleta(requisicaoCompleta m) throws SQLException, ClassNotFoundException{
         int codRequisicao;
         codRequisicao  = criaRequisicaoCod(m.getRequisicaoCabeca());
-        if( itemRequisicaoDAO.insereItemRequisicaoArray(m.getItemCorpo(), codRequisicao)){
+        if( itemRequisicaoDAO.insereItemRequisicaoCompletaArray(m.getCorpoCompleto(), codRequisicao)){
             return true;
         }
         return false;
@@ -116,27 +119,26 @@ public class requisicaoCompletaDAO {
     public static boolean checaItens(requisicaoCompleta ultima) throws SQLException, ClassNotFoundException {
         // Precisa  saber se tem a quantidade de itens em estoque da marca especificada
         // precisa contar o total das marcas que forem alteradas para saber se está dentro do máximo e mínimo.
-        ArrayList<estoqueEPI> list;
-        list = estoqueEPIDAO.retornaEPIEstoque();
-        ArrayList<itemRequisicao> sai;
-        sai = ultima.getItemCorpo();
-        for(itemRequisicao A : sai){
+        ArrayList<EPIMarca> list;
+        list = retornaEPIMarcaArray();
+        ArrayList<itemRequisicaoCompleta> sai;
+        sai = ultima.getCorpoCompleto();
+        for(itemRequisicaoCompleta A : sai){
             System.out.println("555");
-            for(estoqueEPI a : list){
-                if(a.getCodMArca() == A.getCodMarca()){
+            for(EPIMarca a : list){
+                if(a.getCod() == A.getCodEPI()){
                     System.out.println("ou");
                     if(A.getQuantidade() > a.getQuantidade() ){
                         System.out.println("Tentou");
-                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item excede a quantidade registrada no sistema \n EPI: " + a.getNomeEPI()  + "\n Da marca:  " + a.getNomeMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
+                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item excede a quantidade registrada no sistema \n EPI: " + a.getNome()  + "\n Da marca:  " + a.getMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
                         return false;
                     }
                     if((a.getMinimo() - A.getQuantidade()) < a.getMinimo() ){
-                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item faz com que a quantidade em estoque seja menor do que o mínimo cadastrado  EPI: " + a.getNomeEPI()  + "\n Da marca:  " + a.getNomeMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
+                        JOptionPane.showMessageDialog(null, "A quantidade solicitada do Item faz com que a quantidade em estoque seja menor do que o mínimo cadastrado  EPI: " + a.getNome()  + "\n Da marca:  " + a.getMarca() + "\n Quantidade Disponível: " + a.getQuantidade());
                     }
                 }
             }
         }
-        
         return true;
     }
 }

@@ -64,10 +64,11 @@ public class responsavelDAO {
 
                 // Inserindo o comando SQL a ser usado
 
-               stmt = con.prepareStatement("INSERT INTO responsavel (nome) VALUES (?) ");
+               stmt = con.prepareStatement("INSERT INTO responsavel (nome,senha) VALUES (?,?) ");
 
                 // O método setString, define que o valor passado será do tipo inteiro
                 stmt.setString(1, m.getNome());
+                stmt.setString(2,m.getSenha());
 
 
                    // Método responsável por fazer a alteração no banco de dados
@@ -115,13 +116,13 @@ public class responsavelDAO {
         result = new ArrayList<>();
             try{
              // Inserindo o comando SQL a ser usado
-                stmt = con.prepareStatement("SELECT  cod , nome FROM responsavel  ");
+                stmt = con.prepareStatement("SELECT  cod , nome,senha FROM responsavel  ");
                  // O método setString, define que o valor passado será do tipo inteiro
                     // Método responsável por fazer a alteração no banco de dados
                     boolean executeok = stmt.execute();
                    ResultSet resul = stmt.getResultSet();
                    while(resul.next()){
-                       result.add(new responsavel(resul.getString("nome"), resul.getInt("cod")));
+                       result.add(new responsavel(resul.getString("nome"),resul.getString("senha"), resul.getInt("cod")));
                    }
                    con.close();
                    return result;
@@ -136,7 +137,59 @@ public class responsavelDAO {
         return null;
     }
 
-    public static boolean checaSenha(String showInputDialog) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     *
+     * @param digitada
+     * @return
+     * @deprecated 
+     */
+    public static boolean checaSenha(String digitada) {
+       try{
+            Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("SELECT * from responsavel");
+        if(stmt.execute()){
+            ResultSet res;
+            res = stmt.getResultSet();
+            while(res.next()){
+                if(digitada == res.getString("senha")){
+                    return true;
+                }
+            }
+        }
+       }catch(SQLException | ClassNotFoundException e){
+           System.out.println(e);
+           return false;
+       }
+        return false;
+        
+    }
+
+    /**
+     *
+     * @param senha
+     * @return
+     */
+    public static int checaSenhaInt(String senha) {
+         try{
+            Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("SELECT * from responsavel");
+        if(stmt.execute()){
+            ResultSet res;
+            res = stmt.getResultSet();
+            while(res.next()){
+                if(senha.equalsIgnoreCase(res.getString("senha")) ){
+                    return res.getInt("cod");
+                }
+            }
+        }
+       }catch(SQLException | ClassNotFoundException e){
+           System.out.println(e);
+           return -1;
+       }
+        return -1;
     }
 }

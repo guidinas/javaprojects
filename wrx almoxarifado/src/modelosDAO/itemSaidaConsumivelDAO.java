@@ -41,4 +41,29 @@ class itemSaidaConsumivelDAO {
        } 
        return false;
     }
+
+    static boolean insereItensRequisicaoArray(ArrayList<itemSaidaConsumivel> corpo, int codRequisicao) {
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            for(itemSaidaConsumivel ar : corpo){
+                stmt = con.prepareCall("Insert INTO relacionasaidaconsumivel (codConsumivel, codSaida, quantidade) VALUES ( ? , ? , ? )");
+                stmt.setInt(1, ar.getCodConsumivel());
+                stmt.setInt(2, codRequisicao);
+                stmt.setInt(3, ar.getQuantidade());
+                stmt.execute();
+                stmt.clearParameters();
+                stmt = con.prepareCall("UPDATE consumivel SET quantidade = (quantidade - ?) WHERE cod = ?");
+                stmt.setInt(1, ar.getQuantidade());
+                stmt.setInt(2, ar.getCodConsumivel());
+                stmt.execute();
+            }
+            
+            return true;
+        }catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
+            return false;
+        }
+    }
 }

@@ -14,20 +14,46 @@ public class consumivel {
     private String nome;
     private int minimo;
     private int maximo;
+    private String marca;
+    private int quantidade;
+    
     private int cod;
 
-    public consumivel(String nome, int minimo, int maximo) {
+
+    public consumivel(String nome, int minimo, int maximo, String marca) {
         this.nome = nome;
         this.minimo = minimo;
         this.maximo = maximo;
+        this.marca = marca;
     }
 
-    public consumivel(String nome, int minimo, int maximo, int cod) {
+    public consumivel(String nome, int minimo, int maximo, String marca, int quantidade, int cod) {
         this.nome = nome;
         this.minimo = minimo;
         this.maximo = maximo;
+        this.marca = marca;
+        this.quantidade = quantidade;
         this.cod = cod;
     }
+
+    
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+    
 
     public String getNome() {
         return nome;

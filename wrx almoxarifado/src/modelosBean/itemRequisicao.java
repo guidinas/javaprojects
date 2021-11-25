@@ -25,7 +25,7 @@ public class itemRequisicao {
         this.codEPI = codEPI;
         this.codRequisicao = codRequisicao;
         this.quantidade = quantidade;
-          this.codMarca = codMarca;
+        this.codMarca = codMArca;
     }
 
     public int getCodMarca() {

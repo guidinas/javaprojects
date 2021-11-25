@@ -16,10 +16,13 @@ import modelosBean.consumivel;
 import modelosBean.funcionario;
 import modelosBean.itemSaidaConsumivel;
 import modelosBean.requisicao;
+import modelosBean.requisicaoCompleta;
+import modelosBean.requisicaoConsumivel;
 import modelosBean.responsavel;
 import modelosBean.saidaConsumivel;
 import modelosDAO.consumivelDAO;
 import modelosDAO.funcionarioDAO;
+import modelosDAO.requisicaoConsumivelDAO;
 import modelosDAO.responsavelDAO;
 import modelosDAO.saidaConsumivelDAO;
 
@@ -30,9 +33,9 @@ import modelosDAO.saidaConsumivelDAO;
 public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
      private final ArrayList<funcionario> a;
     private final ArrayList<consumivel> b;
-    private final ArrayList<responsavel> c;
     private ArrayList<itemSaidaConsumivel> itens;
     private requisicao req;
+    private consumivel selected;
 
     /**
      * Creates new form telaSaidaConsumivel
@@ -43,24 +46,17 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
         initComponents();
         //Preenchimento dos Combo Box
         this.itens = new ArrayList<>();
-        a = funcionarioDAO.listaFuncionarioArray();
+        this.a = funcionarioDAO.listaFuncionarioArray();
         a.stream().forEach((a1) -> {
              this.selecionaFuncionario.addItem(a1.getNome());
          });
-        this.b =  consumivelDAO.listaConsumivel();
-        this.b.stream().forEach((b1) -> {
-        this.selecionaItem.addItem(b1.getNome());
-         });
-        this.c =  responsavelDAO.listaResponsavelArray();
-        this.c.stream().forEach((c1) -> {
-        this.selecionaResponsavel.addItem((String) c1.getNome());
-         });
+        
             
           //  this.selecionaItem.setEnabled(false);
             this.selecionaQuantidade.setEnabled(false);
             this.geraSolicitacao.setEnabled(false);
             this.addRequisicao.setEnabled(false);
-            this.selecionaItem.setEnabled(false);
+            this.b =consumivelDAO.listaConsumivel();
     }
 
     /**
@@ -73,36 +69,31 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        selecionaResponsavel = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         selecionaFuncionario = new javax.swing.JComboBox();
-        selecionaItem = new javax.swing.JComboBox();
         selecionaQuantidade = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         addRequisicao = new javax.swing.JButton();
         geraSolicitacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        CADigitado = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        NomeEPI = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Saída Consumíveis");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Responsável pela Saída ");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel2.setText("Consumivel a Sair");
 
-        selecionaResponsavel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Adicionar item ");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel3.setText("Funcionário");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,9 +101,7 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
-        selecionaFuncionario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        selecionaItem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        selecionaFuncionario.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
 
         selecionaQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         selecionaQuantidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " }));
@@ -122,10 +111,10 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel4.setText("Quantidade ");
 
-        addRequisicao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        addRequisicao.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         addRequisicao.setText("Adicionar");
         addRequisicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +122,7 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
-        geraSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        geraSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         geraSolicitacao.setText("Gerar Solicitação");
         geraSolicitacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +130,7 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -172,6 +161,19 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        CADigitado.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        CADigitado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CADigitadoKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel1.setText("Nome Consumivel");
+
+        NomeEPI.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        NomeEPI.setText("  ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -180,65 +182,63 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selecionaResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(139, 139, 139)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(selecionaFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addGap(68, 68, 68))
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(109, 109, 109)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                                .addComponent(addRequisicao)
-                                .addGap(70, 70, 70))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 51, Short.MAX_VALUE))
+                            .addComponent(NomeEPI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(addRequisicao))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(geraSolicitacao)))
+                        .addComponent(geraSolicitacao))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(selecionaResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addRequisicao)
-                    .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                            .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NomeEPI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(addRequisicao)
+                        .addGap(2, 2, 2)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(geraSolicitacao)
                 .addContainerGap())
@@ -248,7 +248,10 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,18 +265,13 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.selecionaResponsavel.setEnabled(false);
+        //bloqueia o campo de funcionário  e libera os outros.
         this.selecionaFuncionario.setEnabled(false);
         this.jButton1.setEnabled(false);
         this.addRequisicao.setEnabled(true);
-        this.selecionaItem.setEnabled(true);
         this.selecionaQuantidade.setEnabled(true);
-        int funcIndex, respIndex, funcInt,respInt;
-        funcIndex= this.selecionaFuncionario.getSelectedIndex();
-        funcInt = this.a.get(funcIndex).getCod();
-        respIndex = this.selecionaResponsavel.getSelectedIndex();
-        respInt = this.c.get(respIndex).getCod();
-        this.req = new requisicao(funcInt, respInt);
+        this.CADigitado.setEnabled(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void selecionaQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaQuantidadeActionPerformed
@@ -281,47 +279,61 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_selecionaQuantidadeActionPerformed
 
     private void addRequisicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRequisicaoActionPerformed
-        // TODO add your handling code here:
-        int index;
-        index = this.itens.size();
-        // gera um item solicitação e coloca no array list
-        int itemIndex, itemCod;
-        itemIndex = this.selecionaItem.getSelectedIndex();
-        itemCod = this.b.get(itemIndex).getCod();
-        int quantidadeInt;
-        quantidadeInt = this.selecionaQuantidade.getSelectedIndex() + 1;
-        this.itens.add(new itemSaidaConsumivel(itemCod, quantidadeInt));
-        System.out.println(this.itens.size());
-        // adiciona esse item a tabela
-        DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+        if(this.selected != null){
+            // TODO add your handling code here:
+            int index;
+            index = this.itens.size();
+            // gera um itemRequisicaoCompleta e coloca no array list
+            int itemCod,quantidadeInt;
+            itemCod = this.selected.getCod();
+            quantidadeInt = this.selecionaQuantidade.getSelectedIndex() + 1;
+            this.itens.add(new itemSaidaConsumivel(itemCod, quantidadeInt));
+            System.out.println(this.itens.size());
+            // adiciona esse item a tabela
+            DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+            //  ITEM QUANTIDADE
 
-        //  ITEM QUANTIDADE
-        Object item ,quant;
-        item = this.b.get(itemIndex).getNome();
-        quant = quantidadeInt;
-        defaultModel.setRowCount(index + 1);
-        this.jTable1.getModel().setValueAt(item, index, 0);
-        this.jTable1.getModel().setValueAt(quant, index, 1);
-        this.geraSolicitacao.setEnabled(true);
+            Object item ,quant;
+            item = this.selected.getNome();
+            quant = quantidadeInt;
+            defaultModel.setRowCount(index + 1);
+            this.jTable1.getModel().setValueAt(item, index, 0);
+            this.jTable1.getModel().setValueAt(quant, index, 1);
+            this.geraSolicitacao.setEnabled(true);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Digite um CA  válido");
+        }
+
     }//GEN-LAST:event_addRequisicaoActionPerformed
 
     private void geraSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geraSolicitacaoActionPerformed
         // TODO add your handling code here:
-        saidaConsumivel ultima;
-        ultima = new saidaConsumivel(req, itens);
-        Boolean envio;
-        try {
-            if(0==JOptionPane.showInternalConfirmDialog(rootPane,"Confirmar solicitação?")){
-                envio = saidaConsumivelDAO.insereRequisicaoCompleta(ultima);
-                JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
+        requisicaoConsumivel ultima;
 
-            }else{
-                JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
+        Boolean envio;
+        String senha;
+        senha =  JOptionPane.showInputDialog("Digite a Senha do Responsável.");
+         int resSenha;
+         resSenha = responsavelDAO.checaSenhaInt(senha);
+         if(0 < resSenha){
+            try {
+                int codFunc;
+                codFunc = this.selecionaFuncionario.getSelectedIndex();
+                codFunc = this.a.get(codFunc).getCod();
+                req = new requisicao(codFunc, resSenha);
+                System.out.println(req);
+                ultima = new requisicaoConsumivel(itens, req);
+                if(requisicaoConsumivelDAO.checaItens(ultima)){
+                    envio = requisicaoConsumivelDAO.insereRequisicaoCompleta(ultima);
+                    JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(telaSaidaConsumivel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException | ClassNotFoundException  ex) {
-            Logger.getLogger(saidaEPI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-             Logger.getLogger(telaSaidaConsumivel.class.getName()).log(Level.SEVERE, null, ex);
+         }else{
+             JOptionPane.showMessageDialog(rootPane, "digite uma Senha Ccrreta !");
          }
         DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
         defaultModel.setRowCount(0);
@@ -330,19 +342,34 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
         this.selecionaQuantidade.setEnabled(false);
         this.geraSolicitacao.setEnabled(false);
         this.addRequisicao.setEnabled(false);
-        this.selecionaItem.setEnabled(false);
-        this.selecionaResponsavel.setEnabled(true);
         this.selecionaFuncionario.setEnabled(true);
         this.jButton1.setEnabled(true);
-
     }//GEN-LAST:event_geraSolicitacaoActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void CADigitadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CADigitadoKeyReleased
+        // TODO add your handling code here:
+        String value;
+        value =  this.CADigitado.getText();
+        for(consumivel a: this.b){
+            if(a.getNome().toLowerCase().contains(value)){
+                this.NomeEPI.setText(a.getNome());
+                this.selected= a;
+                return;
+            }
+        }
+        this.NomeEPI.setText("Não encontrado");
+        this.selected = null;
+
+    }//GEN-LAST:event_CADigitadoKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CADigitado;
+    private javax.swing.JLabel NomeEPI;
     private javax.swing.JButton addRequisicao;
     private javax.swing.JButton geraSolicitacao;
     private javax.swing.JButton jButton1;
@@ -355,8 +382,6 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox selecionaFuncionario;
-    private javax.swing.JComboBox selecionaItem;
     private javax.swing.JComboBox selecionaQuantidade;
-    private javax.swing.JComboBox selecionaResponsavel;
     // End of variables declaration//GEN-END:variables
 }

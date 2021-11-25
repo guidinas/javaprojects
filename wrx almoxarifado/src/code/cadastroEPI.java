@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import modelosBean.EPI;
 import modelosBean.EPIMarca;
 import modelosDAO.EPIDAO;
+import modelosDAO.EPIMarcaDAO;
 
 /**
  *
@@ -224,7 +225,11 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
         EPIMarca finale;
         finale = new EPIMarca( nomeEPIString ,maximoInt, minimoInt , informacoesString ,CAString , dataFinal, marcaEPIString);
         if(0 == JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja adicionar o Seguinte EPI : \n Nome : "+ finale.getNome() +"\n Marca: " +finale.getMarca() + "\n C.A. : " + finale.getCA()+ "\n Para adicionar clique em OK" ) ){
-            System.out.println("ADD");
+           if(EPIMarcaDAO.criaEPIMarca(finale)){
+               JOptionPane.showMessageDialog(null, "Item adicionado com sucesso!!");
+           }else{
+               JOptionPane.showMessageDialog(null, "Falha ao adicionar\n motivo: \n Item já adicionado!!");
+           }
         }
         
         

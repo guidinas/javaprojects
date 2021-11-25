@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import modelosBean.EPI;
 import modelosBean.epiSolicitacao;
 import modelosBean.itemRequisicao;
+import modelosBean.itemRequisicaoCompleta;
 
 /**
  *
@@ -78,6 +79,31 @@ public class itemRequisicaoDAO {
         }
         con.close();
         return null;
+    }
+
+    static boolean insereItemRequisicaoCompletaArray(ArrayList<itemRequisicaoCompleta> corpoCompleto, int codRequisicao) {
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            for(itemRequisicaoCompleta ar : corpoCompleto){
+                stmt = con.prepareCall("Insert INTO relacionarequisicaocompleta (codEPI, codRequisicao, quantidade) VALUES ( ? , ? , ? )");
+                stmt.setInt(1, ar.getCodEPI());
+                stmt.setInt(2, codRequisicao);
+                stmt.setInt(3, ar.getQuantidade());
+                stmt.execute();
+                stmt.clearParameters();
+                stmt = con.prepareCall("UPDATE epicompleto SET quantidade = (quantidade - ?) WHERE cod = ?");
+                stmt.setInt(1, ar.getQuantidade());
+                stmt.setInt(2, ar.getCodEPI());
+                stmt.execute();
+            }
+            
+            return true;
+        }catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
+            return false;
+        }
     }
     
 }

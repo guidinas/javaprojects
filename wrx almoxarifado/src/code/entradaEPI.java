@@ -9,8 +9,12 @@ package code;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelosBean.EPI;
+import modelosBean.EPIMarca;
 import modelosBean.estoqueEPI;
+import modelosDAO.EPIMarcaDAO;
+import static modelosDAO.EPIMarcaDAO.adicionaQuantidadeEPI;
 import modelosDAO.estoqueEPIDAO;
 
 /**
@@ -19,7 +23,8 @@ import modelosDAO.estoqueEPIDAO;
  */
 public class entradaEPI extends javax.swing.JInternalFrame {
     private ArrayList<estoqueEPI> list;
-    private ArrayList<EPI> epis;
+    private ArrayList<EPIMarca> epis;
+    private EPIMarca selecionado;
     
     /**
      * Creates new form entradaEPI
@@ -27,10 +32,7 @@ public class entradaEPI extends javax.swing.JInternalFrame {
     public entradaEPI() throws SQLException, ClassNotFoundException {
         initComponents();
         this.list = estoqueEPIDAO.retornaEPIEstoque();
-        epis = estoqueEPIDAO.devolveArrayEPI(list);
-        for(EPI a: epis){
-            this.SelecionaTipo.addItem(a.getNome());
-        }
+        epis = EPIMarcaDAO.retornaEPIMarcaArray();
     }
 
     /**
@@ -44,42 +46,30 @@ public class entradaEPI extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        SelecionaTipo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        SelecionaMarca = new javax.swing.JComboBox();
+        Quantidade = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        CADigitado = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        nomeEPI = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Adicionar EPI");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Tipo EPI");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel1.setText("CA");
 
-        SelecionaTipo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        SelecionaTipo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                SelecionaTipoItemStateChanged(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel3.setText("Quantidade a ser Adicionada");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Quantidade.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        Quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                QuantidadeActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Marca");
-
-        SelecionaMarca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton1.setText("Adicionar ao total");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,42 +77,72 @@ public class entradaEPI extends javax.swing.JInternalFrame {
             }
         });
 
+        CADigitado.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        CADigitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CADigitadoActionPerformed(evt);
+            }
+        });
+        CADigitado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CADigitadoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CADigitadoKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabel2.setText("EPI");
+
+        nomeEPI.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        nomeEPI.setText("   ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(SelecionaTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(SelecionaMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(55, 55, 55))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Quantidade)
+                        .addGap(408, 408, 408))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(302, 302, 302))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addComponent(nomeEPI, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SelecionaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SelecionaMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomeEPI))
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jButton1)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,53 +158,80 @@ public class entradaEPI extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void QuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuantidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void SelecionaTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SelecionaTipoItemStateChanged
-        // TODO add your handling code here:
-        this.SelecionaMarca.removeAllItems();
-        int opt,cod;
-        opt = this.SelecionaTipo.getSelectedIndex();
-        cod = this.epis.get(opt).getCod();
-        for(estoqueEPI e: this.list){
-            if(e.getCodEPI() == cod){
-                this.SelecionaMarca.addItem(e.getNomeMarca());
-            }
-        }
-    }//GEN-LAST:event_SelecionaTipoItemStateChanged
+    }//GEN-LAST:event_QuantidadeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int aux, codMarca, codEPI,quantidade;
-        aux = this.SelecionaTipo.getSelectedIndex();
-        codEPI = this.epis.get(aux).getCod();
-        for(estoqueEPI e: list){
-            if(this.SelecionaMarca.getSelectedItem() == e.getNomeMarca()){
-                codMarca = e.getCodMArca();
+        
+        int quantidade;
+        quantidade = Integer.parseInt(this.Quantidade.getText());
+        if(this.selecionado == null){
+            JOptionPane.showMessageDialog(rootPane, "Digite um CA válido");
+            this.CADigitado.setText("");
+            this.Quantidade.setText("");
+            this.nomeEPI.setText(" ");
+            this.selecionado = null;
+        }else{
+            this.selecionado.setQuantidade(quantidade);
+            if (0==JOptionPane.showConfirmDialog(rootPane, "confirma Adição  de " + this.selecionado.getQuantidade() + "\n Ao EPI " + this.selecionado.getNome())){
+               if(adicionaQuantidadeEPI(this.selecionado)){
+                   JOptionPane.showMessageDialog(rootPane, "Adicionado com sucesso");
+                   
+               }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada pelo Usuario!!");
             }
-            quantidade = Integer.parseInt(this.jTextField1.getText());
             
+                    
         }
+         this.CADigitado.setText("");
+         this.Quantidade.setText("");
+         this.nomeEPI.setText(" ");
+         this.selecionado = null;
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void CADigitadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CADigitadoKeyTyped
+
+    }//GEN-LAST:event_CADigitadoKeyTyped
+
+    private void CADigitadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CADigitadoKeyReleased
+        // TODO add your handling code here:  // TODO add your handling code here:
+        String value;
+        value =  this.CADigitado.getText();
+        for(EPIMarca a: this.epis){
+            if(a.getCA().toLowerCase().contains(value)){
+                this.nomeEPI.setText(a.getNome());
+                this.selecionado = a;
+                return;
+            }
+        }
+        this.nomeEPI.setText("Não encontrado");
+        this.selecionado = null;
+        
+    }//GEN-LAST:event_CADigitadoKeyReleased
+
+    private void CADigitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CADigitadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CADigitadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox SelecionaMarca;
-    private javax.swing.JComboBox SelecionaTipo;
+    private javax.swing.JTextField CADigitado;
+    private javax.swing.JTextField Quantidade;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel nomeEPI;
     // End of variables declaration//GEN-END:variables
 }
