@@ -10,18 +10,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import modelosBean.EPIMarca;
+import modelosBean.consumivel;
 import modelosBean.estoqueEPI;
+import modelosBean.ferramenta;
+import modelosDAO.EPIMarcaDAO;
+import modelosDAO.consumivelDAO;
 import modelosDAO.estoqueEPIDAO;
+import modelosDAO.ferramentaDAO;
 
 /**
  *
  * @author guidi
  */
 public class checaEstoque extends javax.swing.JInternalFrame {
-    private ArrayList<estoqueEPI> epis;
+    private ArrayList<EPIMarca> epis;
+    private ArrayList<consumivel> consu;
+    private ArrayList<ferramenta> ferr;
     private   DefaultTableModel tabela;
 
     /**
@@ -151,10 +160,10 @@ public class checaEstoque extends javax.swing.JInternalFrame {
                     atualizaEPI();
                 break;
                 case 1:
-                    atualizaEPI();
+                    atualizaConsumivel();
                 break;
                     case 2:
-                   atualizaEPI();
+                   atualizaFerramenta();
                 break;
                 
         }
@@ -173,14 +182,14 @@ public class checaEstoque extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void atualizaEPI() throws SQLException, ClassNotFoundException {
-        this.epis = estoqueEPIDAO.retornaEPIEstoque();
+        this.epis = EPIMarcaDAO.retornaEPIMarcaArray();
         this.tabela = (DefaultTableModel) this.jTable1.getModel();
         this.tabela.setRowCount(0);
         int aux = 0;
-        for(estoqueEPI e : this.epis){
+        for(EPIMarca e : this.epis){
             this.tabela.setRowCount(aux+1);
-            tabela.setValueAt(e.getNomeEPI(), aux, 0);
-            tabela.setValueAt(e.getNomeMarca(), aux, 1);
+            tabela.setValueAt(e.getNome(), aux, 0);
+            tabela.setValueAt(e.getMarca(), aux, 1);
             tabela.setValueAt(e.getQuantidade(), aux, 2);
             aux++;
         }
@@ -189,10 +198,42 @@ public class checaEstoque extends javax.swing.JInternalFrame {
     }
 
     private void atualizaConsumivel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.consu = consumivelDAO.listaConsumivel();
+            this.tabela = (DefaultTableModel) this.jTable1.getModel();
+            this.tabela.setRowCount(0);
+            int aux = 0;
+            for(consumivel e : this.consu){
+                this.tabela.setRowCount(aux+1);
+                tabela.setValueAt(e.getNome(), aux, 0);
+                tabela.setValueAt(e.getMarca(), aux, 1);
+                tabela.setValueAt(e.getQuantidade(), aux, 2);
+                aux++;
+            }   } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(checaEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void atualizaFerramenta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.ferr = ferramentaDAO.retornaFerramentaArray();
+       if(this.ferr == null){
+           JOptionPane.showMessageDialog(rootPane, "Erro de acesso ao Banco de Dados");
+       }else{
+           this.tabela = (DefaultTableModel) this.jTable1.getModel();
+            this.tabela.setRowCount(0);
+            int aux = 0;
+            for(ferramenta e : this.ferr){
+                this.tabela.setRowCount(aux+1);
+                tabela.setValueAt(e.getNome(), aux, 0);
+                tabela.setValueAt(e.getMarca(), aux, 1);
+                if(e.getStat()==1){
+                     tabela.setValueAt("Item emprestado", aux, 2);
+                }else{
+                     tabela.setValueAt("Item disponível", aux, 2);
+                }
+               
+                aux++;
+       } 
     }
+}
 }

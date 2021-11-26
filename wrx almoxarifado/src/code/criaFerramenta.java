@@ -6,6 +6,10 @@
 
 package code;
 
+import javax.swing.JOptionPane;
+import modelosBean.ferramenta;
+import modelosDAO.ferramentaDAO;
+
 /**
  *
  * @author guidi
@@ -42,6 +46,11 @@ public class criaFerramenta extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jButton1.setText("Criar Ferramenta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel1.setText("Nome");
@@ -117,6 +126,29 @@ public class criaFerramenta extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String nome,marca, registro;
+        nome = this.nome.getText();
+        marca = this.marca.getText();
+        registro = this.registro.getText();
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Adicionar a Ferramente : " + nome + "\n Marca:  " + marca +"\n Pressione Sim!")==0){
+            ferramenta a;
+            a =new ferramenta(nome, registro, marca);
+            if(ferramentaDAO.criaFerramenta(a)){
+                JOptionPane.showMessageDialog(rootPane, "Adicionado com Sucesso !!");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Erro de Acesso ao Banco de Dados !!");
+                        
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "operação cancelada pelo usuário");
+        }
+        this.nome.setText("");
+        this.marca.setText("");
+        this.registro.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

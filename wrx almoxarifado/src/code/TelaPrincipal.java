@@ -63,12 +63,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         SaidaEPI = new javax.swing.JMenu();
         saidaEPI = new javax.swing.JMenuItem();
         saidaConsumiveis = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         entradaEPI = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         entradaConsumiveis = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -116,6 +118,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         SaidaEPI.add(saidaConsumiveis);
+
+        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem9.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem9.setText("Saída Ferramenta");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        SaidaEPI.add(jMenuItem9);
 
         jMenuBar1.add(SaidaEPI);
 
@@ -169,6 +181,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem6);
+
+        jMenuItem4.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem4.setText("Cria Ferramenta");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
 
         jMenuBar1.add(jMenu5);
 
@@ -311,7 +332,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void addFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFuncActionPerformed
         // TODO add your handling code here:
-        if(func==0||func==2){
+        if(func==0 || func==2){
               cadastroFuncionario cadst;
         try {
             cadst = new cadastroFuncionario();
@@ -402,6 +423,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        if(func<=1){
+             criaFerramenta fer;
+        fer = new criaFerramenta();
+        this.desktopPrincipal.add(fer);
+        fer.setVisible(true);
+        }
+       
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        if(func<=1){
+            saidaFerramenta ferr;
+            ferr = new saidaFerramenta();
+            this.desktopPrincipal.add(ferr);
+            ferr.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -453,10 +495,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem saidaConsumiveis;
     private javax.swing.JMenuItem saidaEPI;
     // End of variables declaration//GEN-END:variables

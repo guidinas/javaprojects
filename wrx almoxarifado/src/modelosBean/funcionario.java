@@ -15,20 +15,32 @@ public class funcionario {
     private String  nome;
     private int funcao;
     private String admissao;
+    private String matricula;
 
-    public funcionario(int cod, String nome, int funcao, String admissao) {
+    public funcionario(int cod, String nome, int funcao, String admissao,String matricula) {
         this.cod = cod;
         this.nome = nome;
         this.funcao = funcao;
         this.admissao = admissao;
+        this.matricula = matricula;
     }
 
     
-    public funcionario(String nome, int funcao, String admissao) {
+    public funcionario(String nome, int funcao, String admissao,String matricula) {
         this.nome = nome;
         this.funcao = funcao;
         this.admissao = admissao;
+        this.matricula = matricula;
     }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+    
     public String getAdmissao() {
         return admissao;
     }

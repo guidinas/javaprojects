@@ -40,7 +40,9 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
                 this.jComboBox1.addItem(funcoes.getString("nome"));
                 a.add(new funcaoFuncionario(funcoes.getInt("cod"),funcoes.getString("nome") ));
         }
-    }
+            funcoes.close();
+
+                    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +61,8 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        matricula = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Inclusão de Novo Funcionário");
@@ -81,7 +85,7 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
         jDateChooser1.setNextFocusableComponent(jButton1);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Comfirmar");
+        jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -98,6 +102,11 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel4.setText("Matrícula");
+
+        matricula.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,6 +114,7 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(matricula)
                     .addComponent(jTextField1)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -112,8 +122,9 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(0, 348, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(0, 435, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)))
@@ -135,8 +146,12 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(matricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jButton1)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,14 +190,14 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
        String nome;
        nome = this.jTextField1.getText();
        funcionario func;
-       func = new funcionario(nome, selected.getCod(), dataFormatada);
+       func = new funcionario(nome, selected.getCod(), dataFormatada,this.matricula.getText());
 
            boolean criaFunc;
            try {           
                criaFunc = funcionarioDAO.criaFuncionario(func);
-               if(criaFunc){
+               
                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-               }
+               
            } catch (SQLException | ClassNotFoundException ex) {
                JOptionPane.showMessageDialog(null, "Falha de Banco de Dados");
                Logger.getLogger(cadastroMarcaEPI.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,7 +220,9 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField matricula;
     // End of variables declaration//GEN-END:variables
 }

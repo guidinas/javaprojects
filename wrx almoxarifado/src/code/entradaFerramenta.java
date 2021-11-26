@@ -6,6 +6,12 @@
 
 package code;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
+import modelosBean.ferramenta;
+import modelosDAO.ferramentaDAO;
+
 /**
  *
  * @author guidi
@@ -28,21 +34,156 @@ public class entradaFerramenta extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        nome = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        registro = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        marca = new javax.swing.JTextField();
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel5.setText("Nome");
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel6.setText("Registro");
+
+        nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jButton2.setText("Adicionar ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        registro.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registroActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel1.setText("Marca");
+
+        marca.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(marca, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(registro, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 229, Short.MAX_VALUE)))
+                        .addGap(33, 33, 33))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(registro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       ferramenta m;
+       String nome, marca, registro;
+       nome = this.nome.getText();
+       marca = this.marca.getText();
+       registro = this.registro.getText();
+       m = new ferramenta(nome, registro, marca);
+               
+      
+
+        if(0==JOptionPane.showInternalConfirmDialog(rootPane, "Deseja adicionar o seguinte Consumivel ? \n Nome:  " + nome+ "\n Marca: " + marca + "\n Registro:  " + registro )){
+            if(ferramentaDAO.criaFerramenta(m)){
+                JOptionPane.showMessageDialog(null ,"Item adicionado com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Falha ao Adicionar \n Cheque se ja existe esse nome na lista de EPI \n Se não houver, contate o gestor do sistema");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null ,"Operação Cancelada !");
+        }
+        this.nome.setText("");
+        this.marca.setText("");
+        this.registro.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField marca;
+    private javax.swing.JTextField nome;
+    private javax.swing.JTextField registro;
     // End of variables declaration//GEN-END:variables
 }

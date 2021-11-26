@@ -9,8 +9,14 @@ package code;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelosBean.ferramenta;
 import modelosBean.funcionario;
+import modelosBean.saidaFerramentas;
+import modelosDAO.ferramentaDAO;
 import modelosDAO.funcionarioDAO;
+import modelosDAO.responsavelDAO;
+import modelosDAO.saidaFerramentaDAO;
 
 /**
  *
@@ -18,6 +24,10 @@ import modelosDAO.funcionarioDAO;
  */
 public class saidaFerramenta extends javax.swing.JInternalFrame {
     private ArrayList<funcionario> funcs;
+    private ArrayList<ferramenta> ferraments;
+    private ferramenta selected;
+    private ArrayList<saidaFerramentas> itens;
+    
     /**
      * Creates new form saidaFerramenta
      */
@@ -25,6 +35,8 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
         initComponents();
         try{
             funcs = funcionarioDAO.listaFuncionarioArray();
+            this.ferraments = ferramentaDAO.retornaFerramentaArray();
+            this.itens = new ArrayList<>();
             for(funcionario e: funcs){
                 this.selecionaFuncionario.addItem(e.getNome());
                 
@@ -34,6 +46,12 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de Dados favor comunicar o gestor do sistema.");
             this.dispose();
         }
+        this.digitadoNome.setEnabled(false);
+        this.digitadoRegistro.setEnabled(false);
+        this.addItem.setEnabled(false);
+        this.confirmaSaida.setEnabled(false);
+        this.selecionaFuncionario.setEnabled(true);
+        
         
     }
 
@@ -47,47 +65,37 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        checagemVisual = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        listaEPI = new java.awt.List();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        confirmaFunc = new javax.swing.JButton();
         selecionaFuncionario = new javax.swing.JComboBox();
-        selecionaItem = new javax.swing.JComboBox();
-        selecionaQuantidade = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addItem = new javax.swing.JButton();
+        confirmaSaida = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        tagFerramenta = new javax.swing.JTextField();
+        digitadoRegistro = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        digitadoNome = new javax.swing.JTextField();
+        nome = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Saída Ferramenta");
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
 
-        checagemVisual.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        checagemVisual.setText("Inspeção Visual ");
-        checagemVisual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checagemVisualActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jLabel2.setText("Adicionar item ");
-
-        listaEPI.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        jLabel2.setText("Por nome");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel3.setText("Funcionário");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        confirmaFunc.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        confirmaFunc.setText("Confirmar");
+        confirmaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                confirmaFuncActionPerformed(evt);
             }
         });
 
@@ -98,31 +106,59 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
             }
         });
 
-        selecionaItem.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        selecionaItem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Banco de Dados" }));
-
-        selecionaQuantidade.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        selecionaQuantidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " }));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jLabel4.setText("Quantidade ");
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton2.setText("Adicionar");
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jButton3.setText("Confirma Saída");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        addItem.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        addItem.setText("Adicionar");
+        addItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                addItemActionPerformed(evt);
+            }
+        });
+
+        confirmaSaida.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        confirmaSaida.setText("Confirma Saída");
+        confirmaSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmaSaidaActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jLabel5.setText("Tag");
+        jLabel5.setText("Por registro");
 
-        tagFerramenta.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        tagFerramenta.setText("tag Ferramenta");
+        digitadoRegistro.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        digitadoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digitadoRegistroActionPerformed(evt);
+            }
+        });
+        digitadoRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                digitadoRegistroKeyReleased(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome Ferramenta", "Registro"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        digitadoNome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        digitadoNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                digitadoNomeKeyReleased(evt);
+            }
+        });
+
+        nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        nome.setText("    ");
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel4.setText("Nome Ferramenta: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,41 +168,42 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(listaEPI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(tagFerramenta)
-                                                .addComponent(selecionaItem, 0, 268, Short.MAX_VALUE)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addGap(94, 94, 94)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel4)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(checagemVisual)))
-                                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))))
-                                    .addComponent(jLabel3))
+                                .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(58, 58, 58))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirmaFunc)
+                        .addGap(40, 40, 40))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(digitadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(digitadoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(confirmaSaida)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addItem)))
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,37 +213,39 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(7, 7, 7)
+                        .addComponent(confirmaFunc)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selecionaItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checagemVisual)))
+                            .addComponent(jLabel5)))
                     .addComponent(selecionaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(digitadoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digitadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(tagFerramenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listaEPI, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addComponent(jButton3))
+                    .addComponent(addItem)
+                    .addComponent(nome)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(confirmaSaida)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,38 +260,137 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
 
     private void selecionaFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaFuncionarioActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_selecionaFuncionarioActionPerformed
 
-    private void checagemVisualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checagemVisualActionPerformed
+    private void confirmaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmaSaidaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_checagemVisualActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+            String senha;
+            senha =  JOptionPane.showInputDialog("Digite a Senha do Responsável.");
+        int resSenha;
+        resSenha = responsavelDAO.checaSenhaInt(senha);
+        if(0 < resSenha){
+            int codFunc;
+            if(saidaFerramentaDAO.criaSaidaFerramenta(this.itens)){
+                
+                JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário");
+            }
+        }
+            DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+            defaultModel.setRowCount(0);
+            this.itens.clear();
+            this.digitadoNome.setText("");
+            this.digitadoRegistro.setText("");
+             this.digitadoNome.setEnabled(false);
+             this.digitadoRegistro.setEnabled(false);
+             this.addItem.setEnabled(false);
+             this.confirmaSaida.setEnabled(false);
+             this.selecionaFuncionario.setEnabled(true);
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_confirmaSaidaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void confirmaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmaFuncActionPerformed
         // TODO add your handling code here:
+         this.digitadoNome.setEnabled(true);
+        this.digitadoRegistro.setEnabled(true);
+        this.addItem.setEnabled(true);
+        this.selecionaFuncionario.setEnabled(false);
+        this.confirmaFunc.setEnabled(true);
+    }//GEN-LAST:event_confirmaFuncActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void digitadoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_digitadoRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_digitadoRegistroActionPerformed
+
+    private void digitadoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_digitadoNomeKeyReleased
+        // TODO add your handling code here:
+        String value;
+        value =  this.digitadoNome.getText().toLowerCase();
+        for(ferramenta a: this.ferraments){
+            if(a.getNome().toLowerCase().contains(value)){
+                
+                if(a.getStat()!=1){
+                this.nome.setText(a.getNome());
+                this.selected= a;
+                return;
+                }else{
+                    this.nome.setText("Item emprestado");
+                    this.selected = null;
+                }
+               
+            }
+        }
+        this.nome.setText("Não encontrado");
+        this.selected = null;
+    }//GEN-LAST:event_digitadoNomeKeyReleased
+
+    private void digitadoRegistroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_digitadoRegistroKeyReleased
+        // TODO add your handling code here:
+         String value;
+        value =  this.digitadoRegistro.getText().toLowerCase();
+        for(ferramenta a: this.ferraments){
+            if(a.getRegistro().toLowerCase().contains(value)){
+              if(a.getStat()!=1){
+                this.nome.setText(a.getNome());
+                this.selected= a;
+                return;
+                }else{
+                    this.nome.setText("Item emprestado");
+                    this.selected = null;
+                }
+            }
+        }
+        this.nome.setText("Não encontrado");
+        this.selected = null;
+    }//GEN-LAST:event_digitadoRegistroKeyReleased
+
+    private void addItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemActionPerformed
+        // TODO add your handling code here:
+         if(this.selected != null){
+        // TODO add your handling code here:
+       int index;
+       index = this.itens.size();
+      // gera um itemRequisicaoCompleta e coloca no array list
+      int itemIndex, itemCod,quantidadeInt;
+      itemCod = this.selected.getCod();
+      this.itens.add(new saidaFerramentas(itemCod, this.funcs.get(this.selecionaFuncionario.getSelectedIndex()).getCod()));
+        System.out.println(this.itens.size());
+      // adiciona esse item a tabela 
+      DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
+      //  ITEM QUANTIDADE
+   
+       Object item ,quant;
+      item = this.selected.getNome();
+      quant = this.selected.getRegistro();
+      
+      defaultModel.setRowCount(index + 1);
+        this.jTable1.getModel().setValueAt(item, index, 0);
+        this.jTable1.getModel().setValueAt(quant, index, 1);
+        this.confirmaSaida.setEnabled(true);
+        this.selected.setStat(1);
+      }else{
+           JOptionPane.showMessageDialog(rootPane, "Digite um nome ou registro válido  válido");
+       }
+    }//GEN-LAST:event_addItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox checagemVisual;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton addItem;
+    private javax.swing.JButton confirmaFunc;
+    private javax.swing.JButton confirmaSaida;
+    private javax.swing.JTextField digitadoNome;
+    private javax.swing.JTextField digitadoRegistro;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private java.awt.List listaEPI;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel nome;
     private javax.swing.JComboBox selecionaFuncionario;
-    private javax.swing.JComboBox selecionaItem;
-    private javax.swing.JComboBox selecionaQuantidade;
-    private javax.swing.JTextField tagFerramenta;
     // End of variables declaration//GEN-END:variables
 }

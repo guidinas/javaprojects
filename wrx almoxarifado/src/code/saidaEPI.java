@@ -167,6 +167,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         CADigitado.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        CADigitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CADigitadoActionPerformed(evt);
+            }
+        });
         CADigitado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CADigitadoKeyReleased(evt);
@@ -233,10 +238,11 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NomeEPI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(CADigitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(selecionaQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(addRequisicao)
@@ -319,7 +325,6 @@ public class saidaEPI extends javax.swing.JInternalFrame {
                 senha =  JOptionPane.showInputDialog("Digite a Senha do Responsável.");
                 int resSenha;
                 resSenha = responsavelDAO.checaSenhaInt(senha);
-                System.out.println(resSenha + "sssssssssss");
                 if(0 < resSenha){
                     int codFunc;
                     codFunc = this.selecionaFuncionario.getSelectedIndex();
@@ -367,6 +372,10 @@ public class saidaEPI extends javax.swing.JInternalFrame {
         this.selected = null;
         
     }//GEN-LAST:event_CADigitadoKeyReleased
+
+    private void CADigitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CADigitadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CADigitadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -39,12 +39,13 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO funcionario (nome, funcao, admissao) VALUES (? ,? , DATE ? ) ");
+stmt = con.prepareStatement("INSERT INTO funcionario (nome, funcao, admissao,matricula) VALUES (? ,? , DATE ? , ?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
     stmt.setString(1, m.getNome());
     stmt.setInt(2, m.getFuncao());
     stmt.setString(3, m.getAdmissao());
+    stmt.setString(4, m.getMatricula());
     // Método responsável por fazer a alteração no banco de dados
     if(stmt.execute()){ 
     con.close();
@@ -152,7 +153,7 @@ return null;
             func = new ArrayList<>();
             a = stmt.getResultSet();
             while(a.next()){
-                func.add(new funcionario(a.getInt("cod"), a.getString("nome"),a.getInt("funcao") , form.format(a.getDate("admissao"))));
+                func.add(new funcionario(a.getInt("cod"), a.getString("nome"),a.getInt("funcao") , form.format(a.getDate("admissao")),a.getString("matricula")));
             }
             con.close();
             return func;

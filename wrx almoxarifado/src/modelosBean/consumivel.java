@@ -16,7 +16,6 @@ public class consumivel {
     private int maximo;
     private String marca;
     private int quantidade;
-    
     private int cod;
 
 

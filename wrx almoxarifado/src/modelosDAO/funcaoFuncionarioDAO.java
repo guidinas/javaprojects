@@ -36,7 +36,7 @@ try{
 
  // Inserindo o comando SQL a ser usado
 
-stmt = con.prepareStatement("INSERT INTO funcaoFuncionario (nome) VALUES (?) ");
+stmt = con.prepareStatement("INSERT INTO funcaofuncionario (nome) VALUES (?) ");
 
  // O método setString, define que o valor passado será do tipo inteiro
  stmt.setString(1, m.getNome());
@@ -70,13 +70,12 @@ return false ;
         PreparedStatement stmt;
         try{
          // Inserindo o comando SQL a ser usado
-        stmt = con.prepareStatement("SELECT  *  FROM funcaoFuncionario  ");
+        stmt = con.prepareStatement("SELECT  *  FROM funcaofuncionario  ");
          // O método setString, define que o valor passado será do tipo inteiro
             // Método responsável por fazer a alteração no banco de dados
             if(stmt.execute()){
            ResultSet resul = stmt.getResultSet();
             System.out.println(resul);
-            con.close();
             return resul;
         }
         }catch(SQLException ex){  // Tratamento  das exceções

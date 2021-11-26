@@ -5,20 +5,30 @@
         <group>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/telaSaidaConsumivel.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/entradaEPI.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/cadastroFuncionario.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/TelaPrincipal.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/funcaoFuncionarioDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/itemSaidaConsumivelDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/ferramenta.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/cadastroFuncaoFuncionario.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/saidaFerramenta.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/entradaFerramenta.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/saidaFerramentas.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/criaFerramenta.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/requisicaoConsumivel.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/funcaoFuncionario.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/requisicaoCompletaDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/itemRequisicaoCompleta.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/funcionarioDAO.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/funcionario.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/saidaConsumivelDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/itemRequisicaoDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/telaLogin.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/cadastroUsuario.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/saidaEPI.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/consumivel.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/checaEstoque.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/saidaFerramentaDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/code/entradaConsumivel.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosBean/requisicaoCompleta.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado/src/modelosDAO/requisicaoConsumivelDAO.java</file>
