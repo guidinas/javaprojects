@@ -201,6 +201,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
         try {
             this.consu = consumivelDAO.listaConsumivel();
             this.tabela = (DefaultTableModel) this.jTable1.getModel();
+            this.tabela.getColumnCount();
             this.tabela.setRowCount(0);
             int aux = 0;
             for(consumivel e : this.consu){

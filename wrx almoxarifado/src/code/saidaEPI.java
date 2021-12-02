@@ -360,7 +360,7 @@ public class saidaEPI extends javax.swing.JInternalFrame {
     private void CADigitadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CADigitadoKeyReleased
         // TODO add your handling code here:
         String value;
-        value =  this.CADigitado.getText();
+        value =  this.CADigitado.getText().toLowerCase();
         for(EPIMarca a: this.total){
             if(a.getCA().toLowerCase().contains(value)){
                 this.NomeEPI.setText(a.getNome());

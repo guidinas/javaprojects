@@ -67,6 +67,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         entradaEPI = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         entradaConsumiveis = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -153,6 +154,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         entradaEPI.add(entradaConsumiveis);
+
+        jMenuItem10.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem10.setText("Entrada Ferramenta");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        entradaEPI.add(jMenuItem10);
 
         jMenuBar1.add(entradaEPI);
 
@@ -444,6 +454,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             ferr.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        entradaFerramenta neo;
+        neo = new entradaFerramenta();
+        this.desktopPrincipal.add(neo);
+        neo.setVisible(true);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -493,6 +511,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

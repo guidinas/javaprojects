@@ -6,8 +6,7 @@
 
 package code;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelosBean.ferramenta;
 import modelosDAO.ferramentaDAO;
@@ -17,11 +16,15 @@ import modelosDAO.ferramentaDAO;
  * @author guidi
  */
 public class entradaFerramenta extends javax.swing.JInternalFrame {
+    private ArrayList<ferramenta> ferr;
+    private ferramenta selecionado;
+    
 
     /**
      * Creates new form entradaFerramenta
      */
     public entradaFerramenta() {
+        this.ferr = ferramentaDAO.retornaFerramentaQuantArray();
         initComponents();
     }
 
@@ -35,155 +38,177 @@ public class entradaFerramenta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        registro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        marca = new javax.swing.JTextField();
-
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jLabel5.setText("Nome");
-
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jLabel6.setText("Registro");
-
-        nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        nome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jButton2.setText("Adicionar ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        registro.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        registro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registroActionPerformed(evt);
-            }
-        });
+        digitado = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        quantidade = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jLabel1.setText("Marca");
+        jLabel1.setText("Nome Ferramenta");
 
-        marca.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        digitado.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        digitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digitadoActionPerformed(evt);
+            }
+        });
+        digitado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                digitadoKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel2.setText("Ferramenta:");
+
+        nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        nome.setText("  ");
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jLabel4.setText("Quantidade a ser adicionada ");
+
+        quantidade.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quantidadeActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jButton1.setText("Adicionar ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(digitado, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(151, 151, 151))
+                            .addComponent(nome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(marca, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registro, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 229, Short.MAX_VALUE)))
-                        .addGap(33, 33, 33))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(digitado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(registro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+    private void digitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_digitadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
+    }//GEN-LAST:event_digitadoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void digitadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_digitadoKeyReleased
         // TODO add your handling code here:
-       ferramenta m;
-       String nome, marca, registro;
-       nome = this.nome.getText();
-       marca = this.marca.getText();
-       registro = this.registro.getText();
-       m = new ferramenta(nome, registro, marca);
-               
-      
 
-        if(0==JOptionPane.showInternalConfirmDialog(rootPane, "Deseja adicionar o seguinte Consumivel ? \n Nome:  " + nome+ "\n Marca: " + marca + "\n Registro:  " + registro )){
-            if(ferramentaDAO.criaFerramenta(m)){
-                JOptionPane.showMessageDialog(null ,"Item adicionado com sucesso!");
-            }else{
-                JOptionPane.showMessageDialog(null, "Falha ao Adicionar \n Cheque se ja existe esse nome na lista de EPI \n Se não houver, contate o gestor do sistema");
+        String value;
+        value =  this.digitado.getText();
+        for(ferramenta a : this.ferr){
+            if(a.getNome().toLowerCase().contains(value)){
+                this.nome.setText(a.getNome());
+                this.selecionado = a;
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null ,"Operação Cancelada !");
         }
-        this.nome.setText("");
-        this.marca.setText("");
-        this.registro.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
+        this.nome.setText("Não encontrado");
+        this.selecionado = null;
+    }//GEN-LAST:event_digitadoKeyReleased
 
-    private void registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroActionPerformed
+    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_registroActionPerformed
+    }//GEN-LAST:event_quantidadeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int Quantidade;
+        Quantidade = Integer.parseInt(this.quantidade.getText());
+        if(this.selecionado == null){
+            JOptionPane.showMessageDialog(rootPane, "Digite um Nome de Consumivel válido");
+            this.digitado.setText("");
+            this.quantidade.setText("");
+            this.nome.setText(" ");
+            this.selecionado = null;
+        }else{
+                    this.selecionado.setQuantidade(Quantidade);
+            if (0==JOptionPane.showConfirmDialog(rootPane, "confirma Adição  de " + this.selecionado.getQuantidade() + "\n Ao Consumivel  " + this.selecionado.getNome())){
+                if(ferramentaDAO.adicionaQuantidadeFeramenta(this.selecionado)){
+                    JOptionPane.showMessageDialog(rootPane, "Adicionado com sucesso");
+
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Erro de Acesso ao Banco de Dados");
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada pelo Usuario!!");
+            }
+
+        }
+        this.digitado.setText("");
+        this.quantidade.setText("");
+        this.nome.setText(" ");
+        this.selecionado = null;
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField digitado;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField marca;
-    private javax.swing.JTextField nome;
-    private javax.swing.JTextField registro;
+    private javax.swing.JLabel nome;
+    private javax.swing.JTextField quantidade;
     // End of variables declaration//GEN-END:variables
 }

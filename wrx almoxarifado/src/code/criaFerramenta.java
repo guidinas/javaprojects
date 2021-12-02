@@ -59,7 +59,7 @@ public class criaFerramenta extends javax.swing.JInternalFrame {
         jLabel2.setText("Marca ");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jLabel3.setText("Registro");
+        jLabel3.setText("Registro (Em branco para permitir controle de quantidade)");
 
         nome.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
 
@@ -76,7 +76,7 @@ public class criaFerramenta extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(registro)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 258, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +133,16 @@ public class criaFerramenta extends javax.swing.JInternalFrame {
         nome = this.nome.getText();
         marca = this.marca.getText();
         registro = this.registro.getText();
+        int tipo;
+
         if(JOptionPane.showConfirmDialog(rootPane, "Deseja Adicionar a Ferramente : " + nome + "\n Marca:  " + marca +"\n Pressione Sim!")==0){
+                    if(this.registro.getText().equals("") ){
+            tipo = 1;
+        }else{
+            tipo = 0;
+        }
             ferramenta a;
-            a =new ferramenta(nome, registro, marca);
+            a =new ferramenta(nome, registro, marca,1,0,tipo);
             if(ferramentaDAO.criaFerramenta(a)){
                 JOptionPane.showMessageDialog(rootPane, "Adicionado com Sucesso !!");
             }else{
