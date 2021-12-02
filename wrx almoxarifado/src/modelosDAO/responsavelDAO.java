@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelosBean.responsavel;
 
 /**
@@ -154,15 +155,19 @@ public class responsavelDAO {
             res = stmt.getResultSet();
             while(res.next()){
                 if(digitada == res.getString("senha")){
+                    con.close();
                     return true;
                 }
             }
+            
         }
+            con.close();
+            return false;
        }catch(SQLException | ClassNotFoundException e){
-           System.out.println(e);
+           JOptionPane.showMessageDialog(null, e);
            return false;
        }
-        return false;
+        
         
     }
 

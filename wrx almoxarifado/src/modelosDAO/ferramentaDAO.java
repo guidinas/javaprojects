@@ -53,6 +53,7 @@ public class ferramentaDAO {
 ;            while(set.next()){
                 res.add(new ferramenta(set.getString("nome"),set.getString("registro"), set.getString("marca"), set.getInt("cod"), set.getInt("stat"),set.getInt("quantidade"),set.getInt("tipo")));
             }
+            con.close();
             return res;
         }
         return null;
@@ -79,6 +80,7 @@ public class ferramentaDAO {
 ;            while(set.next()){
                 res.add(new ferramenta(set.getString("nome"),set.getString("registro"), set.getString("marca"), set.getInt("cod"), set.getInt("stat"),set.getInt("quantidade"),set.getInt("tipo")));
             }
+            con.close();
             return res;
         }
         return null;
@@ -99,6 +101,7 @@ public class ferramentaDAO {
        stmt.setInt(1, selecionado.getQuantidade());
        stmt.setInt(2 , selecionado.getCod());
        stmt.execute();
+       con.close();
        return true;
         }catch(SQLException | ClassNotFoundException ex){
             System.out.println(ex);
