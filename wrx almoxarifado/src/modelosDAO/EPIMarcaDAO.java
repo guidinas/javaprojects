@@ -58,7 +58,7 @@ public class EPIMarcaDAO {
             Connection con;
             con = conexao.getConnection();
             PreparedStatement stmt;
-           stmt = con.prepareCall("SELECT * FROM epicompleto");
+           stmt = con.prepareCall("SELECT * FROM epicompleto ORDER BY nome ASC");
            if(stmt.execute()){
                ResultSet res;
                res = stmt.getResultSet();
@@ -99,6 +99,18 @@ public class EPIMarcaDAO {
             return false;
         }
         
+    }
+
+    public static boolean deletaFerramenta(EPIMarca selected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static boolean deletaEPI(EPIMarca selected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static boolean alteraEPI(EPIMarca selected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

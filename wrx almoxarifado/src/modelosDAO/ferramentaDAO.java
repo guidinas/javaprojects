@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelosBean.ferramenta;
 
 /**
@@ -44,7 +46,7 @@ public class ferramentaDAO {
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareCall("SELECT * FROM ferramenta ");
+        stmt = con.prepareCall("SELECT * FROM ferramenta ORDER BY nome ASC ");
         if(stmt.execute()){
             ResultSet set;
             set = stmt.getResultSet();
@@ -71,7 +73,7 @@ public class ferramentaDAO {
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareCall("SELECT * FROM ferramenta WHERE tipo = 1 ");
+        stmt = con.prepareCall("SELECT * FROM ferramenta  ");
         if(stmt.execute()){
             ResultSet set;
             set = stmt.getResultSet();
@@ -109,6 +111,42 @@ public class ferramentaDAO {
         }
       
        
+    }
+
+    public static boolean deletaFerramenta(ferramenta selected) {
+        try {
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("DELETE from ferramenta WHERE cod = ?");
+            stmt.setInt(1, selected.getCod());
+            stmt.execute();
+            con.close();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ferramentaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public static boolean alteraFerramenta(ferramenta selecionado) {
+           try {
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("UPDATE ferramenta SET quantidade = ? ,nome = ?, registro = ?, marca = ? WHERE cod = ?");
+            stmt.setInt(1, selecionado.getQuantidade());
+            stmt.setString(2, selecionado.getNome());
+            stmt.setString(3, selecionado.getRegistro());
+            stmt.setString(4, selecionado.getMarca());
+            stmt.setInt(5 , selecionado.getCod());
+            stmt.execute();
+            con.close();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ferramentaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     

@@ -135,7 +135,7 @@ return 0;
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareCall("SELECT * FROM epi");
+        stmt = con.prepareCall("SELECT * FROM epi ORDER BY nome ASC");
         if(stmt.execute()){
             ArrayList<EPI> eps;
             eps = new ArrayList<>();

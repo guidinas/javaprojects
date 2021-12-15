@@ -46,6 +46,9 @@ public class entradaFerramenta extends javax.swing.JInternalFrame {
         quantidade = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setClosable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel1.setText("Nome Ferramenta");
 

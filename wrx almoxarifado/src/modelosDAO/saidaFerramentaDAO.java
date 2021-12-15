@@ -28,11 +28,8 @@ public class saidaFerramentaDAO {
                 stmt.setInt(1, k.getCodFerramenta());
                 stmt.setInt(2, k.getCodFuncionario());
                 stmt.execute();
-                stmt.clearParameters();
-                stmt = con.prepareCall("UPDATE ferramenta SET stat = 1 WHERE cod = ?");
-                stmt.setInt(1, k.getCodFerramenta());
-                stmt.execute();
             }
+            con.close();
             return true;
         }catch(SQLException | ClassNotFoundException ex){
             System.out.println(ex);

@@ -75,6 +75,8 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         
     }
     
+    //Usando método depreciado.
+    
     public final void atualizaTable() throws SQLException, ClassNotFoundException{
         int s = a.size();
        a.clear();

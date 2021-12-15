@@ -57,7 +57,7 @@ public class consumivelDAO {
         ArrayList<consumivel> cons;
         cons =  new ArrayList<>();
         PreparedStatement stmt;
-        stmt = con.prepareCall("SELECT * FROM consumivel");
+        stmt = con.prepareCall("SELECT * FROM consumivel ORDER BY nome ASC");
         if(stmt.execute()){
             ResultSet a;
             a  = stmt.getResultSet();

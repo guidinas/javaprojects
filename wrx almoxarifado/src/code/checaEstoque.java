@@ -58,7 +58,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Estoque total");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton1.setText("Exibir Estoque ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +66,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EPI", "Cosumível", "Ferramenta" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 530, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 548, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -116,7 +116,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,7 +193,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
             tabela.setValueAt(e.getQuantidade(), aux, 2);
             aux++;
         }
-        
+      
        
     }
 
@@ -213,6 +213,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
             }   } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(checaEstoque.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
 
     private void atualizaFerramenta() {
@@ -227,11 +228,17 @@ public class checaEstoque extends javax.swing.JInternalFrame {
                 this.tabela.setRowCount(aux+1);
                 tabela.setValueAt(e.getNome(), aux, 0);
                 tabela.setValueAt(e.getMarca(), aux, 1);
-                if(e.getStat()==1){
+                if(e.getTipo()==0){
+                     if(e.getStat()==1){
                      tabela.setValueAt("Item emprestado", aux, 2);
                 }else{
                      tabela.setValueAt("Item disponível", aux, 2);
                 }
+                }
+                if(e.getTipo()==1){
+                     tabela.setValueAt(e.getQuantidade(), aux, 2);
+                }
+               
                
                 aux++;
        } 

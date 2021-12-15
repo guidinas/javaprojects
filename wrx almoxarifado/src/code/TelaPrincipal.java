@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelosBean.EPIMarca;
+import modelosBean.ferramenta;
 
 /**
  *
@@ -72,8 +74,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -82,7 +90,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        setPreferredSize(new java.awt.Dimension(2220, 1080));
 
         javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
         desktopPrincipal.setLayout(desktopPrincipalLayout);
@@ -203,6 +210,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu4.setText("Devolução");
+        jMenu4.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+
+        jMenuItem13.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem13.setText("Devolver Ferramenta");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem13);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu3.setText("Alterar");
+        jMenu3.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+
+        jMenuItem11.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem11.setText("Alterar Ferramenta");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem11);
+
+        jMenuItem14.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem14.setText("Alterar EPI");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem14);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu2.setText("Estoque");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
 
@@ -214,6 +258,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem8);
+
+        jMenuItem12.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem12.setText("Checa EPI ");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem12);
 
         jMenuBar1.add(jMenu2);
 
@@ -462,7 +515,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.desktopPrincipal.add(neo);
         neo.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-    
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        alteraFerramenta alt;
+        alt = new alteraFerramenta();
+        this.desktopPrincipal.add(alt);
+        alt.setVisible(true);
+        alt.setTel(this);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        checaEstoqueEPI est;
+        est = new checaEstoqueEPI();
+        this.desktopPrincipal.add(est);
+        est.setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        devolveFerramenta dev;
+        dev = new devolveFerramenta();
+        this.desktopPrincipal.add(dev);
+        dev.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        alteraEPI es;
+        es = new alteraEPI();
+        this.desktopPrincipal.add(es);
+        es.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+      
+        public void alterFerr(ferramenta m){
+        alteracaoFerramenta lop;
+        lop = new alteracaoFerramenta();
+        this.desktopPrincipal.add(lop);
+        lop.setVisible(true);
+        lop.addFerr(m);
+    }
+        public void alterEPI(EPIMarca m ){
+            alteracaoEPI altt;
+            altt = new alteracaoEPI();
+            this.desktopPrincipal.add(altt);
+            altt.setVisible(true);
+            altt.addEPI(altt);
+        }
     /**
      * @param args the command line arguments
      */
@@ -499,6 +599,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu SaidaEPI;
@@ -508,10 +610,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu entradaEPI;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
