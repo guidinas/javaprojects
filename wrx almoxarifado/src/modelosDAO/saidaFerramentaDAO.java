@@ -28,6 +28,9 @@ public class saidaFerramentaDAO {
                 stmt.setInt(1, k.getCodFerramenta());
                 stmt.setInt(2, k.getCodFuncionario());
                 stmt.execute();
+                stmt = con.prepareCall("UPDATE ferramenta SET quantidade = (quantidade - 1) WHERE cod = ?");
+                stmt.setInt(1, k.getCodFerramenta());
+                stmt.execute();
             }
             con.close();
             return true;

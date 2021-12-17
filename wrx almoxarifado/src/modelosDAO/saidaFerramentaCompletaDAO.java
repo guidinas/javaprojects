@@ -43,6 +43,23 @@ public class saidaFerramentaCompletaDAO {
 }
 
     public static boolean devolveFerramentaCompleta(saidaFerramentaCompleta dev) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+      //Altera o status da saída
+        Connection con;
+        con = conexao.getConnection();
+        PreparedStatement stmt;
+        stmt = con.prepareCall("UPDATE saidaFerramenta SET stat = 1 WHERE cod = ?");
+        stmt.setInt(1, dev.getCodSaida());
+        stmt.execute();
+      //aumenta a quantidade disponivel no estoque;
+        stmt = con.prepareCall("UPDATE ferramenta SET quantidade = (quantidade +1) WHERE cod = ?");
+        stmt.setInt(1, dev.getCodFerramenta());
+        stmt.execute();
+        con.close();
+        return true;
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.println(e);
+            return false;
+        }
     }
 }

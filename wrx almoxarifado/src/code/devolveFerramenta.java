@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import modelosBean.saidaFerramentaCompleta;
 import modelosDAO.saidaFerramentaCompletaDAO;
 
@@ -159,6 +158,7 @@ private  void atualizaFerramenta() {
            dev = this.ferr.get(sel);
            if(saidaFerramentaCompletaDAO.devolveFerramentaCompleta(dev)){
                JOptionPane.showMessageDialog(rootPane, "Devolvido Com sucesso !");
+               this.atualizaFerramenta();
            }
            
         }
