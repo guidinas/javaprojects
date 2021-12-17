@@ -9,31 +9,31 @@ package code;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelosBean.EPIMarca;
-import modelosDAO.EPIMarcaDAO;
+import modelosBean.consumivel;
+import modelosDAO.consumivelDAO;
 
 /**
  *
  * @author guidi
  */
-public class alteraEPI extends javax.swing.JInternalFrame {
+public class alteraConsumivel extends javax.swing.JInternalFrame {
+    private ArrayList<consumivel> itens;
     private TelaPrincipal tel;
-    private ArrayList<EPIMarca> itens;
-    private EPIMarca sel;
     private DefaultTableModel tabela;
 
     /**
-     * Creates new form alteraEPI
+     * Creates new form alteraConsumivel
      */
-    public alteraEPI() {
+    public alteraConsumivel() {
         initComponents();
         atualizaEPI();
-        
     }
-     public void setTel(TelaPrincipal tel){
+
+    public void setTel(TelaPrincipal tel) {
         this.tel = tel;
     }
 
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,20 +50,21 @@ public class alteraEPI extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Altera Consumivel");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tipo", "Marca", "Quantidade", "CA"
+                "Tipo", "Marca", "Quantidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -140,28 +141,24 @@ public class alteraEPI extends javax.swing.JInternalFrame {
         if(row == -1 ){
             JOptionPane.showMessageDialog(rootPane, "Selecione uma Ferramenta para continuar!");
         }else{
-            EPIMarca muda = this.itens.get(row);
-            this.tel.alterEPI(muda);
+           consumivel muda = this.itens.get(row);
+            this.tel.alterCons(muda);
             this.dispose();
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
-
     private void atualizaEPI() {
-       this.itens= EPIMarcaDAO.retornaEPIMarcaArray();
+       this.itens= consumivelDAO.listaConsumivel();
        if(this.itens == null){
            JOptionPane.showMessageDialog(rootPane, "Erro de acesso ao Banco de Dados");
        }else{
            this.tabela = (DefaultTableModel) this.jTable1.getModel();
             this.tabela.setRowCount(0);
             int aux = 0;
-            for(EPIMarca e : this.itens){
+            for(consumivel e : this.itens){
                 this.tabela.setRowCount(aux+1);
                 tabela.setValueAt(e.getNome(), aux, 0);
                 tabela.setValueAt(e.getMarca(), aux, 1);
                tabela.setValueAt(e.getQuantidade(), aux, 2);
-               tabela.setValueAt(e.getCA(), aux, 3);
-               
                 aux++;
        }
        }

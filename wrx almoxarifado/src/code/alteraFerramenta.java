@@ -137,7 +137,8 @@ public class alteraFerramenta extends javax.swing.JInternalFrame {
        if(row == -1 ){
            JOptionPane.showMessageDialog(rootPane, "Selecione uma Ferramenta para continuar!");
        }else{
-           ferramenta muda = this.ferr.get(row);
+           ferramenta muda;
+           muda = this.ferr.get(row);
        this.tel.alterFerr(muda);
        this.dispose();
        }

@@ -169,7 +169,7 @@ private void atualizaEPI() throws SQLException, ClassNotFoundException {
     }
 
     private void atualizaConsumivel() {
-        try {
+
             this.consu = consumivelDAO.listaConsumivel();
             this.tabela = (DefaultTableModel) this.jTable1.getModel();
             this.tabela.getColumnCount();
@@ -181,9 +181,7 @@ private void atualizaEPI() throws SQLException, ClassNotFoundException {
                 tabela.setValueAt(e.getMarca(), aux, 1);
                 tabela.setValueAt(e.getQuantidade(), aux, 2);
                 aux++;
-            }   } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(checaEstoque.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }
        
     }
 

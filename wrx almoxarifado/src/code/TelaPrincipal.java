@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelosBean.EPIMarca;
+import modelosBean.consumivel;
 import modelosBean.ferramenta;
 
 /**
@@ -79,6 +80,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -244,6 +246,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem14);
+
+        jMenuItem15.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem15.setText("Alterar Consumível");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem15);
 
         jMenuBar1.add(jMenu3);
 
@@ -547,7 +558,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         es = new alteraEPI();
         this.desktopPrincipal.add(es);
         es.setVisible(true);
+        es.setTel(this);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        // TODO add your handling code here:
+        alteraConsumivel alt;
+        alt = new alteraConsumivel();
+        this.desktopPrincipal.add(alt);
+        alt.setVisible(true);
+        alt.setTel(this);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
       
         public void alterFerr(ferramenta m){
         alteracaoFerramenta lop;
@@ -561,7 +582,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             altt = new alteracaoEPI();
             this.desktopPrincipal.add(altt);
             altt.setVisible(true);
-            altt.addEPI(altt);
+            altt.addEPI(m);
+        }
+        public void alterCons(consumivel m){
+            alteracaoConsumivel alt;
+            alt = new alteracaoConsumivel();
+            this.desktopPrincipal.add(alt);
+            alt.setVisible(true);
+            alt.setCons(m);
+            
         }
     /**
      * @param args the command line arguments
@@ -620,6 +649,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -631,4 +661,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem saidaConsumiveis;
     private javax.swing.JMenuItem saidaEPI;
     // End of variables declaration//GEN-END:variables
+
+   
 }

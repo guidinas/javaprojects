@@ -51,8 +51,9 @@ public class consumivelDAO {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static ArrayList<consumivel> listaConsumivel() throws SQLException, ClassNotFoundException {
-        Connection con;
+    public static ArrayList<consumivel> listaConsumivel(){
+        try{
+            Connection con;
         con = conexao.getConnection();
         ArrayList<consumivel> cons;
         cons =  new ArrayList<>();
@@ -66,9 +67,13 @@ public class consumivelDAO {
             }
             con.close();
             return cons;
+        }else{
+            return null;
         }
-        return null;
-        
+        }catch(SQLException| ClassNotFoundException e){
+            System.out.println(e);
+            return null;
+        }
 }
 
     public static boolean adicionaQuantidadeconsumivel(consumivel selecionado) {
@@ -83,6 +88,52 @@ public class consumivelDAO {
             return true;
         }catch(SQLException | ClassNotFoundException ex){
             System.out.println(ex);
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param selected
+     * @return true if the operation was possible and false otherwise
+     */
+    public static boolean deletaConsumivel(consumivel selected) {
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("DELETE FROM consumivel WHERE cod = ?");
+            stmt.setInt(1, selected.getCod());
+            stmt.execute();
+            con.close();
+            return true;
+        }catch(SQLException| ClassNotFoundException e){
+            System.out.println(e);
+            return false;
+        }
+
+    }
+
+    /**
+     *
+     * @param selected
+     * @return true if the operation was possible and false otherwise
+     */
+    public static boolean alteraConsumivel(consumivel selected) {
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("UPDATE consumivel SET nome = ? , quantidade = ?, marca = ? WHERE cod = ?");
+            stmt.setInt(4, selected.getCod());
+            stmt.setString(1, selected.getNome());
+            stmt.setInt(2, selected.getCod());
+            stmt.setString(3, selected.getMarca());
+            stmt.execute();
+            con.close();
+            return true;
+        }catch(SQLException| ClassNotFoundException e){
+            System.out.println(e);
             return false;
         }
     }

@@ -7,21 +7,21 @@
 package code;
 
 import javax.swing.JOptionPane;
-import modelosBean.EPIMarca;
-import modelosDAO.EPIMarcaDAO;
+import modelosBean.consumivel;
+import modelosDAO.consumivelDAO;
 
 /**
  *
  * @author guidi
  */
-public class alteracaoEPI extends javax.swing.JInternalFrame {
-    private EPIMarca selected;
+public class alteracaoConsumivel extends javax.swing.JInternalFrame {
+    private consumivel selected;
     
 
     /**
-     * Creates new form alteracaoEPI
+     * Creates new form alteracaoConsumivel
      */
-    public alteracaoEPI() {
+    public alteracaoConsumivel() {
         initComponents();
     }
 
@@ -43,9 +43,6 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         marcaD = new javax.swing.JTextField();
         marca = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        registro = new javax.swing.JLabel();
-        registroD = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         nomeD = new javax.swing.JTextField();
         nome = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,20 +75,17 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         jLabel7.setText("Quantidade");
 
         marcaD.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        marcaD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marcaDActionPerformed(evt);
+            }
+        });
 
         marca.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         marca.setText("jLabel6");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel5.setText("Marca");
-
-        registro.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        registro.setText("jLabel4");
-
-        registroD.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
-        jLabel3.setText("CA");
 
         nomeD.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
 
@@ -112,43 +106,40 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(quantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(marca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(registro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(registroD, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                            .addComponent(quantidadeD)
-                            .addComponent(marcaD)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomeD, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(261, 261, 261)
-                        .addComponent(jLabel2)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(0, 327, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(marca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(marcaD, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nomeD, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(quantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(quantidadeD, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
@@ -156,29 +147,23 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome)
                     .addComponent(nomeD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registro)
-                    .addComponent(registroD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(marcaD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(marca))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(marca)
+                    .addComponent(marcaD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantidadeD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quantidade))
+                    .addComponent(quantidade)
+                    .addComponent(quantidadeD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap())
+                .addGap(130, 130, 130))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,7 +176,7 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,8 +185,8 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Deletar esse EPI ? ")==0){
-            if(EPIMarcaDAO.deletaEPI(selected)){
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja Deletar esse Consumivel ? ")==0){
+            if(consumivelDAO.deletaConsumivel(selected)){
                 JOptionPane.showMessageDialog(rootPane, "Deletado com Sucesso!");
                 this.dispose();
             }else{
@@ -211,7 +196,6 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Operação cancelada pelo usuário");
         }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -219,9 +203,8 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         if(JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar essas alterações ?")==0){
             this.selected.setQuantidade(Integer.parseInt(this.quantidadeD.getText()));
             this.selected.setNome(this.nomeD.getText());
-            this.selected.setCA(this.registroD.getText());
             this.selected.setMarca(this.marcaD.getText());
-            if(EPIMarcaDAO.alteraEPI(selected)){
+            if(consumivelDAO.alteraConsumivel(selected)){
                 JOptionPane.showMessageDialog(rootPane, "Alterado com Sucesso!");
                 this.dispose();
             }else{
@@ -230,8 +213,11 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Operação cancelada pelo usuário");
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void marcaDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marcaDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -239,7 +225,6 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -249,21 +234,15 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nomeD;
     private javax.swing.JLabel quantidade;
     private javax.swing.JTextField quantidadeD;
-    private javax.swing.JLabel registro;
-    private javax.swing.JTextField registroD;
     // End of variables declaration//GEN-END:variables
 
-    void addEPI(EPIMarca fe) {
+    void setCons(consumivel fe) {
         this.nome.setText(fe.getNome());
         this.marca.setText(fe.getMarca());
         this.quantidade.setText(Integer.toString(fe.getQuantidade()) );
-        this.registro.setText(fe.getCA());
         this.nomeD.setText(fe.getNome());
         this.marcaD.setText(fe.getMarca());
         this.quantidadeD.setText(Integer.toString(fe.getQuantidade()) );
-        this.registroD.setText(fe.getCA());
         this.selected = fe;
     }
-
- 
 }

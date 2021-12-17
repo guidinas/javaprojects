@@ -24,15 +24,7 @@ public class entradaConsumivel extends javax.swing.JInternalFrame {
      */
     public entradaConsumivel() {
         initComponents();
-        try{
              this.cons = consumivelDAO.listaConsumivel();
-            
-        }catch(SQLException | ClassNotFoundException ex){
-            System.out.println(ex);
-            JOptionPane.showMessageDialog(rootPane, "Erro de acesso ao Banco de Dados !!");
-            this.dispose();
-        }
-     
     }
 
     /**

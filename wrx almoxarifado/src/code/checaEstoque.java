@@ -198,7 +198,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
     }
 
     private void atualizaConsumivel() {
-        try {
+
             this.consu = consumivelDAO.listaConsumivel();
             this.tabela = (DefaultTableModel) this.jTable1.getModel();
             this.tabela.getColumnCount();
@@ -210,11 +210,10 @@ public class checaEstoque extends javax.swing.JInternalFrame {
                 tabela.setValueAt(e.getMarca(), aux, 1);
                 tabela.setValueAt(e.getQuantidade(), aux, 2);
                 aux++;
-            }   } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(checaEstoque.class.getName()).log(Level.SEVERE, null, ex);
-        }
        
     }
+    }
+    
 
     private void atualizaFerramenta() {
        this.ferr = ferramentaDAO.retornaFerramentaArray();

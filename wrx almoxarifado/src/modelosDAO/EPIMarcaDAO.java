@@ -101,16 +101,42 @@ public class EPIMarcaDAO {
         
     }
 
-    public static boolean deletaFerramenta(EPIMarca selected) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public static boolean deletaEPI(EPIMarca selected) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+             Connection con;
+       con  = conexao.getConnection();
+       PreparedStatement stmt;
+       stmt = con.prepareCall("DELETE FROM epicompleto WHERE cod = ?");
+       stmt.setInt(1, selected.getCod());
+       stmt.execute();
+       con.close();
+       return true;
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.println(e);
+            return false;
+        }
     }
 
     public static boolean alteraEPI(EPIMarca selected) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try{
+           Connection con;
+           con = conexao.getConnection();
+           PreparedStatement stmt;
+           stmt = con.prepareCall("UPDATE epicompleto SET nome = ?, CA = ?, quantidade = ?,nomemarca = ?  WHERE cod = ? ");
+           stmt.setString(1, selected.getNome());
+           stmt.setString(2, selected.getCA());
+           stmt.setString(4, selected.getMarca());
+           stmt.setInt(3, selected.getQuantidade());
+           stmt.setInt(5, selected.getCod());
+           stmt.execute();
+           con.close();
+           return true;
+       }catch(SQLException| ClassNotFoundException e){
+           System.out.println(e);
+           return false;
+       }
     }
     
 }
