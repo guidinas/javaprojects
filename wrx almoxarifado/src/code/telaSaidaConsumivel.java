@@ -19,12 +19,11 @@ import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;
 import modelosBean.requisicaoConsumivel;
 import modelosBean.responsavel;
-import modelosBean.saidaConsumivel;
+import modelosBean.saidaConsumiveis;
 import modelosDAO.consumivelDAO;
 import modelosDAO.funcionarioDAO;
 import modelosDAO.requisicaoConsumivelDAO;
 import modelosDAO.responsavelDAO;
-import modelosDAO.saidaConsumivelDAO;
 
 /**
  *
@@ -33,7 +32,7 @@ import modelosDAO.saidaConsumivelDAO;
 public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
      private final ArrayList<funcionario> a;
     private final ArrayList<consumivel> b;
-    private ArrayList<itemSaidaConsumivel> itens;
+    private ArrayList<saidaConsumiveis> itens;
     private requisicao req;
     private consumivel selected;
 
@@ -287,7 +286,10 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             int itemCod,quantidadeInt;
             itemCod = this.selected.getCod();
             quantidadeInt = this.selecionaQuantidade.getSelectedIndex() + 1;
-            this.itens.add(new itemSaidaConsumivel(itemCod, quantidadeInt));
+            int codFunc;
+            codFunc = this.selecionaFuncionario.getSelectedIndex();
+            codFunc = this.a.get(codFunc).getCod();
+            this.itens.add(new saidaConsumiveis(itemCod, quantidadeInt,codFunc));
             System.out.println(this.itens.size());
             // adiciona esse item a tabela
             DefaultTableModel defaultModel =  (DefaultTableModel) this.jTable1.getModel();
@@ -316,13 +318,11 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
          int resSenha;
          resSenha = responsavelDAO.checaSenhaInt(senha);
          if(0 < resSenha){
+             
             try {
-                int codFunc;
-                codFunc = this.selecionaFuncionario.getSelectedIndex();
-                codFunc = this.a.get(codFunc).getCod();
-                req = new requisicao(codFunc, resSenha);
+                
                 System.out.println(req);
-                ultima = new requisicaoConsumivel(itens, req);
+                ultima = new requisicaoConsumivel(resSenha, itens);
                 if(requisicaoConsumivelDAO.checaItens(ultima)){
                     envio = requisicaoConsumivelDAO.insereRequisicaoCompleta(ultima);
                     JOptionPane.showMessageDialog(null, "Solicitação efetuada com sucesso!");
@@ -332,6 +332,8 @@ public class telaSaidaConsumivel extends javax.swing.JInternalFrame {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(telaSaidaConsumivel.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
          }else{
              JOptionPane.showMessageDialog(rootPane, "digite uma Senha Ccrreta !");
          }

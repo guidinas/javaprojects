@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.EPIMarca;
 import modelosBean.funcionario;
-import modelosBean.itemRequisicao;
 import modelosBean.itemRequisicaoCompleta;
 import modelosBean.requisicao;
 import modelosBean.requisicaoCompleta;

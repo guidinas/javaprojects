@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import modelosBean.consumivel;
 import modelosBean.itemSaidaConsumivel;
 import modelosBean.requisicaoConsumivel;
+import modelosBean.saidaConsumiveis;
 import static modelosDAO.requisicaoDAO.criaRequisicaoCod;
 
 /**
@@ -20,7 +21,16 @@ import static modelosDAO.requisicaoDAO.criaRequisicaoCod;
  */
 public class requisicaoConsumivelDAO {
 
+    /**
+     *
+     * @param ultima
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * 
+     */
     public static boolean checaItens(requisicaoConsumivel ultima) throws SQLException, ClassNotFoundException {
+        /*
       ArrayList<consumivel> list;
         list = consumivelDAO.listaConsumivel();
         ArrayList<itemSaidaConsumivel> sai;
@@ -41,18 +51,26 @@ public class requisicaoConsumivelDAO {
                 }
             }
         }
+       */ 
         return true;
     }
     
 
     public static Boolean insereRequisicaoCompleta(requisicaoConsumivel m) throws SQLException, ClassNotFoundException {
-        
-        int codRequisicao;
-        codRequisicao  = criaRequisicaoCod(m.getCabeca());
-        if( itemSaidaConsumivelDAO.insereItensRequisicaoArray(m.getCorpo(), codRequisicao)){
-            return true;
+        ArrayList<saidaConsumiveis> a;
+        int resp;
+        a = m.getCorpo();
+        resp = m.getCodResp();
+        for(saidaConsumiveis al: a){
+            al.setCodResp(resp);
+           if(saidaConsumiveisDAO.iniciaSaidaConsumiveis(al)){
+               
+           } else{
+            JOptionPane.showMessageDialog(null, "Erro de acesso ao Banco de Dados.");
         }
-        return false;
-    }
+        }
+        
+    return false;
+}
     
 }

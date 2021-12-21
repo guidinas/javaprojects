@@ -14,30 +14,30 @@ import java.util.ArrayList;
  */
 public class requisicaoConsumivel {
 
-    public static boolean checaItens(requisicaoConsumivel ultima) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    private ArrayList<itemSaidaConsumivel> corpo;
-    private requisicao cabeca;
+    
+   private int codResp;
+   private ArrayList<saidaConsumiveis> corpo;
 
-    public requisicaoConsumivel(ArrayList<itemSaidaConsumivel> corpo, requisicao cabeca) {
+    public requisicaoConsumivel(int codResp, ArrayList<saidaConsumiveis> corpo) {
+        this.codResp = codResp;
         this.corpo = corpo;
-        this.cabeca = cabeca;
+    }
+   
+
+    public int getCodResp() {
+        return codResp;
     }
 
-    public ArrayList<itemSaidaConsumivel> getCorpo() {
+    public void setCodResp(int codResp) {
+        this.codResp = codResp;
+    }
+
+    public ArrayList<saidaConsumiveis> getCorpo() {
         return corpo;
     }
 
-    public void setCorpo(ArrayList<itemSaidaConsumivel> corpo) {
+    public void setCorpo(ArrayList<saidaConsumiveis> corpo) {
         this.corpo = corpo;
     }
-
-    public requisicao getCabeca() {
-        return cabeca;
-    }
-
-    public void setCabeca(requisicao cabeca) {
-        this.cabeca = cabeca;
-    }
+   
 }
