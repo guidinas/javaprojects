@@ -52,6 +52,7 @@ public class alteracaoEPI extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setResizable(true);
 
         jButton2.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jButton2.setText("Apagar");

@@ -58,7 +58,7 @@ public class saidaConsumiveisDAO {
         }
         
     }
-    public static 
+   
 }
 
 

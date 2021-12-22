@@ -65,6 +65,7 @@ public class cadastroFuncionario extends javax.swing.JInternalFrame {
         matricula = new javax.swing.JTextField();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Inclusão de Novo Funcionário");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

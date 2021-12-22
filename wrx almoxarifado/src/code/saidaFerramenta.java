@@ -33,19 +33,21 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
      */
     public saidaFerramenta() {
         initComponents();
-        try{
+        
             funcs = funcionarioDAO.listaFuncionarioArray();
             this.ferraments = ferramentaDAO.retornaFerramentaArray();
             this.itens = new ArrayList<>();
-            for(funcionario e: funcs){
+            if(funcs != null){
+                 for(funcionario e: funcs){
                 this.selecionaFuncionario.addItem(e.getNome());
                 
             }
-        }catch(ClassNotFoundException | SQLException e){
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de Dados favor comunicar o gestor do sistema.");
-            this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Erro ao conectar com banco de Dados!!!\n  Func001");
+                this.dispose();
         }
+           
+        
         this.digitadoNome.setEnabled(false);
         this.digitadoRegistro.setEnabled(false);
         this.addItem.setEnabled(false);
@@ -81,6 +83,7 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Saída Ferramenta");
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -232,10 +235,10 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
                     .addComponent(nome)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(confirmaSaida)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,10 +252,7 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

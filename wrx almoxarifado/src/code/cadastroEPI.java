@@ -58,6 +58,7 @@ public class cadastroEPI extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("Cadastro EPI novo");
 
         jLabel14.setText("Nome Marca ");

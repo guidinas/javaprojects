@@ -47,6 +47,7 @@ public class cadastroConsumivel extends javax.swing.JInternalFrame {
         marca = new javax.swing.JTextField();
 
         setClosable(true);
+        setResizable(true);
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         jLabel5.setText("Nome");

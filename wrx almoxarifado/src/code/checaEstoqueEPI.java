@@ -55,6 +55,7 @@ public class checaEstoqueEPI extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setClosable(true);
+        setResizable(true);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jButton1.setText("Exibir Estoque ");

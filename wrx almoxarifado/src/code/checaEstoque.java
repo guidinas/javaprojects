@@ -56,6 +56,7 @@ public class checaEstoque extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Estoque total");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N

@@ -113,6 +113,8 @@ public class acompanhamentoRequisicoes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setClosable(true);
+        setResizable(true);
         setTitle("Requisições de Saída EPI");
         setAlignmentX(0.0F);
         setAlignmentY(1.0F);

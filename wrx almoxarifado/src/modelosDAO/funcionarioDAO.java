@@ -65,13 +65,14 @@ return false ;
      * @throws SQLException
      * @throws ClassNotFoundException
      * @
+     * @deprecated 
      */
     public static ResultSet listaFuncionario() throws SQLException, ClassNotFoundException{
 Connection con = conexao.getConnection(); // Busca uma conexão com o banco de dados
 PreparedStatement stmt;
 try{
  // Inserindo o comando SQL a ser usado
-stmt = con.prepareStatement("SELECT  *  FROM funcionario  ");
+stmt = con.prepareStatement("SELECT  *  FROM funcionario WHERE stat = 1 ORDER BY nome  ");
  // O método setString, define que o valor passado será do tipo inteiro
     // Método responsável por fazer a alteração no banco de dados
     if (stmt.execute()){
@@ -140,13 +141,14 @@ return null;
         return null;
       }
 
-    public static ArrayList<funcionario> listaFuncionarioArray() throws SQLException, ClassNotFoundException {
+    public static ArrayList<funcionario> listaFuncionarioArray(){
+        try{
         DateFormat form;
         form = new SimpleDateFormat("dd/mm/yyyy");
         Connection con;
         con = conexao.getConnection();
         PreparedStatement stmt;
-        stmt = con.prepareCall("SELECT * FROM funcionario");
+        stmt = con.prepareCall("SELECT * FROM funcionario WHERE stat = 1 ORDER BY nome");
         if( stmt.execute()){
             ResultSet a;
             ArrayList <funcionario> func;
@@ -158,8 +160,26 @@ return null;
             con.close();
             return func;
         }
+        }catch(SQLException| ClassNotFoundException e){
+            System.out.println(e);
+        }
       return null;
         
+    }
+    public static boolean desativaFunc(funcionario m){
+        try{
+            Connection con;
+            con = conexao.getConnection();
+            PreparedStatement stmt;
+            stmt = con.prepareCall("UPDATE funcionario SET stat = 9 WHERE cod = ?");
+            stmt.setInt(1, m.getCod());
+            stmt.execute();
+            con.close();
+            return true;
+        }catch(SQLException| ClassNotFoundException e){
+            System.out.println(e);
+        }
+        return false;
     }
 
      
