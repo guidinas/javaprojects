@@ -6,6 +6,7 @@
 
 package code;
 
+import static code.criaPDF.criaFIchaEPI;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -29,15 +30,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         
         initComponents();
-        
+       
         
 
     }
     
     public  void setFunc(int func){
         TelaPrincipal.func = func;
+        /*
         try{
             if(func == 0 ){
+                
             acompanhamentoRequisicoes acomp;
         acomp = new acompanhamentoRequisicoes(desktopPrincipal);
         this.desktopPrincipal.add(acomp);
@@ -45,11 +48,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Dimension desktopSize = this.desktopPrincipal.getSize();
         Dimension jInternalFrameSize = acomp.getSize();
         acomp.setLocation(desktopSize.width - jInternalFrameSize.width ,desktopSize.height - jInternalFrameSize.height);
+                
         }
         }catch(ClassNotFoundException |SQLException e){
                 System.out.println(e);
                 }
-         
+         */
     }
 
     /**

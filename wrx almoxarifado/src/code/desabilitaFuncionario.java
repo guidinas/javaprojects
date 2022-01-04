@@ -140,6 +140,7 @@ public class desabilitaFuncionario extends javax.swing.JInternalFrame {
             if(0== JOptionPane.showConfirmDialog(rootPane, "Deseja desabilitar o Seguinte funcionário ? \n Nome: " + this.selected.getNome())){
                 if(funcionarioDAO.desativaFunc(selected)){
                     JOptionPane.showMessageDialog(rootPane, "Desativado com Sucesso!");
+                     this.atualizatabela();
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Erro ao acessar o Banco de Dados !");
                 }
@@ -147,7 +148,7 @@ public class desabilitaFuncionario extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Operação Cancelada Pelo usuário !");
             }
         }
-        this.atualizatabela();
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

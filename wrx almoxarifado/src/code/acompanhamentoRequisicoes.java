@@ -7,21 +7,15 @@
 package code;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.requisicao;
 import static modelosDAO.funcionarioDAO.nomeFuncionarioporCodigo;
-import static modelosDAO.requisicaoDAO.listaRequisicao;
 import static modelosDAO.requisicaoDAO.listaRequisicaoPendente;
 
 /**
