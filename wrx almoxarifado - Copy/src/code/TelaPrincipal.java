@@ -13,6 +13,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,7 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public  void setFunc(int func){
         TelaPrincipal.func = func;
-        /*
+        
         try{
             if(func == 0 ){
                 
@@ -62,8 +63,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }catch(ClassNotFoundException |SQLException e){
                 System.out.println(e);
                 }
-         */
-    }
+         
+                 }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -615,10 +616,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
+         if(func < 2){
         caixaFerramenta cai;
         cai = new caixaFerramenta();
         this.desktopPrincipal.add(cai);
         cai.setVisible(true);
+         }
     }//GEN-LAST:event_jMenuItem17ActionPerformed
       
         public void alterFerr(ferramenta m){

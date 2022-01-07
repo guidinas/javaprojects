@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/code/alteraConsumivel.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/code/TelaPrincipal.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/code/caixaFerramenta.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosBean/saidaFerramentas.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/code/listaCaixaFerr.java</file>
@@ -12,6 +13,7 @@
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosDAO/funcionarioDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosDAO/saidaFerramentaCompletaDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosDAO/consumivelDAO.java</file>
+            <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosDAO/ferramentaDAO.java</file>
             <file>file:/C:/Users/guidi/Documents/NetBeansProjects/gitJavaProjects/wrx%20almoxarifado%20-%20Copy/src/modelosDAO/saidaFerramentaDAO.java</file>
         </group>
     </open-files>
