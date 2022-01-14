@@ -86,6 +86,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         entradaConsumiveis = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -197,6 +198,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         entradaEPI.add(jMenuItem10);
+
+        jMenuItem18.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        jMenuItem18.setText("Atualiza Caixa de Ferramenta");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        entradaEPI.add(jMenuItem18);
 
         jMenuBar1.add(entradaEPI);
 
@@ -623,6 +633,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cai.setVisible(true);
          }
     }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        // TODO add your handling code here:
+        acompanhaCaixaFerramenta acom;
+        acom = new acompanhaCaixaFerramenta();
+        this.desktopPrincipal.add(acom);
+        acom.setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
       
         public void alterFerr(ferramenta m){
         alteracaoFerramenta lop;
@@ -706,6 +724,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

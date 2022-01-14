@@ -20,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.scene.text.TextAlignment;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelosBean.ferramenta;

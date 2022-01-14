@@ -369,7 +369,6 @@ public class saidaFerramenta extends javax.swing.JInternalFrame {
         this.jTable1.getModel().setValueAt(item, index, 0);
         this.jTable1.getModel().setValueAt(quant, index, 1);
         this.confirmaSaida.setEnabled(true);
-        this.selected.setStat(1);
       }else{
            JOptionPane.showMessageDialog(rootPane, "Digite um nome ou registro válido  válido");
        }

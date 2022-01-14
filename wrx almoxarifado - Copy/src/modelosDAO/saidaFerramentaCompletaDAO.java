@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelosBean.funcionario;
 import modelosBean.saidaFerramentaCompleta;
 
 /**
@@ -42,6 +43,11 @@ public class saidaFerramentaCompletaDAO {
         return null;
 }
 
+    /**
+     *
+     * @param dev
+     * @return
+     */
     public static boolean devolveFerramentaCompleta(saidaFerramentaCompleta dev) {
         try{
       //Altera o status da saída
@@ -61,5 +67,37 @@ public class saidaFerramentaCompletaDAO {
             System.out.println(e);
             return false;
         }
+    }
+
+    /**
+     *
+     * @param f
+     * @return
+     */
+    public static ArrayList<saidaFerramentaCompleta> retornaCaixaFerramentaFuncionario(funcionario f) {
+        try{
+        Connection con;
+        con= conexao.getConnection();
+        PreparedStatement stmt;
+        stmt =con.prepareCall("SELECT funcionario.nome AS nomeFuncionario,ferramenta.nome AS nomeFerramenta, saidaFerramenta.hora AS dataSaida, saidaFerramenta.codFerramenta, saidaFerramenta.codFuncionario,saidaFerramenta.cod AS codSaida FROM saidaFerramenta JOIN ferramenta ON saidaFerramenta.codFerramenta = ferramenta.cod JOIN funcionario ON saidaFerramenta.codFuncionario = funcionario.cod WHERE saidaFerramenta.stat = 2 AND saidaFerramenta.codFuncionario = ? ");
+        stmt.setInt(1, f.getCod());
+        if(stmt.execute())
+        {
+           ResultSet res;
+           res = stmt.getResultSet();
+           ArrayList<saidaFerramentaCompleta> re;
+           re = new ArrayList<>();
+           while(res.next()){
+                    re.add(new saidaFerramentaCompleta(res.getString("nomeFerramenta"),res.getString("nomeFuncionario"), res.getDate("dataSaida"), res.getInt("codfuncionario"),res.getInt("codFerramenta"), res.getInt("codSaida")));
+                }
+           return re;
+        }else{
+            return null;
+        }        
+        }catch(SQLException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        
+        return null;
     }
 }
